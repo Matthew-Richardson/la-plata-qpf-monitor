@@ -1,6 +1,6 @@
 """GroupMe QPF: notify changes during wet patterns, daily unchanged, quiet when dry."""
 import argparse,json,os
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 import requests
@@ -38,13 +38,32 @@ def decide(report,state,force=False,now=None):
         next_state["last_alert_totals"]=t if status=="wet" else None
     return reason,next_state
 
+def local_range(period):
+    """Convert WPC UTC validity to La Plata County (America/Denver) time."""
+    def convert(value):
+        if isinstance(value, (int, float)):
+            dt=datetime.fromtimestamp(value / (1000 if value > 1e11 else 1), timezone.utc)
+        else:
+            dt=datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+            if dt.tzinfo is None:
+                dt=dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(ZoneInfo("America/Denver"))
+    start,end=(convert(x) for x in period["valid_period"])
+    a=start.strftime("%b %-d")
+    b=end.strftime("%b %-d") if start.month!=end.month else str(end.day)
+    return f"{a}–{b} ({start.strftime('%-I %p')}–{end.strftime('%-I %p')} local)"
+
 def message(report,reason):
     p=report["periods"];t=totals(report)
     day123=sum(p[k]["average_in"] for k in ("Day 1","Day 2","Day 3"))
+    first={"valid_period": [p["Day 1"]["valid_period"][0],p["Day 3"]["valid_period"][1]]}
     return "\n".join([
         "LPC QPF | "+reason,
+        "Valid: "+local_range(p["Days 1-7"]),
         f"7-day county avg {t['county']:.2f}in (range {p['Days 1-7']['min_in']:.2f}-{p['Days 1-7']['max_in']:.2f}in)",
-        f"Days 1-3 {day123:.2f}in | Days 4-5 {p['Days 4-5']['average_in']:.2f}in | Days 6-7 {p['Days 6-7']['average_in']:.2f}in",
+        f"{local_range(first)}: {day123:.2f}in",
+        f"{local_range(p['Days 4-5'])}: {p['Days 4-5']['average_in']:.2f}in",
+        f"{local_range(p['Days 6-7'])}: {p['Days 6-7']['average_in']:.2f}in",
         "Basins: "+", ".join(f"{n} {t[n]:.2f}in" for n in WATCHED),
         "Forecast liquid equivalent, not flood guidance."])
 
