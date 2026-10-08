@@ -81,7 +81,7 @@ def message(report,reason):
                     lines.append(day+": "+", ".join(f"≥{inch}in snow at ≥{pct}% chance" for inch,pct in unique))
         else:
             lines.append("No ≥10% area for ≥4in snow mapped; lighter snow possible.")
-    return "\\n".join(lines)
+    return "\n".join(lines)
 
 def main():
     parser=argparse.ArgumentParser()
