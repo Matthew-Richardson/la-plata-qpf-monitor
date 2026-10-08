@@ -46,6 +46,14 @@ jobs:
         env:
           GROUPME_BOT_ID: ${{ secrets.GROUPME_BOT_ID }}
         run: python groupme_notify.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
+      - name: Persist notification status after successful delivery
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        run: |
+          git add data/notification_state.json
+          if ! git diff --staged --quiet; then
+            git commit -m "Save GroupMe notification state"
+            git push
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: qpf-output
