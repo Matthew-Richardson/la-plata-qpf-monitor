@@ -17,7 +17,7 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: Verify calculations
-        run: pytest -q
+        run: python -m pytest -q
       - name: Query live WPC and county boundary
         run: python qpf_monitor.py
       - name: Save validated output
