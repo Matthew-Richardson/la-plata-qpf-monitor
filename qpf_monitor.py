@@ -53,18 +53,23 @@ def summarize(region,fs):
             parts.append((clip,float(p["qpf"])))
             if p.get("issue_time"): issue.add(str(p["issue_time"]))
             times.add((str(p.get("start_time")),str(p.get("end_time"))))
-    if not parts: raise RuntimeError("No overlapping QPF polygons")
+    if not parts:
+        return {"average_in":0.0,"min_in":0.0,"max_in":0.0,"coverage_pct":0.0,
+                "issue_time":None,"valid_period":None,
+                "note":"No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."}
     if len(issue)>1 or len(times)>1: raise RuntimeError("Mixed forecast issue/valid periods: "+str((issue,times)))
     # Disallow overlapping polygon classes; no double counting.
     covered=unary_union([p[0] for p in parts])
     overlap=sum(p[0].area for p in parts)-covered.area
     if overlap>region.area*0.002: raise RuntimeError("Overlapping forecast polygons exceed tolerance")
     coverage=covered.area/region.area
-    if coverage<0.98: raise RuntimeError(f"Incomplete QPF polygon coverage ({coverage:.2%})")
-    weighted=sum(g.area*v for g,v in parts)/sum(g.area for g,_ in parts)
-    return {"average_in":round(weighted,3),"min_in":min(v for _,v in parts),"max_in":max(v for _,v in parts),
+    # WPC contours describe precipitation >= the first mapped amount; uncovered areas are below that contour.
+    # Do not require polygons to tile the entire county. Treat uncovered area as 0 for a lower-bound mean.
+    weighted=sum(g.area*v for g,v in parts)/region.area
+    return {"average_in":round(weighted,3),"min_in":0.0 if coverage<0.999 else min(v for _,v in parts),"max_in":max(v for _,v in parts),
             "coverage_pct":round(coverage*100,2),"issue_time":next(iter(issue),None),
-            "valid_period":next(iter(times),None)}
+            "valid_period":next(iter(times),None),
+            "note":"Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."}
 
 def run():
     geom=county()
@@ -76,6 +81,16 @@ def run():
                "geometry":bbox,"geometryType":"esriGeometryEnvelope","inSR":4326,
                "spatialRel":"esriSpatialRelIntersects","outSR":4326,"returnGeometry":"true"})
         output[label]=summarize(geom,f)
+        if not output[label]["issue_time"]:
+            # Metadata query establishes product issuance even if no mapped polygon reaches the county.
+            meta=features(f"{WPC}/{layer}",{"where":"1=1","outFields":"issue_time,start_time,end_time",
+                     "returnGeometry":"false"})
+            if not meta: raise RuntimeError(f"WPC layer {layer} returned no features nationwide")
+            values={(x["properties"].get("issue_time"),x["properties"].get("start_time"),x["properties"].get("end_time")) for x in meta}
+            if len(values)!=1: raise RuntimeError(f"Mixed WPC issuance metadata for {label}: {values}")
+            issue,start,end=next(iter(values))
+            output[label]["issue_time"]=issue
+            output[label]["valid_period"]=[start,end]
     report={"generated_utc":datetime.now(timezone.utc).isoformat(),"location":"La Plata County CO",
             "source":WPC,"periods":output,"caveats":"QPF polygon averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities."}
     Path("data").mkdir(exist_ok=True)
