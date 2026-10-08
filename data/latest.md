@@ -1,6 +1,6 @@
 # La Plata County WPC QPF
 
-Generated UTC: 2026-10-08T16:41:24.704859+00:00
+Generated UTC: 2026-10-08T16:53:16.057060+00:00
 
 | Period | Avg (in) | Min (in) | Max (in) | Coverage | WPC issue |
 |---|---:|---:|---:|---:|---|
@@ -99,3 +99,8 @@ QPF polygon averages are forecast liquid-equivalent amounts, not observed rainfa
 HUC10 boundaries are not exact upstream catchments for a particular stream gauge.
 Source: https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/MapServer
 Watershed boundaries: https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4; https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/5
+
+## WPC Day 1–3 snowfall probability (La Plata County)
+
+Listed categories indicate that **some portion** of the county intersects a WPC probability polygon. These are not countywide snowfall forecasts.
+No WPC ≥10% probability polygon for ≥4 in snowfall intersects the county in Days 1–3. This does not rule out lighter snow.

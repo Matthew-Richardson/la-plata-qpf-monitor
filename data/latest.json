@@ -2205,7 +2205,7 @@
   },
   "watershed_source": "https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4",
   "watershed_level": "USGS HUC8 full subbasins intersecting La Plata County",
-  "generated_utc": "2026-10-08T16:41:24.704859+00:00",
+  "generated_utc": "2026-10-08T16:53:16.057060+00:00",
   "location": "La Plata County CO",
   "source": "https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/MapServer",
   "periods": {
@@ -2282,5 +2282,15 @@
       "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
     }
   },
-  "caveats": "QPF polygon averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities."
+  "caveats": "QPF polygon averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities.",
+  "snow": {
+    "source": "https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_prob_winter_precip/MapServer",
+    "scope": "Any intersecting part of La Plata County; not area-wide probabilities",
+    "periods": {
+      "Day 1": [],
+      "Day 2": [],
+      "Day 3": []
+    },
+    "active": false
+  }
 }
