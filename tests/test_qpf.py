@@ -8,12 +8,11 @@ def test_uniform():
     assert out["average_in"]==1.5
     assert out["coverage_pct"]==100
 
-def test_incomplete_fails():
+def test_unmapped_area_counted_as_zero():
     region=box(-108,37,-107,38)
     partial=box(-108,37,-107.9,38)
     fs=[{"properties":{"qpf":1,"units":"inches"},"geometry":partial.__geo_interface__}]
-    try:
-        summarize(region,fs)
-        raise AssertionError("Expected coverage failure")
-    except RuntimeError as exc:
-        assert "coverage" in str(exc).lower()
+    result=summarize(region,fs)
+    assert result["coverage_pct"] < 15
+    assert 0 < result["average_in"] < 0.15
+    assert result["min_in"] == 0.0
