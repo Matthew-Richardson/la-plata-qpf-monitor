@@ -54,11 +54,11 @@ The following illustrates the format, using the **October 8, 2026** NOAA WPC val
 
 ```text
 LPC QPF | No material changes
-Valid: Oct 8–15 (6 AM–6 AM local)
+Valid: Thu Oct 8–Thu 15 (6 AM–6 AM local)
 7-day county avg 2.95in (range 1.50-5.00in)
-Days 1–3 | Oct 8–11 (6 AM–6 AM local): 0.25in
-Days 4–5 | Oct 11–13 (6 AM–6 AM local): 0.97in
-Days 6–7 | Oct 13–15 (6 AM–6 AM local): 1.71in
+Days 1–3 | Thu Oct 8–Sun 11 (6 AM–6 AM local): 0.25in
+Days 4–5 | Sun Oct 11–Tue 13 (6 AM–6 AM local): 0.97in
+Days 6–7 | Tue Oct 13–Thu 15 (6 AM–6 AM local): 1.71in
 Basins: Vallecito 4.00in, Upper Pine 3.88in, Upper Florida 3.93in, Animas Canyon 3.72in
 Forecast liquid equivalent, not flood guidance.
 ```
