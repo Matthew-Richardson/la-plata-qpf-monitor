@@ -49,8 +49,8 @@ def local_range(period):
                 dt=dt.replace(tzinfo=timezone.utc)
         return dt.astimezone(ZoneInfo("America/Denver"))
     start,end=(convert(x) for x in period["valid_period"])
-    a=start.strftime("%b %-d")
-    b=end.strftime("%b %-d") if start.month!=end.month else str(end.day)
+    a=start.strftime("%a %b %-d")
+    b=end.strftime("%a %b %-d") if start.month!=end.month else end.strftime("%a %-d")
     return f"{a}–{b} ({start.strftime('%-I %p')}–{end.strftime('%-I %p')} local)"
 
 def message(report,reason):
