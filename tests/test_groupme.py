@@ -27,7 +27,6 @@ def test_material_change_anytime():
 def test_dry_transition_once():
     _,state=decide(report(),{},now=EVENING)
     assert decide(report(0.1),state,now=EVENING)[0] is None
-    _,state=decide(report(0.1),state,now=EVENING)
     reason,state=decide(report(0.1),state,now=EVENING)
     assert "dry pattern" in reason
     assert decide(report(0.1),state,now=EVENING)[0] is None
