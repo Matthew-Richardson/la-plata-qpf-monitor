@@ -1,31 +1,39 @@
-from groupme_notify import material_changes, format_message
+from datetime import datetime
+from zoneinfo import ZoneInfo
+from groupme_notify import decide, message
 
-def make_report(q=2.0):
-    return {
-        "periods": {
-            "Day 1":{"average_in":0.1},
-            "Day 2":{"average_in":0.2},
-            "Day 3":{"average_in":0.3},
-            "Days 4-5":{"average_in":0.4},
-            "Days 6-7":{"average_in":1.0},
-            "Days 1-7":{"average_in":q,"min_in":0.5,"max_in":4.0}
-        },
-        "huc10_watersheds": {
-            code: {"periods":{"Days 1-7":{"average_in":q}}}
-            for code in ("1408010112","1408010111","1408010407","1408010403")
-        }
-    }
+def report(q=2.0):
+    return {"periods": {**{name:{"average_in":0.1} for name in ("Day 1","Day 2","Day 3","Days 4-5","Days 6-7")},
+                        "Days 1-7":{"average_in":q,"min_in":0.1,"max_in":3.0}},
+            "huc10_watersheds":{code:{"periods":{"Days 1-7":{"average_in":q}}}
+            for code in ("1408010112","1408010111","1408010407","1408010403")}}
+MORNING=datetime(2026,10,8,7,tzinfo=ZoneInfo("America/Denver"))
+EVENING=datetime(2026,10,8,19,tzinfo=ZoneInfo("America/Denver"))
 
-def test_first_report():
-    assert material_changes(None,make_report())
+def test_wet_opening():
+    reason,s=decide(report(),{},now=MORNING)
+    assert "Wet pattern" in reason and s["status"]=="wet"
 
-def test_identical_forecast_not_sent():
-    assert material_changes(make_report(),make_report()) == []
+def test_unchanged_morning_only():
+    _,state=decide(report(),{},now=EVENING)
+    reason,state=decide(report(),state,now=MORNING)
+    assert reason=="No material changes"
+    assert decide(report(),state,now=MORNING)[0] is None
 
-def test_material_change_detected():
-    assert any("county" in x for x in material_changes(make_report(), make_report(2.5)))
+def test_material_change_anytime():
+    _,state=decide(report(),{},now=EVENING)
+    assert "Material change" in decide(report(2.3),state,now=EVENING)[0]
 
-def test_no_secret_in_message():
-    msg=format_message(make_report(),["Initial verified forecast"])
-    assert "7-day county avg: 2.00 in" in msg
-    assert "Vallecito Creek" in msg
+def test_dry_transition_once():
+    _,state=decide(report(),{},now=EVENING)
+    assert decide(report(0.1),state,now=EVENING)[0] is None
+    _,state=decide(report(0.1),state,now=EVENING)
+    reason,state=decide(report(0.1),state,now=EVENING)
+    assert "dry pattern" in reason
+    assert decide(report(0.1),state,now=EVENING)[0] is None
+
+def test_force_dry():
+    assert "Manual status" in decide(report(0.1),{},force=True,now=EVENING)[0]
+
+def test_message():
+    assert "7-day county avg" in message(report(),"No material changes")
