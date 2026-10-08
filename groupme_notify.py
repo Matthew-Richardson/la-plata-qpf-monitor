@@ -46,8 +46,7 @@ def message(report,reason):
         f"7-day county avg {t['county']:.2f}in (range {p['Days 1-7']['min_in']:.2f}-{p['Days 1-7']['max_in']:.2f}in)",
         f"Days 1-3 {day123:.2f}in | Days 4-5 {p['Days 4-5']['average_in']:.2f}in | Days 6-7 {p['Days 6-7']['average_in']:.2f}in",
         "Basins: "+", ".join(f"{n} {t[n]:.2f}in" for n in WATCHED),
-        "Forecast liquid equivalent, not flood guidance.",
-        SOURCE])
+        "Forecast liquid equivalent, not flood guidance."])
 
 def main():
     parser=argparse.ArgumentParser()
