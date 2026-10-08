@@ -83,14 +83,14 @@ def run():
         output[label]=summarize(geom,f)
         if not output[label]["issue_time"]:
             # Metadata query establishes product issuance even if no mapped polygon reaches the county.
-            meta=features(f"{WPC}/{layer}",{"where":"1=1","outFields":"issue_time,start_time,end_time",
-                     "returnGeometry":"false"})
-            if not meta: raise RuntimeError(f"WPC layer {layer} returned no features nationwide")
-            values={(x["properties"].get("issue_time"),x["properties"].get("start_time"),x["properties"].get("end_time")) for x in meta}
-            if len(values)!=1: raise RuntimeError(f"Mixed WPC issuance metadata for {label}: {values}")
-            issue,start,end=next(iter(values))
-            output[label]["issue_time"]=issue
-            output[label]["valid_period"]=[start,end]
+            doc=fetch(f"{WPC}/{layer}/query",{"f":"json","where":"1=1",
+                     "outFields":"issue_time,start_time,end_time","returnGeometry":"false",
+                     "resultRecordCount":1})
+            meta=doc.get("features",[])
+            if not meta: raise RuntimeError(f"WPC layer {layer} returned no issuance metadata")
+            attr=meta[0]["attributes"]
+            output[label]["issue_time"]=attr.get("issue_time")
+            output[label]["valid_period"]=[attr.get("start_time"),attr.get("end_time")]
     report={"generated_utc":datetime.now(timezone.utc).isoformat(),"location":"La Plata County CO",
             "source":WPC,"periods":output,"caveats":"QPF polygon averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities."}
     Path("data").mkdir(exist_ok=True)
