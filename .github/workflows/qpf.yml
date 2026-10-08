@@ -1,6 +1,13 @@
 name: La Plata WPC QPF
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'qpf_monitor.py'
+      - 'requirements.txt'
+      - 'tests/**'
+      - '.github/workflows/qpf.yml'
   schedule:
     - cron: '20 1,13 * * *'
 permissions:
