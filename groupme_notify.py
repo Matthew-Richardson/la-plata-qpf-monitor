@@ -13,8 +13,11 @@ def totals(r):
 def decide(report,state,force=False,now=None):
     now=now or datetime.now(ZoneInfo("America/Denver"))
     t=totals(report)
-    wet=t["county"]>=0.50 or any(t[n]>=1.00 for n in WATCHED)
-    dry=t["county"]<0.25 and all(t[n]<0.50 for n in WATCHED)
+    snow=report.get("snow",{})
+    snow_signature=sorted({(day,row["threshold_in"],row["minimum_probability_pct"]) for day,rows in snow.get("periods",{}).items() for row in rows})
+    snow_active=bool(snow_signature)
+    wet=t["county"]>=0.50 or any(t[n]>=1.00 for n in WATCHED) or snow_active
+    dry=t["county"]<0.25 and all(t[n]<0.50 for n in WATCHED) and not snow_active
     streak=(state.get("dry_streak",0)+1) if dry else 0
     previous=state.get("status","dry")
     status="wet" if wet else ("dry" if previous=="wet" and streak>=2 else previous)
@@ -22,16 +25,18 @@ def decide(report,state,force=False,now=None):
             for n in t if state.get("last_alert_totals") and
             abs(t[n]-state["last_alert_totals"].get(n,t[n]))>=0.25]
     reason=None
+    snow_changed=state.get("snow_signature",[])!=[list(x) for x in snow_signature]
     if status=="wet":
         if previous!="wet": reason="Wet pattern detected"
         elif dry: reason=None  # wait for second dry forecast before declaring pattern over
+        elif snow_changed: reason="Snowfall probability guidance changed"
         elif change: reason="Material change: "+", ".join(change)
         elif 6<=now.hour<12 and state.get("unchanged_day")!=now.date().isoformat():
             reason="No material changes"
     elif previous=="wet": reason="Returned to dry pattern; routine alerts paused"
     if force and not reason:
         reason="Manual status: "+("No material changes" if status=="wet" else "Dry pattern; monitoring continues")
-    next_state={**state,"status":status,"dry_streak":streak}
+    next_state={**state,"status":status,"dry_streak":streak,"snow_signature":[list(x) for x in snow_signature]}
     if reason:
         next_state["last_sent_at"]=now.isoformat()
         if "No material changes" in reason: next_state["unchanged_day"]=now.date().isoformat()
@@ -57,7 +62,7 @@ def message(report,reason):
     p=report["periods"];t=totals(report)
     day123=sum(p[k]["average_in"] for k in ("Day 1","Day 2","Day 3"))
     first={"valid_period": [p["Day 1"]["valid_period"][0],p["Day 3"]["valid_period"][1]]}
-    return "\n".join([
+    lines=[
         "LPC QPF | "+reason,
         "Valid: "+local_range(p["Days 1-7"]),
         f"7-day county avg {t['county']:.2f}in (range {p['Days 1-7']['min_in']:.2f}-{p['Days 1-7']['max_in']:.2f}in)",
@@ -65,7 +70,18 @@ def message(report,reason):
         f"Days 4–5 | {local_range(p['Days 4-5'])}: {p['Days 4-5']['average_in']:.2f}in",
         f"Days 6–7 | {local_range(p['Days 6-7'])}: {p['Days 6-7']['average_in']:.2f}in",
         "Basins: "+", ".join(f"{n} {t[n]:.2f}in" for n in WATCHED),
-        "Forecast liquid equivalent, not flood guidance."])
+        "Forecast liquid equivalent, not flood guidance."]
+    snow=report.get("snow",{})
+    if "periods" in snow:
+        lines.append("Snow (WPC Days 1–3, any part of county):")
+        if snow.get("active"):
+            for day,rows in snow["periods"].items():
+                if rows:
+                    unique=sorted({(r["threshold_in"],r["minimum_probability_pct"]) for r in rows})
+                    lines.append(day+": "+", ".join(f"≥{inch}in snow at ≥{pct}% chance" for inch,pct in unique))
+        else:
+            lines.append("No ≥10% area for ≥4in snow mapped; lighter snow possible.")
+    return "\\n".join(lines)
 
 def main():
     parser=argparse.ArgumentParser()
