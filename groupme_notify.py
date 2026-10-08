@@ -66,6 +66,7 @@ def format_message(report, changes):
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument("--force", action="store_true", help="Send current forecast even without material change")
     parser.add_argument("--current", default="data/latest.json")
     parser.add_argument("--previous", default="data/previous.json")
     args = parser.parse_args()
@@ -73,6 +74,8 @@ def main():
     oldfile = Path(args.previous)
     old = json.loads(oldfile.read_text()) if oldfile.exists() and oldfile.stat().st_size else None
     change = material_changes(old, current)
+    if args.force and not change:
+        change = ["Manual forecast delivery test"]
     if not change:
         print("No material change (>=0.25 inch); GroupMe message skipped.")
         return
