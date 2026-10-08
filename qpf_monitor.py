@@ -10,6 +10,7 @@ from pyproj import Transformer
 WPC="https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/MapServer"
 COUNTY="https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/27"
 WATERSHEDS="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4"
+WATERSHEDS10="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/5"
 LAYERS={"Day 1":1,"Day 2":2,"Day 3":3,"Days 4-5":4,"Days 6-7":5,"Days 1-7":11}
 PROJECT=Transformer.from_crs("EPSG:4326","EPSG:5070",always_xy=True).transform
 SESSION=requests.Session()
@@ -59,6 +60,42 @@ def watershed_geometries(county_geom):
     if not result: raise RuntimeError("No USGS watersheds intersect La Plata County")
     return result
 
+def fine_watershed_geometries(county_geom, huc8_basins):
+    """USGS HUC10 units contained within locally relevant HUC8 basins.
+    Selection based on intersection with La Plata County OR upstream Animas HUC8
+    so upper Animas watersheds outside the county remain visible.
+    """
+    xmin,ymin,xmax,ymax=county_geom.bounds
+    fs=features(WATERSHEDS10,{"where":"1=1","outFields":"huc10,name,states",
+        "geometry":f"{xmin-0.05},{ymin-0.05},{xmax+0.05},{ymax+0.05}",
+        "geometryType":"esriGeometryEnvelope","inSR":4326,
+        "spatialRel":"esriSpatialRelIntersects","outSR":4326,"returnGeometry":"true"})
+    result={}
+    for ft in fs:
+        prop=ft["properties"]
+        code=str(prop.get("huc10") or "")
+        if len(code)!=10 or not code.isdigit():
+            raise RuntimeError("Invalid HUC10 identifier "+code)
+        g=shape(ft["geometry"])
+        if not g.is_valid: g=g.buffer(0)
+        if g.intersection(county_geom).area <= 0: continue
+        if code in result: raise RuntimeError("Duplicate HUC10 "+code)
+        result[code]={"name":prop.get("name") or code,"geometry":g,"parent_huc8":code[:8]}
+    # Ensure additional upper Animas HUC10s upstream outside county are represented.
+    upper=features(WATERSHEDS10,{"where":"huc10 LIKE '14080104%'",
+        "outFields":"huc10,name,states","outSR":4326,"returnGeometry":"true"})
+    for ft in upper:
+        prop=ft["properties"]
+        code=str(prop.get("huc10") or "")
+        if len(code)!=10 or not code.isdigit(): raise RuntimeError("Invalid upper Animas HUC10 "+code)
+        if code in result: continue
+        g=shape(ft["geometry"])
+        if not g.is_valid: g=g.buffer(0)
+        if g.is_empty: continue
+        result[code]={"name":prop.get("name") or code,"geometry":g,"parent_huc8":code[:8]}
+    if not result: raise RuntimeError("No HUC10 basins found")
+    return result
+
 def summarize(region,fs):
     region=transform(PROJECT,region)
     parts=[]; amounts=[]; issue=set(); times=set()
@@ -95,12 +132,14 @@ def summarize(region,fs):
 def run():
     geom=county()
     basins=watershed_geometries(geom)
+    fine_basins=fine_watershed_geometries(geom,basins)
     from shapely.ops import unary_union as union
-    extent=union([geom]+[b["geometry"] for b in basins.values()])
+    extent=union([geom]+[b["geometry"] for b in basins.values()]+[b["geometry"] for b in fine_basins.values()])
     xmin,ymin,xmax,ymax=extent.bounds
     bbox=f"{xmin-0.05},{ymin-0.05},{xmax+0.05},{ymax+0.05}"
     output={}
     watershed_output={code:{"name":v["name"],"huc8":code,"periods":{}} for code,v in basins.items()}
+    fine_output={code:{"name":v["name"],"huc10":code,"parent_huc8":v["parent_huc8"],"periods":{}} for code,v in fine_basins.items()}
     for label,layer in LAYERS.items():
         f=features(f"{WPC}/{layer}",{"where":"1=1","outFields":"qpf,units,issue_time,start_time,end_time",
                "geometry":bbox,"geometryType":"esriGeometryEnvelope","inSR":4326,
@@ -108,6 +147,8 @@ def run():
         output[label]=summarize(geom,f)
         for code,basin in basins.items():
             watershed_output[code]["periods"][label]=summarize(basin["geometry"],f)
+        for code,basin in fine_basins.items():
+            fine_output[code]["periods"][label]=summarize(basin["geometry"],f)
         if not output[label]["issue_time"]:
             # Metadata query establishes product issuance even if no mapped polygon reaches the county.
             doc=fetch(f"{WPC}/{layer}/query",{"f":"json","where":"1=1",
@@ -118,7 +159,7 @@ def run():
             attr=meta[0]["attributes"]
             output[label]["issue_time"]=attr.get("issue_time")
             output[label]["valid_period"]=[attr.get("start_time"),attr.get("end_time")]
-    report={"watersheds":watershed_output,"watershed_source":WATERSHEDS,"watershed_level":"USGS HUC8 full subbasins intersecting La Plata County",
+    report={"huc10_watersheds":fine_output,"huc10_source":WATERSHEDS10,"watersheds":watershed_output,"watershed_source":WATERSHEDS,"watershed_level":"USGS HUC8 full subbasins intersecting La Plata County",
             "generated_utc":datetime.now(timezone.utc).isoformat(),"location":"La Plata County CO",
             "source":WPC,"periods":output,"caveats":"QPF polygon averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities."}
     Path("data").mkdir(exist_ok=True)
@@ -140,7 +181,22 @@ def run():
     for code, basin in sorted(watershed_output.items(),key=lambda x:x[1]["name"]):
         p=basin["periods"]
         lines.append("| "+basin["name"]+" ("+code+") | "+" | ".join(f"{p[label]['average_in']:.2f}" for label in LAYERS)+" |")
-    lines.extend(["",report["caveats"],"",f"Source: {WPC}",f"Watershed boundaries: {WATERSHEDS}"])
+    lines.extend(["", "## Fine watershed QPF — USGS HUC10", "",
+       "Full HUC10 polygons intersecting La Plata County, plus upstream HUC10 units within the Animas HUC8 basin.", "",
+       "| HUC10 watershed | HUC10 | Parent HUC8 | 7-day avg (in) | Min (in) | Max (in) |",
+       "|---|---|---|---:|---:|---:|"])
+    for code,basin in sorted(fine_output.items(),key=lambda x:(x[1]["parent_huc8"],x[1]["name"])):
+        q=basin["periods"]["Days 1-7"]
+        lines.append(f"| {basin['name']} | {code} | {basin['parent_huc8']} | {q['average_in']:.2f} | {q['min_in']:.2f} | {q['max_in']:.2f} |")
+    lines.extend(["", "### HUC10 breakdown by forecast period", "",
+        "| HUC10 watershed | Day 1 | Day 2 | Day 3 | Days 4–5 | Days 6–7 | Days 1–7 |",
+        "|---|---:|---:|---:|---:|---:|---:|"])
+    for code,basin in sorted(fine_output.items(),key=lambda x:(x[1]["parent_huc8"],x[1]["name"])):
+        p=basin["periods"]
+        lines.append("| "+basin["name"]+" ("+code+") | "+" | ".join(f"{p[label]['average_in']:.2f}" for label in LAYERS)+" |")
+    lines.extend(["",report["caveats"],"",
+        "HUC10 boundaries are not exact upstream catchments for a particular stream gauge.",
+        f"Source: {WPC}",f"Watershed boundaries: {WATERSHEDS}; {WATERSHEDS10}"])
     Path("data/latest.md").write_text("\n".join(lines)+"\n")
     print("\n".join(lines))
 if __name__=="__main__": run()
