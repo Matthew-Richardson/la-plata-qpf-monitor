@@ -6,6 +6,7 @@ on:
     paths:
       - 'qpf_monitor.py'
       - 'groupme_notify.py'
+      - 'snow_monitor.py'
       - 'requirements.txt'
       - 'tests/**'
       - '.github/workflows/qpf.yml'
@@ -32,6 +33,8 @@ jobs:
           git show HEAD:data/latest.json > data/previous.json 2>/dev/null || rm -f data/previous.json
       - name: Query live WPC and county boundary
         run: python qpf_monitor.py
+      - name: Analyze NOAA snowfall probabilities
+        run: python snow_monitor.py
       - name: Save validated output
         run: |
           git config user.name "github-actions[bot]"
