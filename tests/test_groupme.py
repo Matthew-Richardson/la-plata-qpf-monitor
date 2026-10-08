@@ -4,7 +4,7 @@ from groupme_notify import decide, message
 
 def report(q=2.0):
     return {"periods": {**{name:{"average_in":0.1,"valid_period":["2026-10-08 12:00:00","2026-10-09 12:00:00"]} for name in ("Day 1","Day 2","Day 3","Days 4-5","Days 6-7")},
-                        "Days 1-7":{"average_in":q,"min_in":0.1,"max_in":3.0}},
+                        "Days 1-7":{"average_in":q,"min_in":0.1,"max_in":3.0,"valid_period":["2026-10-08 12:00:00","2026-10-15 12:00:00"]}},
             "huc10_watersheds":{code:{"periods":{"Days 1-7":{"average_in":q}}}
             for code in ("1408010112","1408010111","1408010407","1408010403")}}
 MORNING=datetime(2026,10,8,7,tzinfo=ZoneInfo("America/Denver"))
