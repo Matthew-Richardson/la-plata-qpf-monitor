@@ -21,6 +21,7 @@ Each successful analysis updates [data/latest.md](data/latest.md) and [data/late
 - Full USGS HUC8 and finer HUC10 watershed averages and ranges, including upstream/out-of-county areas
 - Day 1, Day 2, Day 3, Days 4–5, Days 6–7, and seven-day QPF
 - WPC issue times and valid forecast periods
+- **Snow:** separate NOAA WPC Days 1–3 probabilities for ≥4, ≥8, and ≥12 inches of snowfall at ≥10%, ≥40%, and ≥70% categories, intersected with any portion of La Plata County
 
 The message highlights Vallecito Creek, upper Los Pinos, headwaters Florida River, and Animas Canyon HUC10 units. HUC10 units **are not exact gauge-upstream catchments**.
 
@@ -30,7 +31,8 @@ After a **successful** scheduled forecast calculation:
 
 | Condition | GroupMe behavior |
 | --- | --- |
-| New wet pattern | Send an initial briefing |
+| New wet pattern (liquid QPF or mapped ≥10% probability of ≥4 inches of snow somewhere in county in Days 1–3) | Send an initial briefing |
+| Snow probability area appears or the category/threshold changes | Send updated snow guidance, even if liquid QPF is unchanged |
 | During wet pattern, county or highlighted HUC10 seven-day average changes by **0.25 in or more** versus last sent values | Send an updated briefing (morning or evening) |
 | Wet pattern continues without material changes | Send **one morning “No material changes”** message per local calendar day; skip evening unchanged messages |
 | First dry forecast while previously wet | Continue checking; do not announce the end yet |
@@ -41,8 +43,8 @@ After a **successful** scheduled forecast calculation:
 
 **Threshold definitions** (seven-day area-weighted QPF):
 
-- **Wet:** county average **>= 0.50 in**, OR any highlighted HUC10 average **>= 1.00 in**.
-- **Dry:** county average **< 0.25 in** AND **all** highlighted HUC10 averages **< 0.50 in**, on **two consecutive scheduled or manual successful forecasts**.
+- **Wet:** county average **>= 0.50 in**, OR any highlighted HUC10 average **>= 1.00 in**, OR a WPC Day 1–3 snowfall probability polygon (≥10% chance of ≥4 in snow) intersects any portion of the county.
+- **Dry:** county average **< 0.25 in** AND **all** highlighted HUC10 averages **< 0.50 in**, AND **no** Day 1–3 WPC ≥4 in snow probability polygon intersects the county, on **two consecutive successful forecasts**.
 - Between wet and dry thresholds the state is retained to avoid notification flapping.
 - A **material change** is an absolute increase or decrease **>= 0.25 in** in county or a highlighted HUC10 seven-day average since the last sent wet briefing.
 
@@ -61,7 +63,19 @@ Days 4–5 | Sun Oct 11–Tue 13 (6 AM–6 AM local): 0.97in
 Days 6–7 | Tue Oct 13–Thu 15 (6 AM–6 AM local): 1.71in
 Basins: Vallecito 4.00in, Upper Pine 3.88in, Upper Florida 3.93in, Animas Canyon 3.72in
 Forecast liquid equivalent, not flood guidance.
+Snow (WPC Days 1–3, any part of county):
+No ≥10% area for ≥4in snow mapped; lighter snow possible.
 ```
+
+**Example snowfall addendum for a hypothetical winter storm (not a current NOAA forecast):**
+
+```text
+Snow (WPC Days 1–3, any part of county):
+Day 1: ≥4in snow at ≥40% chance, ≥8in snow at ≥10% chance
+Day 2: ≥4in snow at ≥70% chance
+```
+
+These values describe probability categories **somewhere within La Plata County**, not the likelihood across the entire county, and not predicted snowfall depth at Durango or any specific mountain pass. Day 4–7 snowfall depth is not estimated from QPF.
 
 ## Running manually / validating
 
