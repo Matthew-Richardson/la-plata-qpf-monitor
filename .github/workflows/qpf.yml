@@ -45,7 +45,7 @@ jobs:
         if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
         env:
           GROUPME_BOT_ID: ${{ secrets.GROUPME_BOT_ID }}
-        run: python groupme_notify.py
+        run: python groupme_notify.py ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
       - uses: actions/upload-artifact@v4
         with:
           name: qpf-output
