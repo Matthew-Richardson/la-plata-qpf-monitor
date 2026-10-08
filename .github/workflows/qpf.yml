@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'qpf_monitor.py'
+      - 'groupme_notify.py'
       - 'requirements.txt'
       - 'tests/**'
       - '.github/workflows/qpf.yml'
@@ -25,6 +26,10 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Verify calculations
         run: python -m pytest -q
+      - name: Snapshot prior verified forecast
+        run: |
+          mkdir -p data
+          git show HEAD:data/latest.json > data/previous.json 2>/dev/null || rm -f data/previous.json
       - name: Query live WPC and county boundary
         run: python qpf_monitor.py
       - name: Save validated output
@@ -36,6 +41,11 @@ jobs:
             git commit -m "Refresh verified WPC county forecast"
             git push
           fi
+      - name: Notify GroupMe on material QPF changes
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        env:
+          GROUPME_BOT_ID: ${{ secrets.GROUPME_BOT_ID }}
+        run: python groupme_notify.py
       - uses: actions/upload-artifact@v4
         with:
           name: qpf-output
