@@ -1,0 +1,80 @@
+{
+  "generated_utc": "2026-10-08T15:40:28.678440+00:00",
+  "location": "La Plata County CO",
+  "source": "https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/MapServer",
+  "periods": {
+    "Day 1": {
+      "average_in": 0.0,
+      "min_in": 0.0,
+      "max_in": 0.0,
+      "coverage_pct": 0.0,
+      "issue_time": "2026-10-08 10:02:33",
+      "valid_period": [
+        "2026-10-08 12:00:00",
+        "2026-10-09 12:00:00"
+      ],
+      "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
+    },
+    "Day 2": {
+      "average_in": 0.005,
+      "min_in": 0.0,
+      "max_in": 0.01,
+      "coverage_pct": 47.07,
+      "issue_time": "2026-10-08 10:03:22",
+      "valid_period": [
+        "2026-10-09 12:00:00",
+        "2026-10-10 12:00:00"
+      ],
+      "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+    },
+    "Day 3": {
+      "average_in": 0.244,
+      "min_in": 0.1,
+      "max_in": 0.75,
+      "coverage_pct": 100.0,
+      "issue_time": "2026-10-08 10:07:46",
+      "valid_period": [
+        "2026-10-10 12:00:00",
+        "2026-10-11 12:00:00"
+      ],
+      "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+    },
+    "Days 4-5": {
+      "average_in": 0.973,
+      "min_in": 0.25,
+      "max_in": 1.5,
+      "coverage_pct": 100.0,
+      "issue_time": "2026-10-08 04:48:09",
+      "valid_period": [
+        "2026-10-11 12:00:00",
+        "2026-10-13 12:00:00"
+      ],
+      "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+    },
+    "Days 6-7": {
+      "average_in": 1.711,
+      "min_in": 1.0,
+      "max_in": 2.5,
+      "coverage_pct": 100.0,
+      "issue_time": "2026-10-08 04:48:09",
+      "valid_period": [
+        "2026-10-13 12:00:00",
+        "2026-10-15 12:00:00"
+      ],
+      "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+    },
+    "Days 1-7": {
+      "average_in": 2.95,
+      "min_in": 1.5,
+      "max_in": 5.0,
+      "coverage_pct": 100.0,
+      "issue_time": "2026-10-08 10:27:24",
+      "valid_period": [
+        "2026-10-08 12:00:00",
+        "2026-10-15 12:00:00"
+      ],
+      "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+    }
+  },
+  "caveats": "QPF polygon averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities."
+}
