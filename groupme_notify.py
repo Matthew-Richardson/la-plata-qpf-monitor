@@ -24,6 +24,7 @@ def decide(report,state,force=False,now=None):
     reason=None
     if status=="wet":
         if previous!="wet": reason="Wet pattern detected"
+        elif dry: reason=None  # wait for second dry forecast before declaring pattern over
         elif change: reason="Material change: "+", ".join(change)
         elif 6<=now.hour<12 and state.get("unchanged_day")!=now.date().isoformat():
             reason="No material changes"
