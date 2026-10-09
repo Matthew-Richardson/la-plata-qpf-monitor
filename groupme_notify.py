@@ -11,7 +11,11 @@ def totals(r):
     return {"county":r["periods"]["Days 1-7"]["average_in"],
             **{name:r["huc10_watersheds"][huc]["periods"]["Days 1-7"]["average_in"] for name,huc in WATCHED.items()}}
 def decide(report,state,force=False,now=None):
-    now=now or datetime.now(ZoneInfo("America/Denver"))
+    now=(now or datetime.now(ZoneInfo("America/Denver"))).astimezone(ZoneInfo("America/Denver"))
+    # Enforce quiet hours even for delayed scheduled runs and manual --force.
+    # Retain the last delivered baseline so the next daytime forecast can alert.
+    if not 6<=now.hour<21:
+        return None,dict(state)
     t=totals(report)
     snow=report.get("snow",{})
     snow_signature=sorted({(day,row["threshold_in"],row["minimum_probability_pct"]) for day,rows in snow.get("periods",{}).items() for row in rows})
@@ -104,3 +108,4 @@ def main():
     state_path.parent.mkdir(parents=True,exist_ok=True)
     state_path.write_text(json.dumps(new_state,indent=2)+"\n")
 if __name__=="__main__": main()
+

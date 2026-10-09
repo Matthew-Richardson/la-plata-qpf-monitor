@@ -11,11 +11,39 @@ on:
       - 'tests/**'
       - '.github/workflows/qpf.yml'
   schedule:
+    # DST-aware gate below selects the matching UTC pair for 7:20 AM/PM local.
     - cron: '20 1,13 * * *'
+    - cron: '20 2,14 * * *'
 permissions:
   contents: write
+concurrency:
+  group: la-plata-qpf
+  cancel-in-progress: false
 jobs:
+  schedule-gate:
+    runs-on: ubuntu-latest
+    outputs:
+      allowed: ${{ steps.local-time.outputs.allowed }}
+    steps:
+      - name: Select Mountain Time schedule
+        id: local-time
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          python - <<'PY'
+          import os
+          from datetime import datetime, timedelta
+          from zoneinfo import ZoneInfo
+          daylight = datetime.now(ZoneInfo("America/Denver")).utcoffset() == timedelta(hours=-6)
+          expected = "20 1,13 * * *" if daylight else "20 2,14 * * *"
+          allowed = os.environ["EVENT_NAME"] != "schedule" or os.environ["SCHEDULE"] == expected
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write(f"allowed={str(allowed).lower()}\n")
+          PY
   calculate:
+    needs: schedule-gate
+    if: needs.schedule-gate.outputs.allowed == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 18
     steps:
@@ -61,3 +89,4 @@ jobs:
         with:
           name: qpf-output
           path: data/
+

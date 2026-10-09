@@ -4,14 +4,18 @@ Automated county and watershed precipitation forecasts, using [NOAA WPC QPF](htt
 
 ## Daily schedule — La Plata County local time
 
-GitHub Actions runs automatically at **13:20 UTC** and **01:20 UTC**, translating to:
+GitHub Actions checks forecasts at **7:20 AM** and **7:20 PM Mountain Time year-round**, using a daylight-saving-aware gate for `America/Denver`:
 
-| Season | Morning run | Evening run |
-| --- | --- | --- |
-| Mountain Daylight Time (MDT) | **7:20 AM** | **7:20 PM** |
-| Mountain Standard Time (MST) | **6:20 AM** | **6:20 PM** |
+| Season | Morning UTC | Evening UTC | Local starts |
+| --- | --- | --- | --- |
+| Mountain Daylight Time (MDT) | 13:20 UTC | 01:20 UTC | **7:20 AM / 7:20 PM** |
+| Mountain Standard Time (MST) | 14:20 UTC | 02:20 UTC | **7:20 AM / 7:20 PM** |
 
-These are **scheduled workflow start times, not guaranteed message delivery times**. GitHub may queue a run, and the forecast query/geometry analysis takes additional time. Dates and valid periods in GroupMe messages are converted from NOAA UTC timestamps to **America/Denver** local time, respecting daylight saving time.
+Only the matching seasonal UTC pair proceeds with analysis. Runs are serialized to protect forecast and notification state. These are **scheduled start times, not guaranteed delivery times**; GitHub may queue runs and processing takes additional time.
+
+**GroupMe quiet hours: 9:00 PM through 5:59 AM Mountain Time.** The notifier checks the actual local time before sending, including delayed runs and manual `--force` runs. During quiet hours, the verified forecast can still be saved, but no GroupMe message is sent and the last delivered notification baseline is retained. The next successful daytime check evaluates the newest forecast against that baseline; it does not send a backlog of overnight messages. Quiet hours apply to both rain and snow updates.
+
+Dates and valid periods in messages use **America/Denver** local time, respecting daylight saving time.
 
 ## What is calculated
 
@@ -27,7 +31,7 @@ The message highlights Vallecito Creek, upper Los Pinos, headwaters Florida Rive
 
 ## When GroupMe sends a message
 
-After a **successful** scheduled forecast calculation:
+After a **successful** scheduled forecast calculation **outside quiet hours**:
 
 | Condition | GroupMe behavior |
 | --- | --- |
@@ -38,7 +42,8 @@ After a **successful** scheduled forecast calculation:
 | First dry forecast while previously wet | Continue checking; do not announce the end yet |
 | **Two consecutive dry forecasts** | Send one final message: “Returned to dry pattern; routine alerts paused” |
 | Dry pattern persists | **Send nothing** until a new wet pattern is detected |
-| Manual **Run workflow** | Send a current status message even without a change, after analysis succeeds |
+| Manual **Run workflow** | Send a current status message even without a change, after analysis succeeds and outside quiet hours |
+| Any run completing during 9 PM–6 AM quiet hours | Save verified forecast; suppress GroupMe and retain the last delivered baseline for the next daytime check |
 | GIS query, test or processing failure | **Send nothing**; do not distribute potentially stale/unverified rainfall |
 
 **Threshold definitions** (seven-day area-weighted QPF):
@@ -79,7 +84,7 @@ These values describe probability categories **somewhere within La Plata County*
 
 ## Running manually / validating
 
-Go to [Actions → La Plata WPC QPF](../../actions/workflows/qpf.yml), select **Run workflow**, and inspect its execution log. A successful manual run also sends a GroupMe status message even when amounts are unchanged. Check `data/latest.json` for the actual NOAA valid times and report freshness.
+Go to [Actions → La Plata WPC QPF](../../actions/workflows/qpf.yml), select **Run workflow**, and inspect its execution log. A successful manual run also sends a GroupMe status message even when amounts are unchanged, except during 9 PM–6 AM Mountain Time quiet hours. Manual runs do not override quiet hours. Check `data/latest.json` for the actual NOAA valid times and report freshness.
 
 ## Operational limitations
 
@@ -87,3 +92,4 @@ Go to [Actions → La Plata WPC QPF](../../actions/workflows/qpf.yml), select **
 - Seven-day precipitation amounts alone do not determine flash flood risk, short-duration rainfall intensity, or river crests.
 - NOAA issue periods can differ across products; interpret sums of independently rounded periods cautiously.
 - GitHub scheduled starts are approximate; failures leave the previous valid result intact.
+
