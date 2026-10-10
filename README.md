@@ -37,7 +37,7 @@ After a **successful** scheduled forecast calculation **outside quiet hours**:
 | --- | --- |
 | New wet pattern (liquid QPF or mapped ≥10% probability of ≥4 inches of snow somewhere in county in Days 1–3) | Send an initial briefing |
 | Snow probability area appears or the category/threshold changes | Send updated snow guidance, even if liquid QPF is unchanged |
-| During wet pattern, county or highlighted HUC10 seven-day average changes by **0.25 in or more** versus last sent values | Send an updated briefing (morning or evening) |
+| During wet pattern, county or highlighted HUC10 seven-day average changes by **0.25 in or more** versus last sent values | Send an updated briefing (morning or evening) that explicitly says **increased**, **decreased**, or **mixed**, with the direction for every changed area |
 | Wet pattern continues without material changes | Send **one morning “No material changes”** message per local calendar day; skip evening unchanged messages |
 | First dry forecast while previously wet | Continue checking; do not announce the end yet |
 | **Two consecutive dry forecasts** | Send one final message: “Returned to dry pattern; routine alerts paused” |
@@ -52,6 +52,7 @@ After a **successful** scheduled forecast calculation **outside quiet hours**:
 - **Dry:** county average **< 0.25 in** AND **all** highlighted HUC10 averages **< 0.50 in**, AND **no** Day 1–3 WPC ≥4 in snow probability polygon intersects the county, on **two consecutive successful forecasts**.
 - Between wet and dry thresholds the state is retained to avoid notification flapping.
 - A **material change** is an absolute increase or decrease **>= 0.25 in** in county or a highlighted HUC10 seven-day average since the last sent wet briefing.
+- Material-change headlines state whether the forecast **increased**, **decreased**, or contains **mixed** changes. Each changed county/basin value also states its own direction and amount.
 
 No emails or SMS are configured. GroupMe notifications go to the private group through a bot. The bot ID is held in the GitHub Actions secret `GROUPME_BOT_ID` and is not checked into source control. Notification state persists in `data/notification_state.json` after successful scheduled/manual checks.
 
@@ -92,4 +93,5 @@ Go to [Actions → La Plata WPC QPF](../../actions/workflows/qpf.yml), select **
 - Seven-day precipitation amounts alone do not determine flash flood risk, short-duration rainfall intensity, or river crests.
 - NOAA issue periods can differ across products; interpret sums of independently rounded periods cautiously.
 - GitHub scheduled starts are approximate; failures leave the previous valid result intact.
+
 

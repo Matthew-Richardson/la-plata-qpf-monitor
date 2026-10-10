@@ -25,16 +25,23 @@ def decide(report,state,force=False,now=None):
     streak=(state.get("dry_streak",0)+1) if dry else 0
     previous=state.get("status","dry")
     status="wet" if wet else ("dry" if previous=="wet" and streak>=2 else previous)
-    change=[f"{n} {t[n]-state['last_alert_totals'].get(n,t[n]):+.2f}in"
-            for n in t if state.get("last_alert_totals") and
-            abs(t[n]-state["last_alert_totals"].get(n,t[n]))>=0.25]
+    changes=[(n,t[n]-state["last_alert_totals"].get(n,t[n]))
+             for n in t if state.get("last_alert_totals") and
+             abs(t[n]-state["last_alert_totals"].get(n,t[n]))>=0.25]
     reason=None
     snow_changed=state.get("snow_signature",[])!=[list(x) for x in snow_signature]
     if status=="wet":
         if previous!="wet": reason="Wet pattern detected"
         elif dry: reason=None  # wait for second dry forecast before declaring pattern over
         elif snow_changed: reason="Snowfall probability guidance changed"
-        elif change: reason="Material change: "+", ".join(change)
+        elif changes:
+            directions={"increased" if delta>0 else "decreased" for _,delta in changes}
+            overall=next(iter(directions)) if len(directions)==1 else "mixed"
+            details=", ".join(
+                f"{'County' if name=='county' else name} "
+                f"{'increased' if delta>0 else 'decreased'} {abs(delta):.2f}in"
+                for name,delta in changes)
+            reason=f"Material change — forecast {overall}: {details}"
         elif 6<=now.hour<12 and state.get("unchanged_day")!=now.date().isoformat():
             reason="No material changes"
     elif previous=="wet": reason="Returned to dry pattern; routine alerts paused"
@@ -108,4 +115,5 @@ def main():
     state_path.parent.mkdir(parents=True,exist_ok=True)
     state_path.write_text(json.dumps(new_state,indent=2)+"\n")
 if __name__=="__main__": main()
+
 

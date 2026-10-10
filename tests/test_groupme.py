@@ -21,9 +21,26 @@ def test_unchanged_morning_only():
     assert reason=="No material changes"
     assert decide(report(),state,now=MORNING)[0] is None
 
-def test_material_change_anytime():
+def test_material_change_increase_says_direction():
     _,state=decide(report(),{},now=EVENING)
-    assert "Material change" in decide(report(2.3),state,now=EVENING)[0]
+    reason,_=decide(report(2.3),state,now=EVENING)
+    assert reason.startswith("Material change — forecast increased:")
+    assert "County increased 0.30in" in reason
+
+def test_material_change_decrease_says_direction():
+    _,state=decide(report(),{},now=EVENING)
+    reason,_=decide(report(1.7),state,now=EVENING)
+    assert reason.startswith("Material change — forecast decreased:")
+    assert "County decreased 0.30in" in reason
+
+def test_material_change_mixed_says_each_direction():
+    _,state=decide(report(),{},now=EVENING)
+    changed=report(2.3)
+    changed["huc10_watersheds"]["1408010112"]["periods"]["Days 1-7"]["average_in"]=1.7
+    reason,_=decide(changed,state,now=EVENING)
+    assert reason.startswith("Material change — forecast mixed:")
+    assert "County increased 0.30in" in reason
+    assert "Vallecito decreased 0.30in" in reason
 
 def test_dry_transition_once():
     _,state=decide(report(),{},now=EVENING)
@@ -82,4 +99,5 @@ def test_quiet_hours_use_mountain_time_for_utc_input():
 def test_delivery_window_boundaries(hour):
     now=MORNING.replace(hour=hour)
     assert decide(report(),{},now=now)[0]=="Wet pattern detected"
+
 
