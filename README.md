@@ -4,14 +4,9 @@ Automated county and watershed precipitation forecasts, using [NOAA WPC QPF](htt
 
 ## Daily schedule — La Plata County local time
 
-GitHub Actions checks forecasts at **7:20 AM** and **7:20 PM Mountain Time year-round**, using a daylight-saving-aware gate for `America/Denver`:
+ChatGPT Scheduled triggers forecast checks at **7:20 AM** and **7:20 PM Mountain Time year-round**. The task updates `.chatgpt-trigger` with a unique local timestamp and the exact commit message `Trigger scheduled QPF check`; that push immediately starts the GitHub Actions calculation. This avoids GitHub's delayed cron dispatcher while keeping calculation, validation, state, and GroupMe delivery inside GitHub.
 
-| Season | Morning UTC | Evening UTC | Local starts |
-| --- | --- | --- | --- |
-| Mountain Daylight Time (MDT) | 13:20 UTC | 01:20 UTC | **7:20 AM / 7:20 PM** |
-| Mountain Standard Time (MST) | 14:20 UTC | 02:20 UTC | **7:20 AM / 7:20 PM** |
-
-Only the matching seasonal UTC pair proceeds with analysis. Runs are serialized to protect forecast and notification state. These are **scheduled start times, not guaranteed delivery times**; GitHub may queue runs and processing takes additional time.
+Runs are serialized to protect forecast and notification state. GroupMe delivery normally follows several minutes after the trigger because the forecast query, geometry analysis, and tests must finish first.
 
 **GroupMe quiet hours: 9:00 PM through 5:59 AM Mountain Time.** The notifier checks the actual local time before sending, including delayed runs and manual `--force` runs. During quiet hours, the verified forecast can still be saved, but no GroupMe message is sent and the last delivered notification baseline is retained. The next successful daytime check evaluates the newest forecast against that baseline; it does not send a backlog of overnight messages. Quiet hours apply to both rain and snow updates.
 
@@ -93,5 +88,6 @@ Go to [Actions → La Plata WPC QPF](../../actions/workflows/qpf.yml), select **
 - Seven-day precipitation amounts alone do not determine flash flood risk, short-duration rainfall intensity, or river crests.
 - NOAA issue periods can differ across products; interpret sums of independently rounded periods cautiously.
 - GitHub scheduled starts are approximate; failures leave the previous valid result intact.
+- ChatGPT Scheduled owns the twice-daily timing; GitHub cron is intentionally disabled to avoid delayed duplicate runs.
 
 
