@@ -4,7 +4,7 @@ Automated county and watershed precipitation forecasts, using [NOAA WPC QPF](htt
 
 ## Daily schedule — La Plata County local time
 
-ChatGPT Scheduled triggers forecast checks at **7:20 AM** and **7:20 PM Mountain Time year-round**. The task updates `.chatgpt-trigger` with a unique local timestamp and the exact commit message `Trigger scheduled QPF check`; that push immediately starts the GitHub Actions calculation. This avoids GitHub's delayed cron dispatcher while keeping calculation, validation, state, and GroupMe delivery inside GitHub.
+The existing **La Plata Rain Watch** task in ChatGPT Scheduled triggers forecast checks at **6:30 AM** and **6:30 PM Mountain Time year-round**. At the start of each Rain Watch check, the task updates `.chatgpt-trigger` with a unique local timestamp and the exact commit message `Trigger scheduled QPF check`; that push immediately starts the GitHub Actions calculation. This avoids GitHub's delayed cron dispatcher while keeping calculation, validation, state, and GroupMe delivery inside GitHub. There is no separate active QPF schedule.
 
 Runs are serialized to protect forecast and notification state. GroupMe delivery normally follows several minutes after the trigger because the forecast query, geometry analysis, and tests must finish first.
 
@@ -88,6 +88,6 @@ Go to [Actions → La Plata WPC QPF](../../actions/workflows/qpf.yml), select **
 - Seven-day precipitation amounts alone do not determine flash flood risk, short-duration rainfall intensity, or river crests.
 - NOAA issue periods can differ across products; interpret sums of independently rounded periods cautiously.
 - GitHub scheduled starts are approximate; failures leave the previous valid result intact.
-- ChatGPT Scheduled owns the twice-daily timing; GitHub cron is intentionally disabled to avoid delayed duplicate runs.
+- The ChatGPT **La Plata Rain Watch** owns the twice-daily timing; GitHub cron and the separate QPF trigger task are intentionally disabled to avoid delayed or duplicate runs.
 
 
