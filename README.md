@@ -22,7 +22,7 @@ Each successful analysis updates [data/latest.md](data/latest.md) and [data/late
 - WPC issue times and valid forecast periods
 - **Snow:** separate NOAA WPC Days 1–3 probabilities for ≥4, ≥8, and ≥12 inches of snowfall at ≥10%, ≥40%, and ≥70% categories, intersected with any portion of La Plata County
 
-The message highlights Vallecito Creek, upper Los Pinos, headwaters Florida River, and Animas Canyon HUC10 units. HUC10 units **are not exact gauge-upstream catchments**.
+The message highlights Vallecito Creek, upper Los Pinos, headwaters Florida River, Animas Canyon, and headwaters La Plata River HUC10 units. HUC10 units **are not exact gauge-upstream catchments**.
 
 ## When GroupMe sends a message
 
@@ -62,7 +62,7 @@ Valid: Thu Oct 8–Thu 15 (6 AM–6 AM local)
 Days 1–3 | Thu Oct 8–Sun 11 (6 AM–6 AM local): 0.25in
 Days 4–5 | Sun Oct 11–Tue 13 (6 AM–6 AM local): 0.97in
 Days 6–7 | Tue Oct 13–Thu 15 (6 AM–6 AM local): 1.71in
-Basins: Vallecito 4.00in, Upper Pine 3.88in, Upper Florida 3.93in, Animas Canyon 3.72in
+Basins: Vallecito 4.00in, Upper Pine 3.88in, Upper Florida 3.93in, Animas Canyon 3.72in, La Plata 1.85in
 Forecast liquid equivalent, not flood guidance.
 Snow (WPC Days 1–3, any part of county):
 No ≥10% area for ≥4in snow mapped; lighter snow possible.
