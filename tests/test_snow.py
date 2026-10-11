@@ -7,7 +7,7 @@ from groupme_notify import decide, message
 def synthetic(q=0.1, snow=False):
     p={x:{"average_in":q,"valid_period":["2026-10-08 12:00:00","2026-10-09 12:00:00"]} for x in ("Day 1","Day 2","Day 3","Days 4-5","Days 6-7")}
     p["Days 1-7"]={**p["Day 1"],"min_in":0,"max_in":q}
-    return {"periods":p,"huc10_watersheds":{h:{"periods":{"Days 1-7":{"average_in":q}}} for h in ("1408010112","1408010111","1408010407","1408010403")},
+    return {"periods":p,"huc10_watersheds":{h:{"periods":{"Days 1-7":{"average_in":q}}} for h in ("1408010112","1408010111","1408010407","1408010403","1408010501")},
             "snow":{"active":snow,"periods":{"Day 1":[{"threshold_in":4,"minimum_probability_pct":40}] if snow else [],"Day 2":[],"Day 3":[]}}}
 
 def test_no_snow():
