@@ -7,7 +7,7 @@ def report(q=2.0):
     return {"periods": {**{name:{"average_in":0.1,"valid_period":["2026-10-08 12:00:00","2026-10-09 12:00:00"]} for name in ("Day 1","Day 2","Day 3","Days 4-5","Days 6-7")},
                         "Days 1-7":{"average_in":q,"min_in":0.1,"max_in":3.0,"valid_period":["2026-10-08 12:00:00","2026-10-15 12:00:00"]}},
             "huc10_watersheds":{code:{"periods":{"Days 1-7":{"average_in":q}}}
-            for code in ("1408010112","1408010111","1408010407","1408010403")}}
+            for code in ("1408010112","1408010111","1408010407","1408010403","1408010501")}}
 MORNING=datetime(2026,10,8,7,tzinfo=ZoneInfo("America/Denver"))
 EVENING=datetime(2026,10,8,19,tzinfo=ZoneInfo("America/Denver"))
 
@@ -54,7 +54,9 @@ def test_force_dry():
     assert "Manual status" in decide(report(0.1),{},force=True,now=EVENING)[0]
 
 def test_message():
-    assert "7-day county avg" in message(report(),"No material changes")
+    text=message(report(),"No material changes")
+    assert "7-day county avg" in text
+    assert "La Plata 2.00in" in text
 
 @pytest.mark.parametrize("month", [1, 10])
 @pytest.mark.parametrize("hour", [0, 1, 5, 21, 23])
