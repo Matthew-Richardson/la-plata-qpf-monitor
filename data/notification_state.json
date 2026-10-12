@@ -1,15 +1,26 @@
 {
   "status": "wet",
   "dry_streak": 0,
-  "last_sent_at": "2026-10-11T06:28:36.569722-06:00",
+  "last_sent_at": "2026-10-11T18:37:52.225282-06:00",
   "last_alert_totals": {
-    "county": 1.086,
-    "Vallecito": 2.122,
-    "Upper Pine": 2.003,
-    "Upper Florida": 1.872,
-    "Animas Canyon": 2.002,
-    "La Plata": 0.727
+    "county": 0.619,
+    "Vallecito": 1.484,
+    "Upper Pine": 1.442,
+    "Upper Florida": 1.172,
+    "Animas Canyon": 1.31,
+    "La Plata": 0.365
   },
   "unchanged_day": "2026-10-10",
-  "snow_signature": []
+  "snow_signature": [
+    [
+      "Day 2",
+      4,
+      10
+    ],
+    [
+      "Day 3",
+      4,
+      10
+    ]
+  ]
 }
