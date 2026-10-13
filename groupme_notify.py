@@ -7,6 +7,16 @@ import requests
 
 WATCHED={"Vallecito":"1408010112","Upper Pine":"1408010111","Upper Florida":"1408010407","Animas Canyon":"1408010403","La Plata":"1408010501"}
 SOURCE="https://github.com/Matthew-Richardson/la-plata-qpf-monitor/blob/main/data/latest.md"
+
+def snow_summary(snow):
+    """Return the strongest mapped probability for each day/threshold."""
+    strongest={}
+    for day,rows in snow.get("periods",{}).items():
+        for row in rows:
+            key=(day,row["threshold_in"])
+            strongest[key]=max(strongest.get(key,0),row["minimum_probability_pct"])
+    return sorted((day,threshold,pct) for (day,threshold),pct in strongest.items())
+
 def totals(r):
     return {"county":r["periods"]["Days 1-7"]["average_in"],
             **{name:r["huc10_watersheds"][huc]["periods"]["Days 1-7"]["average_in"] for name,huc in WATCHED.items()}}
@@ -18,7 +28,7 @@ def decide(report,state,force=False,now=None):
         return None,dict(state)
     t=totals(report)
     snow=report.get("snow",{})
-    snow_signature=sorted({(day,row["threshold_in"],row["minimum_probability_pct"]) for day,rows in snow.get("periods",{}).items() for row in rows})
+    snow_signature=snow_summary(snow)
     snow_active=bool(snow_signature)
     wet=t["county"]>=0.50 or any(t[n]>=1.00 for n in WATCHED) or snow_active
     dry=t["county"]<0.25 and all(t[n]<0.50 for n in WATCHED) and not snow_active
@@ -80,18 +90,22 @@ def message(report,reason):
         f"Days 1–3 | {local_range(first)}: {day123:.2f}in",
         f"Days 4–5 | {local_range(p['Days 4-5'])}: {p['Days 4-5']['average_in']:.2f}in",
         f"Days 6–7 | {local_range(p['Days 6-7'])}: {p['Days 6-7']['average_in']:.2f}in",
-        "Basins: "+", ".join(f"{n} {t[n]:.2f}in" for n in WATCHED),
-        "Forecast liquid equivalent, not flood guidance."]
+        "Basins: "+", ".join(f"{n} {t[n]:.2f}in" for n in WATCHED)]
     snow=report.get("snow",{})
     if "periods" in snow:
-        lines.append("Snow (WPC Days 1–3, any part of county):")
+        lines.append("Snow — strongest chance anywhere in La Plata County (not countywide):")
         if snow.get("active"):
-            for day,rows in snow["periods"].items():
+            summary=snow_summary(snow)
+            for day in snow["periods"]:
+                rows=[(threshold,pct) for d,threshold,pct in summary if d==day]
                 if rows:
-                    unique=sorted({(r["threshold_in"],r["minimum_probability_pct"]) for r in rows})
-                    lines.append(day+": "+", ".join(f"≥{inch}in snow at ≥{pct}% chance" for inch,pct in unique))
+                    labels=[]
+                    for threshold,pct in rows:
+                        chance=f"{pct}%+" if pct>=70 else f"{pct}–{39 if pct==10 else 69}%"
+                        labels.append(f"{chance} chance of {threshold}+in")
+                    lines.append(f"{day} | {local_range(p[day])}: "+"; ".join(labels))
         else:
-            lines.append("No ≥10% area for ≥4in snow mapped; lighter snow possible.")
+            lines.append("No part of the county has at least a 10% chance of 4+in; lighter snow is still possible.")
     return "\n".join(lines)
 
 def main():
