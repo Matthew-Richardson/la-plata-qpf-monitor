@@ -63,20 +63,20 @@ Days 1–3 | Thu Oct 8–Sun 11 (6 AM–6 AM local): 0.25in
 Days 4–5 | Sun Oct 11–Tue 13 (6 AM–6 AM local): 0.97in
 Days 6–7 | Tue Oct 13–Thu 15 (6 AM–6 AM local): 1.71in
 Basins: Vallecito 4.00in, Upper Pine 3.88in, Upper Florida 3.93in, Animas Canyon 3.72in, La Plata 1.85in
-Forecast liquid equivalent, not flood guidance.
-Snow (WPC Days 1–3, any part of county):
-No ≥10% area for ≥4in snow mapped; lighter snow possible.
+
+Snow — strongest chance anywhere in La Plata County (not countywide):
+No part of the county has at least a 10% chance of 4+in; lighter snow is still possible.
 ```
 
 **Example snowfall addendum for a hypothetical winter storm (not a current NOAA forecast):**
 
 ```text
 Snow (WPC Days 1–3, any part of county):
-Day 1: ≥4in snow at ≥40% chance, ≥8in snow at ≥10% chance
-Day 2: ≥4in snow at ≥70% chance
+Day 1 | Thu Oct 8–Fri 9 (6 AM–6 AM local): 40–69% chance of 4+in; 10–39% chance of 8+in
+Day 2 | Fri Oct 9–Sat 10 (6 AM–6 AM local): 70%+ chance of 4+in
 ```
 
-These values describe probability categories **somewhere within La Plata County**, not the likelihood across the entire county, and not predicted snowfall depth at Durango or any specific mountain pass. Day 4–7 snowfall depth is not estimated from QPF.
+The message shows only the **strongest mapped probability category for each snowfall threshold and day**, rather than repeating nested WPC categories. These values apply **somewhere within La Plata County**, not across the entire county, and are not predicted snowfall depth at Durango or any specific mountain pass. Day 4–7 snowfall depth is not estimated from QPF.
 
 ## Running manually / validating
 
