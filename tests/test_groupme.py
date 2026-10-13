@@ -57,6 +57,27 @@ def test_message():
     text=message(report(),"No material changes")
     assert "7-day county avg" in text
     assert "La Plata 2.00in" in text
+    assert "flood guidance" not in text
+
+def test_snow_message_collapses_nested_probability_categories():
+    current=report()
+    current["snow"]={"active":True,"periods":{
+        "Day 1":[
+            {"threshold_in":4,"minimum_probability_pct":10},
+            {"threshold_in":4,"minimum_probability_pct":40},
+            {"threshold_in":8,"minimum_probability_pct":10}],
+        "Day 2":[
+            {"threshold_in":4,"minimum_probability_pct":10},
+            {"threshold_in":4,"minimum_probability_pct":40},
+            {"threshold_in":4,"minimum_probability_pct":70},
+            {"threshold_in":8,"minimum_probability_pct":10},
+            {"threshold_in":8,"minimum_probability_pct":40}],
+        "Day 3":[]}}
+    text=message(current,"Snowfall probability guidance changed")
+    assert "40–69% chance of 4+in; 10–39% chance of 8+in" in text
+    assert "70%+ chance of 4+in; 40–69% chance of 8+in" in text
+    assert text.count("chance of 4+in")==2
+    assert "not countywide" in text
 
 @pytest.mark.parametrize("month", [1, 10])
 @pytest.mark.parametrize("hour", [0, 1, 5, 21, 23])
