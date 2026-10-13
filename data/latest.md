@@ -1,6 +1,6 @@
 # La Plata County WPC QPF
 
-Generated UTC: 2026-10-13T00:35:41.044917+00:00
+Generated UTC: 2026-10-13T01:12:33.641386+00:00
 
 | Period | Avg (in) | Min (in) | Max (in) | Coverage | WPC issue |
 |---|---:|---:|---:|---:|---|
@@ -100,8 +100,9 @@ HUC10 boundaries are not exact upstream catchments for a particular stream gauge
 Source: https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/MapServer
 Watershed boundaries: https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4; https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/5
 
-## WPC Day 1–3 snowfall probability (La Plata County)
+## WPC Day 1–3 snowfall probability by elevation
 
-Listed categories indicate that **some portion** of the county intersects a WPC probability polygon. These are not countywide snowfall forecasts.
-- Day 1: ≥4 in snow at ≥10% probability (somewhere in county), ≥4 in snow at ≥40% probability (somewhere in county), ≥8 in snow at ≥10% probability (somewhere in county)
-- Day 2: ≥4 in snow at ≥10% probability (somewhere in county), ≥4 in snow at ≥40% probability (somewhere in county), ≥4 in snow at ≥70% probability (somewhere in county), ≥8 in snow at ≥10% probability (somewhere in county), ≥8 in snow at ≥40% probability (somewhere in county)
+- Day 1, 7,000–9,000 ft: ≥4 in at ≥40%, ≥8 in at ≥10%
+- Day 1, Above 9,000 ft: ≥4 in at ≥40%, ≥8 in at ≥10%
+- Day 2, 7,000–9,000 ft: ≥4 in at ≥40%, ≥8 in at ≥10%
+- Day 2, Above 9,000 ft: ≥4 in at ≥70%, ≥8 in at ≥40%
