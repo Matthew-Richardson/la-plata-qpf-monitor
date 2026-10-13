@@ -8,14 +8,18 @@ import requests
 WATCHED={"Vallecito":"1408010112","Upper Pine":"1408010111","Upper Florida":"1408010407","Animas Canyon":"1408010403","La Plata":"1408010501"}
 SOURCE="https://github.com/Matthew-Richardson/la-plata-qpf-monitor/blob/main/data/latest.md"
 
+def normalize_snow_signature(rows):
+    """Collapse nested WPC categories to the strongest one per day/threshold."""
+    strongest={}
+    for day,threshold,pct in rows:
+        strongest[(day,threshold)]=max(strongest.get((day,threshold),0),pct)
+    return sorted((day,threshold,pct) for (day,threshold),pct in strongest.items())
+
 def snow_summary(snow):
     """Return the strongest mapped probability for each day/threshold."""
-    strongest={}
-    for day,rows in snow.get("periods",{}).items():
-        for row in rows:
-            key=(day,row["threshold_in"])
-            strongest[key]=max(strongest.get(key,0),row["minimum_probability_pct"])
-    return sorted((day,threshold,pct) for (day,threshold),pct in strongest.items())
+    return normalize_snow_signature(
+        (day,row["threshold_in"],row["minimum_probability_pct"])
+        for day,rows in snow.get("periods",{}).items() for row in rows)
 
 def totals(r):
     return {"county":r["periods"]["Days 1-7"]["average_in"],
@@ -39,7 +43,8 @@ def decide(report,state,force=False,now=None):
              for n in t if state.get("last_alert_totals") and
              abs(t[n]-state["last_alert_totals"].get(n,t[n]))>=0.25]
     reason=None
-    snow_changed=state.get("snow_signature",[])!=[list(x) for x in snow_signature]
+    previous_snow=normalize_snow_signature(state.get("snow_signature",[]))
+    snow_changed=previous_snow!=snow_signature
     if status=="wet":
         if previous!="wet": reason="Wet pattern detected"
         elif dry: reason=None  # wait for second dry forecast before declaring pattern over
