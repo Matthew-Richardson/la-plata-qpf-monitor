@@ -3,6 +3,8 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 from shapely.geometry import shape
 from shapely.ops import transform, unary_union
 from pyproj import Transformer
@@ -15,6 +17,9 @@ LAYERS={"Day 1":1,"Day 2":2,"Day 3":3,"Days 4-5":4,"Days 6-7":5,"Days 1-7":11}
 PROJECT=Transformer.from_crs("EPSG:4326","EPSG:5070",always_xy=True).transform
 SESSION=requests.Session()
 SESSION.headers["User-Agent"]="LaPlata-QPF-Monitor/1.0"
+SESSION.mount("https://",HTTPAdapter(max_retries=Retry(
+    total=4,connect=4,read=4,status=4,backoff_factor=1,
+    status_forcelist=(429,500,502,503,504),allowed_methods={"GET"})))
 
 def fetch(url,params):
     r=SESSION.get(url,params=params,timeout=90)
