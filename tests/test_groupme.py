@@ -79,6 +79,15 @@ def test_snow_message_collapses_nested_probability_categories():
     assert text.count("chance of 4+in")==2
     assert "not countywide" in text
 
+def test_legacy_nested_snow_state_does_not_create_false_change():
+    current=report()
+    current["snow"]={"active":True,"periods":{"Day 1":[
+        {"threshold_in":4,"minimum_probability_pct":10},
+        {"threshold_in":4,"minimum_probability_pct":40}],"Day 2":[],"Day 3":[]}}
+    _,state=decide(current,{},now=EVENING)
+    state["snow_signature"]=[["Day 1",4,10],["Day 1",4,40]]
+    assert decide(current,state,now=EVENING)[0] is None
+
 @pytest.mark.parametrize("month", [1, 10])
 @pytest.mark.parametrize("hour", [0, 1, 5, 21, 23])
 @pytest.mark.parametrize("force", [False, True])
