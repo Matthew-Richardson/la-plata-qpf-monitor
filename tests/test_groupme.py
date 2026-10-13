@@ -55,9 +55,15 @@ def test_force_dry():
 
 def test_message():
     text=message(report(),"No material changes")
-    assert "7-day county avg" in text
-    assert "La Plata 2.00in" in text
+    assert "County 7-day avg" in text
+    assert 'La Plata 2.00"' in text
     assert "flood guidance" not in text
+
+def test_material_change_message_is_quick_read_and_directional():
+    text=message(report(),"Material change — forecast increased: County increased 0.30in, Upper Pine increased 0.25in")
+    assert text.startswith("LPC precipitation | ↑ Rain increased")
+    assert 'Change: County ↑ 0.30", Upper Pine ↑ 0.25"' in text
+    assert "Valid:" not in text and "Basins:" not in text
 
 def test_snow_message_collapses_nested_probability_categories():
     current=report()
@@ -73,11 +79,23 @@ def test_snow_message_collapses_nested_probability_categories():
             {"threshold_in":8,"minimum_probability_pct":10},
             {"threshold_in":8,"minimum_probability_pct":40}],
         "Day 3":[]}}
-    text=message(current,"Snowfall probability guidance changed")
-    assert "40–69% chance of 4+in; 10–39% chance of 8+in" in text
-    assert "70%+ chance of 4+in; 40–69% chance of 8+in" in text
-    assert text.count("chance of 4+in")==2
-    assert "not countywide" in text
+    text=message(current,"Snow guidance increased")
+    assert '40–69% for 4+"; 10–39% for 8+"' in text
+    assert '70%+ for 4+"; 40–69% for 8+"' in text
+    assert text.count('for 4+"')==2
+    assert text.startswith("LPC precipitation | ↑ Snow increased")
+
+def test_elevation_snow_message():
+    current=report()
+    current["snow"]={"active":True,"periods":{"Day 1":[{"threshold_in":4,"minimum_probability_pct":70}],"Day 2":[],"Day 3":[]},
+        "elevation_bands":{"Day 1":{
+            "Below 7,000 ft":[],
+            "7,000–9,000 ft":[{"threshold_in":4,"minimum_probability_pct":40}],
+            "Above 9,000 ft":[{"threshold_in":4,"minimum_probability_pct":70},{"threshold_in":8,"minimum_probability_pct":40}]}}}
+    text=message(current,"Snow guidance increased")
+    assert 'Below 7,000 ft: no mapped 10%+ chance of 4"+' in text
+    assert '7,000–9,000 ft: 40–69% for 4+"' in text
+    assert 'Above 9,000 ft: 70%+ for 4+"; 40–69% for 8+"' in text
 
 def test_legacy_nested_snow_state_does_not_create_false_change():
     current=report()
@@ -86,6 +104,14 @@ def test_legacy_nested_snow_state_does_not_create_false_change():
         {"threshold_in":4,"minimum_probability_pct":40}],"Day 2":[],"Day 3":[]}}
     _,state=decide(current,{},now=EVENING)
     state["snow_signature"]=[["Day 1",4,10],["Day 1",4,40]]
+    assert decide(current,state,now=EVENING)[0] is None
+
+def test_first_elevation_state_does_not_create_false_change():
+    current=report()
+    current["snow"]={"active":True,"periods":{"Day 1":[{"threshold_in":4,"minimum_probability_pct":40}],"Day 2":[],"Day 3":[]},
+        "elevation_bands":{"Day 1":{"Above 9,000 ft":[{"threshold_in":4,"minimum_probability_pct":40}]}}}
+    _,state=decide(current,{},now=EVENING)
+    state.pop("snow_elevation_signature")
     assert decide(current,state,now=EVENING)[0] is None
 
 @pytest.mark.parametrize("month", [1, 10])
