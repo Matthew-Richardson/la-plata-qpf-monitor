@@ -8,6 +8,8 @@ from operational_monitor import collect, compare, delivered_baseline, message_li
 
 WATCHED={"Vallecito":"1408010112","Upper Pine":"1408010111","Upper Florida":"1408010407","Animas Canyon":"1408010403","La Plata":"1408010501"}
 SOURCE="https://github.com/Matthew-Richardson/la-plata-qpf-monitor/blob/main/data/latest.md"
+# Keep the new operational addendum in preview until its wording is approved.
+OPERATIONAL_PREVIEW=True
 
 def normalize_snow_signature(rows):
     """Collapse nested WPC categories to the strongest one per day/threshold."""
@@ -205,6 +207,9 @@ def main():
     Path("data/operational_latest.json").write_text(json.dumps(operational,indent=2)+"\n")
     reason,new_state=decide(report,state,force=args.force,now=now)
     changes=compare(operational,state.get("operational",{}),now)
+    if OPERATIONAL_PREVIEW and not args.preview:
+        print("Operational delivery held for message review.")
+        changes=[]
     if not 6<=now.hour<21:
         changes=[]
     if changes:
@@ -216,7 +221,8 @@ def main():
         if reason!="River / flood / timing change": blocks.append(message(report,reason))
         if changes: blocks.append("\n".join(message_lines(operational,changes)))
         text="\n\n".join(blocks)
-        new_state["operational"]=delivered_baseline(operational,state.get("operational",{}))
+        if not OPERATIONAL_PREVIEW:
+            new_state["operational"]=delivered_baseline(operational,state.get("operational",{}))
     if args.preview:
         print(text or "Quiet: no update required.")
         return
