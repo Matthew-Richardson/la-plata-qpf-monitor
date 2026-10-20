@@ -121,8 +121,8 @@ def test_wet_brief_sends_weather_then_rivers_as_separate_posts(tmp_path,monkeypa
     monkeypatch.setattr(groupme_notify.requests,'post',send)
     groupme_notify.main()
     assert len(posts)==2
-    assert posts[0].startswith('LPC Weather |')
-    assert posts[1].startswith('LPC River Forecasts |')
+    assert posts[0].startswith('LPC precipitation |')
+    assert posts[1].startswith('LPC river forecast peaks |')
     assert 'Animas at Durango' not in posts[0]
     assert 'La Plata at Hesperus' in posts[1] and 'state line' not in posts[1]
     assert all(len(t)<=1000 for t in posts)

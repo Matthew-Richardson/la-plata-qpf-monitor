@@ -162,7 +162,7 @@ def message(report,reason):
     lines += [
         "Rain | "+short_range(p["Days 1-7"],include_time=True),
         f"County 7-day avg: {t['county']:.2f}\" (range {p['Days 1-7']['min_in']:.2f}–{p['Days 1-7']['max_in']:.2f}\")",
-        f"Days 1–3 ({short_range(first)}): {day123:.2f}\" | Days 4–5: {p['Days 4-5']['average_in']:.2f}\" | Days 6–7: {p['Days 6-7']['average_in']:.2f}\"",
+        f"Days 1–3 ({short_range(first)}): {day123:.2f}\" | Days 4–5 ({short_range(p['Days 4-5'])}): {p['Days 4-5']['average_in']:.2f}\" | Days 6–7 ({short_range(p['Days 6-7'])}): {p['Days 6-7']['average_in']:.2f}\"",
         "Areas, 7-day avg: "+" | ".join(f"{n} {t[n]:.2f}\"" for n in WATCHED)]
     snow=report.get("snow",{})
     if "periods" in snow:
@@ -193,75 +193,28 @@ def message(report,reason):
     return "\n".join(lines)
 
 def weather_brief(report,operational,reason,changes,now):
-    p=report['periods']; overall=p['Days 1-7']
-    lines=[now.strftime('LPC Weather | %a %-m/%-d %-I:%M %p %Z')]
-    weather_changes=[c for c in changes if ('NWS timing:' in c or 'window added' in c or 'window removed' in c
-                     or ('WPC risk' in c and 'new monitored period' not in c))]
-    if reason.startswith('Material change'):
-        lines.append(change_line(reason))
-    elif reason.startswith('Snow guidance'):
-        lines.append(reason)
-    elif reason=='Wet pattern detected':
-        lines.append('Wet period detected.')
-    elif not changes:
-        lines.append('No material changes.')
-    elif not weather_changes:
-        lines.append('Weather outlook unchanged; river update follows.')
-    if any('NWS timing:' in c for c in weather_changes):lines.append('NWS timing changed by 6+ hours; revised windows below.')
-    lines.extend(c.split(' | ',1)[0] for c in weather_changes if 'WPC risk' in c)
-    windows={}
-    for town,entry in operational.get('timing',{}).items():
-        w=entry.get('window')
-        if w: windows.setdefault((w['start'],w['end'],w['open_end']),[]).append(town)
-    for (start,end,open_end),towns in windows.items():
-        lines.append('/'.join(towns)+': likely precipitation '+stamp(start)+' to '+stamp(end)
-                     +(' or later' if open_end else ''))
-    lines.append(f"County 7-day liquid total: avg {overall['average_in']:.2f}\"; range {overall['min_in']:g}–{overall['max_in']:g}\".")
-    # This is the wettest forecast accumulation period, not a peak rainfall rate.
-    names=['Day 1','Day 2','Day 3','Days 4-5','Days 6-7']
-    def rate(name):
-        v=p[name];hours=(dt(v['valid_period'][1].replace(' ','T')+'Z')-dt(v['valid_period'][0].replace(' ','T')+'Z')).total_seconds()/3600
-        return v['average_in']/max(1,hours)
-    peak=max(names,key=rate)
-    if p[peak]['average_in']>=.25:
-        v=p[peak]
-        lines.append('Wettest QPF period: '+short_range(v,include_time=True)+f"; avg {v['average_in']:.2f}\".")
-    risks={}
-    for v in operational.get('outlooks',{}).values():
-        if v['level'] and dt(v['end'])>now:
-            risks.setdefault(v['level'],[]).append(v)
-    for level,values in sorted(risks.items(),reverse=True):
-        lines.append(f"WPC {LEVELS[level]} Risk in part of LPC: "+stamp(min(v['start'] for v in values))+' to '+stamp(max(v['end'] for v in values)))
-    if report.get('snow',{}).get('active'):
-        snow_lines=message(report,reason).splitlines()
-        index=next((i for i,line in enumerate(snow_lines) if line.startswith('Snow |')),None)
-        if index is not None:lines.extend(snow_lines[index:])
-    if not windows:lines.append('NWS likely-precipitation timing unavailable or no sustained likely window.')
-    lines.append('Liquid totals include rain and melted snow. Times Mountain.')
-    if operational.get('errors'):lines.append('Some guidance unavailable; no reduction in risk inferred.')
-    return '\n'.join(lines)
+    return message(report,reason)
 
 def river_brief(operational,changes,now):
-    lines=[now.strftime('LPC River Forecasts | %a %-m/%-d %-I:%M %p %Z')]
-    river_changes=[c for c in changes if c.startswith(tuple(RIVERS.values()))]
-    initial='River forecasts added to monitoring' in changes
-    lines.extend(river_changes or [('Current NOAA forecast peaks.' if initial else 'No material river forecast changes.') if operational.get('rivers') else 'River forecasts unavailable.'])
+    lines=[now.strftime('LPC river forecast peaks | %a %-m/%-d')]
     for gauge,name in RIVERS.items():
         v=operational.get('rivers',{}).get(gauge)
         if not v:
-            lines.append(name+': current forecast unavailable.')
+            lines.append(name+': unavailable')
             continue
-        label='maximum through' if v['at_horizon'] else 'peak'
         labels={'action':'ACTION STAGE','minor':'MINOR FLOOD STAGE','moderate':'MODERATE FLOOD STAGE',
-                'major':'MAJOR FLOOD STAGE','below action':'below action stage','undefined':'stage thresholds not defined'}
-        category='; '+labels[v['category']]
-        if v.get('stage_ft') is not None:category=f"; {v['stage_ft']:.2f} ft"+category
-        lines.append(f"{name}: {v['cfs']:,} cfs {label} {stamp(v['time'])}{category}")
+                'major':'MAJOR FLOOD STAGE','below action':'below action stage'}
+        category=v['category']
+        suffix=' — '+labels[category] if category in labels else ''
+        if category in ('action','minor','moderate','major') and v.get('stage_ft') is not None:
+            suffix=f" / {v['stage_ft']:.2f} ft"+suffix
+        label='max through ' if v['at_horizon'] else ''
+        time=dt(v['time']).astimezone(ZoneInfo('America/Denver')).strftime('%a %-m/%-d, %-I %p')
+        lines.append(f"{name}: {v['cfs']:,} cfs {label}{time}{suffix}")
     values=operational.get('rivers',{}).values()
     if values:
         issued=max(dt(v['issued']) for v in values).astimezone(ZoneInfo('America/Denver'))
-        lines.append(issued.strftime('Latest NOAA issue: %a %-m/%-d %-I:%M %p %Z.'))
-    lines.append('Forecasts, not observations. All times Mountain; peaks may change.')
+        lines.append(issued.strftime('NWS forecast issued %a %-m/%-d, %-I:%M %p %Z. All times %Z.'))
     return '\n'.join(lines)
 
 def main():
@@ -324,5 +277,3 @@ def message_parts(text,limit=950):
     if current: parts.append(current)
     return parts
 if __name__=="__main__": main()
-
-
