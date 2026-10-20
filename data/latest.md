@@ -1,6 +1,6 @@
 # La Plata County WPC QPF
 
-Generated UTC: 2026-10-20T02:24:35.545400+00:00
+Generated UTC: 2026-10-20T02:26:50.748631+00:00
 
 | Period | Avg (in) | Min (in) | Max (in) | Coverage | WPC issue |
 |---|---:|---:|---:|---:|---|
