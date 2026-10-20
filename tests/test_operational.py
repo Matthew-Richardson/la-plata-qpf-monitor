@@ -103,3 +103,34 @@ def test_preview_never_sends_or_saves_baseline(tmp_path,monkeypatch):
     monkeypatch.setattr(groupme_notify.requests,'post',lambda *a,**k:pytest.fail('preview sent a message'))
     groupme_notify.main()
     assert not (tmp_path/'data/notification_state.json').exists()
+
+def test_wet_brief_sends_weather_then_rivers_as_separate_posts(tmp_path,monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    (tmp_path/'data').mkdir()
+    (tmp_path/'data/latest.json').write_text(json.dumps(report()))
+    monkeypatch.setattr(groupme_notify,'collect',lambda now:{**forecast(),'errors':[]})
+    monkeypatch.setattr(groupme_notify,'decide',lambda *a,**k:('No material changes',{'status':'wet'}))
+    monkeypatch.setattr(groupme_notify,'compare',lambda *a:[])
+    monkeypatch.setattr('sys.argv',['groupme_notify.py'])
+    monkeypatch.setenv('GROUPME_BOT_ID','test-only')
+    posts=[]
+    class Response:
+        status_code=202
+        def raise_for_status(self):pass
+    def send(*a,**k):posts.append(k['json']['text']);return Response()
+    monkeypatch.setattr(groupme_notify.requests,'post',send)
+    groupme_notify.main()
+    assert len(posts)==2
+    assert posts[0].startswith('LPC Weather |')
+    assert posts[1].startswith('LPC River Forecasts |')
+    assert 'Animas at Durango' not in posts[0]
+    assert 'La Plata at Hesperus' in posts[1] and 'state line' not in posts[1]
+    assert all(len(t)<=1000 for t in posts)
+    assert json.loads((tmp_path/'data/notification_state.json').read_text())['operational']['rivers']
+
+def test_stage_labels_are_in_every_river_brief_even_if_unchanged():
+    for category,label in [('action','ACTION STAGE'),('minor','MINOR FLOOD STAGE'),
+                           ('moderate','MODERATE FLOOD STAGE'),('major','MAJOR FLOOD STAGE')]:
+        current=forecast();current['rivers']['drgc2'].update(category=category,stage_ft=8.1)
+        text=groupme_notify.river_brief(current,[],NOW)
+        assert label in text and '8.10 ft' in text

@@ -1,15 +1,13 @@
-"""GroupMe QPF: notify changes during wet patterns, daily unchanged, quiet when dry."""
+"""GroupMe: morning/evening wet outlooks, followed by a separate river text."""
 import argparse,json,os,re
 from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 import requests
-from operational_monitor import collect, compare, delivered_baseline, message_lines
+from operational_monitor import collect, compare, delivered_baseline, RIVERS, LEVELS, stamp, dt
 
 WATCHED={"Vallecito":"1408010112","Upper Pine":"1408010111","Upper Florida":"1408010407","Animas Canyon":"1408010403","La Plata":"1408010501"}
 SOURCE="https://github.com/Matthew-Richardson/la-plata-qpf-monitor/blob/main/data/latest.md"
-# Keep the new operational addendum in preview until its wording is approved.
-OPERATIONAL_PREVIEW=True
 
 def normalize_snow_signature(rows):
     """Collapse nested WPC categories to the strongest one per day/threshold."""
@@ -50,6 +48,9 @@ def snow_elevation_summary(snow):
 def totals(r):
     return {"county":r["periods"]["Days 1-7"]["average_in"],
             **{name:r["huc10_watersheds"][huc]["periods"]["Days 1-7"]["average_in"] for name,huc in WATCHED.items()}}
+
+def wet_slot(now):
+    return now.date().isoformat()+(" AM" if now.hour<12 else " PM")
 def decide(report,state,force=False,now=None):
     now=(now or datetime.now(ZoneInfo("America/Denver"))).astimezone(ZoneInfo("America/Denver"))
     # Enforce quiet hours even for delayed scheduled runs and manual --force.
@@ -89,7 +90,7 @@ def decide(report,state,force=False,now=None):
                 f"{'increased' if delta>0 else 'decreased'} {abs(delta):.2f}in"
                 for name,delta in changes)
             reason=f"Material change — forecast {overall}: {details}"
-        elif 6<=now.hour<12 and state.get("unchanged_day")!=now.date().isoformat():
+        elif state.get("wet_update_slot")!=wet_slot(now):
             reason="No material changes"
     elif previous=="wet": reason="Returned to dry pattern; routine alerts paused"
     if force and not reason:
@@ -99,6 +100,7 @@ def decide(report,state,force=False,now=None):
                 "snow_elevation_signature":[list(x) for x in elevation_signature]}
     if reason:
         next_state["last_sent_at"]=now.isoformat()
+        if status=="wet": next_state["wet_update_slot"]=wet_slot(now)
         if "No material changes" in reason: next_state["unchanged_day"]=now.date().isoformat()
         next_state["last_alert_totals"]=t if status=="wet" else None
     return reason,next_state
@@ -190,6 +192,78 @@ def message(report,reason):
             lines.append("Snow | No mapped 10%+ chance of 4\"; lighter snow remains possible")
     return "\n".join(lines)
 
+def weather_brief(report,operational,reason,changes,now):
+    p=report['periods']; overall=p['Days 1-7']
+    lines=[now.strftime('LPC Weather | %a %-m/%-d %-I:%M %p %Z')]
+    weather_changes=[c for c in changes if ('NWS timing:' in c or 'window added' in c or 'window removed' in c
+                     or ('WPC risk' in c and 'new monitored period' not in c))]
+    if reason.startswith('Material change'):
+        lines.append(change_line(reason))
+    elif reason.startswith('Snow guidance'):
+        lines.append(reason)
+    elif reason=='Wet pattern detected':
+        lines.append('Wet period detected.')
+    elif not changes:
+        lines.append('No material changes.')
+    elif not weather_changes:
+        lines.append('Weather outlook unchanged; river update follows.')
+    if any('NWS timing:' in c for c in weather_changes):lines.append('NWS timing changed by 6+ hours; revised windows below.')
+    lines.extend(c.split(' | ',1)[0] for c in weather_changes if 'WPC risk' in c)
+    windows={}
+    for town,entry in operational.get('timing',{}).items():
+        w=entry.get('window')
+        if w: windows.setdefault((w['start'],w['end'],w['open_end']),[]).append(town)
+    for (start,end,open_end),towns in windows.items():
+        lines.append('/'.join(towns)+': likely precipitation '+stamp(start)+' to '+stamp(end)
+                     +(' or later' if open_end else ''))
+    lines.append(f"County 7-day liquid total: avg {overall['average_in']:.2f}\"; range {overall['min_in']:g}–{overall['max_in']:g}\".")
+    # This is the wettest forecast accumulation period, not a peak rainfall rate.
+    names=['Day 1','Day 2','Day 3','Days 4-5','Days 6-7']
+    def rate(name):
+        v=p[name];hours=(dt(v['valid_period'][1].replace(' ','T')+'Z')-dt(v['valid_period'][0].replace(' ','T')+'Z')).total_seconds()/3600
+        return v['average_in']/max(1,hours)
+    peak=max(names,key=rate)
+    if p[peak]['average_in']>=.25:
+        v=p[peak]
+        lines.append('Wettest QPF period: '+short_range(v,include_time=True)+f"; avg {v['average_in']:.2f}\".")
+    risks={}
+    for v in operational.get('outlooks',{}).values():
+        if v['level'] and dt(v['end'])>now:
+            risks.setdefault(v['level'],[]).append(v)
+    for level,values in sorted(risks.items(),reverse=True):
+        lines.append(f"WPC {LEVELS[level]} Risk in part of LPC: "+stamp(min(v['start'] for v in values))+' to '+stamp(max(v['end'] for v in values)))
+    if report.get('snow',{}).get('active'):
+        snow_lines=message(report,reason).splitlines()
+        index=next((i for i,line in enumerate(snow_lines) if line.startswith('Snow |')),None)
+        if index is not None:lines.extend(snow_lines[index:])
+    if not windows:lines.append('NWS likely-precipitation timing unavailable or no sustained likely window.')
+    lines.append('Liquid totals include rain and melted snow. Times Mountain.')
+    if operational.get('errors'):lines.append('Some guidance unavailable; no reduction in risk inferred.')
+    return '\n'.join(lines)
+
+def river_brief(operational,changes,now):
+    lines=[now.strftime('LPC River Forecasts | %a %-m/%-d %-I:%M %p %Z')]
+    river_changes=[c for c in changes if c.startswith(tuple(RIVERS.values()))]
+    initial='River forecasts added to monitoring' in changes
+    lines.extend(river_changes or [('Current NOAA forecast peaks.' if initial else 'No material river forecast changes.') if operational.get('rivers') else 'River forecasts unavailable.'])
+    for gauge,name in RIVERS.items():
+        v=operational.get('rivers',{}).get(gauge)
+        if not v:
+            lines.append(name+': current forecast unavailable.')
+            continue
+        label='maximum through' if v['at_horizon'] else 'peak'
+        labels={'action':'ACTION STAGE','minor':'MINOR FLOOD STAGE','moderate':'MODERATE FLOOD STAGE',
+                'major':'MAJOR FLOOD STAGE','below action':'below action stage','undefined':'stage thresholds not defined'}
+        category='; '+labels[v['category']]
+        if v.get('stage_ft') is not None:category=f"; {v['stage_ft']:.2f} ft"+category
+        lines.append(f"{name}: {v['cfs']:,} cfs {label} {stamp(v['time'])}{category}")
+    values=operational.get('rivers',{}).values()
+    if values:
+        issued=max(dt(v['issued']) for v in values).astimezone(ZoneInfo('America/Denver'))
+        lines.append(issued.strftime('Latest NOAA issue: %a %-m/%-d %-I:%M %p %Z.'))
+    lines.append('Forecasts, not observations. All times Mountain; peaks may change.')
+    return '\n'.join(lines)
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--force",action="store_true")
@@ -206,34 +280,33 @@ def main():
     Path("data/operational_latest.json").write_text(json.dumps(operational,indent=2)+"\n")
     reason,new_state=decide(report,state,force=args.force,now=now)
     changes=compare(operational,state.get("operational",{}),now)
-    if OPERATIONAL_PREVIEW and not args.preview:
-        print("Operational delivery held for message review.")
-        changes=[]
     if not 6<=now.hour<21:
         changes=[]
     if changes:
         reason=reason or "River / flood / timing change"
         new_state["last_sent_at"]=now.isoformat()
-    text=None
+    texts=[]
     if reason:
-        blocks=[]
-        if reason!="River / flood / timing change": blocks.append(message(report,reason))
-        if changes: blocks.append("\n".join(message_lines(operational,changes)))
-        text="\n\n".join(blocks)
-        if not OPERATIONAL_PREVIEW:
-            new_state["operational"]=delivered_baseline(operational,state.get("operational",{}))
+        texts=[weather_brief(report,operational,reason,changes,now)]
+        if new_state.get('status')=='wet' or changes:
+            texts.append(river_brief(operational,changes,now))
+        new_state["operational"]=delivered_baseline(operational,state.get("operational",{}))
+        if new_state.get('status')=='wet':
+            new_state['wet_update_slot']=wet_slot(now)
+            new_state['last_alert_totals']=totals(report)
     if args.preview:
-        print(text or "Quiet: no update required.")
+        print('\n\n--- Separate GroupMe text ---\n\n'.join(texts) or "Quiet: no update required.")
         return
     if reason:
         bot=os.environ.get("GROUPME_BOT_ID")
         if not bot: raise RuntimeError("Missing GROUPME_BOT_ID Actions secret")
         # GroupMe bot messages have a 1,000-character limit. Preserve whole lines.
-        for part in message_parts(text):
-            response=requests.post("https://api.groupme.com/v3/bots/post",
-                                   json={"bot_id":bot,"text":part},timeout=30)
-            response.raise_for_status()
-            print("GroupMe HTTP",response.status_code,reason)
+        for text in texts:
+            for part in message_parts(text):
+                response=requests.post("https://api.groupme.com/v3/bots/post",
+                                       json={"bot_id":bot,"text":part},timeout=30)
+                response.raise_for_status()
+                print("GroupMe HTTP",response.status_code,reason)
     else: print("Quiet: no update required.")
     state_path.parent.mkdir(parents=True,exist_ok=True)
     state_path.write_text(json.dumps(new_state,indent=2)+"\n")

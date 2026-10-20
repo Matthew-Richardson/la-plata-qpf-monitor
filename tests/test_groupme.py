@@ -15,11 +15,18 @@ def test_wet_opening():
     reason,s=decide(report(),{},now=MORNING)
     assert "Wet pattern" in reason and s["status"]=="wet"
 
-def test_unchanged_morning_only():
+def test_unchanged_slot_only_once():
     _,state=decide(report(),{},now=EVENING)
     reason,state=decide(report(),state,now=MORNING)
     assert reason=="No material changes"
     assert decide(report(),state,now=MORNING)[0] is None
+
+def test_wet_unchanged_sends_morning_and_evening_without_duplicate_slot():
+    _,state=decide(report(),{},now=MORNING)
+    assert decide(report(),state,now=MORNING.replace(hour=10))[0] is None
+    reason,state=decide(report(),state,now=EVENING)
+    assert reason=='No material changes'
+    assert decide(report(),state,now=EVENING.replace(hour=20))[0] is None
 
 def test_material_change_increase_says_direction():
     _,state=decide(report(),{},now=EVENING)

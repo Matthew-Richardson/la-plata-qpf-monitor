@@ -58,7 +58,7 @@ def river(gauge, now):
         threshold = categories.get(label, {}).get("stage")
         if stage is not None and threshold is not None and threshold >= 0 and stage >= threshold:
             category = label
-    return {"cfs": round(flow), "time": peak["validTime"], "category": category,
+    return {"cfs": round(flow), "time": peak["validTime"], "category": category, "stage_ft": stage,
             "issued": forecast["issuedTime"], "at_horizon": peak is rows[-1]}
 
 def timing_window(periods, now):
