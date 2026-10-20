@@ -16,8 +16,8 @@ def forecast(flow=1000):
 def test_cumulative_river_change_and_direction():
     old=forecast()
     assert not compare(forecast(1100),old,NOW)
-    assert "↑ 1,000→1,210" in compare(forecast(1210),old,NOW)[0]
-    assert "↓ 1,000→750" in compare(forecast(750),old,NOW)[0]
+    assert "increased 1,000 to 1,210" in compare(forecast(1210),old,NOW)[0]
+    assert "decreased 1,000 to 750" in compare(forecast(750),old,NOW)[0]
 
 def test_category_crossing_alerts_even_with_small_flow_change():
     old=forecast();new=forecast(1010)
@@ -34,7 +34,7 @@ def test_ero_rollover_does_not_alert_and_downgrade_does():
     old={'outlooks':{v['end']:v}}
     assert not compare(deepcopy(old),old,NOW)
     new=deepcopy(old);new['outlooks'][v['end']]['level']=1
-    assert '↓ Slight→Marginal' in compare(new,old,NOW)[0]
+    assert 'decreased Slight to Marginal' in compare(new,old,NOW)[0]
     assert not compare({},old,NOW) # Missing outlook is not a downgrade.
 
 def timing_data(start='2026-10-21T12:00:00Z',end='2026-10-23T12:00:00Z',open_end=False):

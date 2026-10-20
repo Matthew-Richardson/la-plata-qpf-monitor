@@ -61,8 +61,8 @@ def test_message():
 
 def test_material_change_message_is_quick_read_and_directional():
     text=message(report(),"Material change — forecast increased: County increased 0.30in, Upper Pine increased 0.25in")
-    assert text.startswith("LPC precipitation | ↑ Rain increased")
-    assert 'Change: County ↑ 0.30", Upper Pine ↑ 0.25"' in text
+    assert text.startswith("LPC precipitation | Rain increased")
+    assert 'Change: County increased 0.30", Upper Pine increased 0.25"' in text
     assert "Valid:" not in text and "Basins:" not in text
 
 def test_snow_message_collapses_nested_probability_categories():
@@ -83,7 +83,7 @@ def test_snow_message_collapses_nested_probability_categories():
     assert '40–69% for 4+"; 10–39% for 8+"' in text
     assert '70%+ for 4+"; 40–69% for 8+"' in text
     assert text.count('for 4+"')==2
-    assert text.startswith("LPC precipitation | ↑ Snow increased")
+    assert text.startswith("LPC precipitation | Snow increased")
 
 def test_elevation_snow_message():
     current=report()

@@ -14,7 +14,7 @@ from shapely.ops import transform
 
 LOCAL = ZoneInfo("America/Denver")
 RIVERS = {"drgc2": "Animas at Durango", "vnbc2": "Vallecito Creek",
-          "lpac2": "Los Pinos above Vallecito", "lpsc2": "La Plata at state line"}
+          "lpac2": "Los Pinos above Vallecito", "lphc2": "La Plata at Hesperus"}
 TOWNS = {"Durango": (37.2753, -107.8801), "Bayfield": (37.2256, -107.5981),
          "Ignacio": (37.115, -107.633)}
 ERO = "https://mapservices.weather.noaa.gov/vector/rest/services/hazards/wpc_precip_hazards/MapServer"
@@ -156,7 +156,7 @@ def compare(current, previous, now):
             continue
         delta = value["cfs"] - old["cfs"]
         if abs(delta) >= max(100, old["cfs"] * .20):
-            changes.append(f"{name} {'↑' if delta > 0 else '↓'} {old['cfs']:,}→{value['cfs']:,} cfs")
+            changes.append(f"{name} {'increased' if delta > 0 else 'decreased'} {old['cfs']:,} to {value['cfs']:,} cfs")
         elif value["category"] != old["category"] and value["category"] != "undefined":
             changes.append(f"{name}: {old['category']}→{value['category']}")
         elif (value["cfs"] >= 500 and not value["at_horizon"] and not old["at_horizon"]
@@ -168,7 +168,7 @@ def compare(current, previous, now):
         old = previous.get("outlooks", {}).get(key)
         before = old["level"] if old else 0
         if before != value["level"]:
-            label = (f"{'↑' if value['level'] > before else '↓'} {LEVELS[before]}→{LEVELS[value['level']]}"
+            label = (f"{'increased' if value['level'] > before else 'decreased'} {LEVELS[before]} to {LEVELS[value['level']]}"
                      if old else f"{LEVELS[value['level']]} (new monitored period)")
             changes.append(f"WPC risk in part of LPC: {label} | {stamp(value['start'])}–{stamp(value['end'])}")
     for town, value in current.get("timing", {}).items():

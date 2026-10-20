@@ -133,18 +133,17 @@ def short_range(period,include_time=False):
     return f"{start.strftime('%a %-m/%-d')}–{end.strftime('%a %-m/%-d')}"
 
 def alert_heading(reason):
-    if reason.startswith("Material change — forecast increased:"): return "LPC precipitation | ↑ Rain increased"
-    if reason.startswith("Material change — forecast decreased:"): return "LPC precipitation | ↓ Rain decreased"
-    if reason.startswith("Material change — forecast mixed:"): return "LPC precipitation | ↕ Rain mixed"
-    if reason=="Snow guidance increased": return "LPC precipitation | ↑ Snow increased"
-    if reason=="Snow guidance decreased": return "LPC precipitation | ↓ Snow decreased"
-    if reason=="Snow guidance mixed": return "LPC precipitation | ↕ Snow mixed"
+    if reason.startswith("Material change — forecast increased:"): return "LPC precipitation | Rain increased"
+    if reason.startswith("Material change — forecast decreased:"): return "LPC precipitation | Rain decreased"
+    if reason.startswith("Material change — forecast mixed:"): return "LPC precipitation | Rain mixed"
+    if reason=="Snow guidance increased": return "LPC precipitation | Snow increased"
+    if reason=="Snow guidance decreased": return "LPC precipitation | Snow decreased"
+    if reason=="Snow guidance mixed": return "LPC precipitation | Snow mixed"
     return "LPC precipitation | "+reason
 
 def change_line(reason):
     if not reason.startswith("Material change —") or ":" not in reason: return None
     detail=reason.split(":",1)[1].strip()
-    detail=detail.replace(" increased "," ↑ ").replace(" decreased "," ↓ ")
     return "Change: "+re.sub(r"(?<=\d)in\b",'"',detail)
 
 def chance_label(pct,threshold):
