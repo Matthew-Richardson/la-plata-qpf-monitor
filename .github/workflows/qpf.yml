@@ -6,6 +6,7 @@ on:
     paths:
       - 'qpf_monitor.py'
       - 'groupme_notify.py'
+      - 'operational_monitor.py'
       - 'snow_monitor.py'
       - 'requirements.txt'
       - 'tests/**'
@@ -46,7 +47,7 @@ jobs:
             git commit -m "Refresh verified WPC county forecast"
             git push
           fi
-      - name: Notify GroupMe on material QPF changes
+      - name: Notify GroupMe on rainfall, river, flood or timing changes
         if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.event.head_commit.message == 'Trigger scheduled QPF check') }}
         env:
           GROUPME_BOT_ID: ${{ secrets.GROUPME_BOT_ID }}
@@ -54,7 +55,7 @@ jobs:
       - name: Persist notification status after successful delivery
         if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.event.head_commit.message == 'Trigger scheduled QPF check') }}
         run: |
-          git add data/notification_state.json
+          git add data/notification_state.json data/operational_latest.json
           if ! git diff --staged --quiet; then
             git commit -m "Save GroupMe notification state"
             git push

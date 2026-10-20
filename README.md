@@ -26,6 +26,16 @@ The rain message highlights Vallecito Creek, upper Los Pinos, headwaters Florida
 
 ## When GroupMe sends a message
 
+GroupMe also checks official operational guidance on the **same Rain Watch runs**:
+
+- **LPC river forecasts only:** Animas at Durango (DRGC2), Vallecito Creek (VNBC2), Los Pinos above Vallecito Reservoir (LPAC2), and La Plata River at the CO/NM state line (LPSC2). Alert when the forecast maximum changes by at least **20% and 100 cfs**, crosses an action/flood stage category, or its peak shifts by **6 hours** (for flows of at least 500 cfs). Forecasts are converted from kcfs to cfs. This does not monitor out-of-county river forecast points.
+- **WPC excessive-rainfall outlooks, Days 1–5:** check polygons against the actual county boundary. Alert on new risk coverage or an increase/decrease in risk category. The same valid period is tracked across daily layer rollovers. A risk somewhere in the county does not imply the whole county has that category.
+- **NWS hourly timing:** check Durango, Bayfield and Ignacio. Track the next sustained window with hourly precipitation probability at least 50% (at least six wet hours, bridging gaps up to six hours). Alert on a new/removed window or a start/end shift of **6 hours or more**. This is a likely-precipitation window, not an exact onset, ending time, peak-intensity forecast, or interpretation of AFD prose.
+
+Operational messages show the four river forecast peaks in **cfs and local time**. Initial activation sends the current active guidance as its baseline. Subsequent comparisons use the last successfully delivered values, retaining gradual changes between checks. A river forecast at the end of its available horizon is labeled a forecast maximum rather than a confirmed crest.
+
+Unavailable/stale sources are logged and excluded from change detection; their prior delivered values remain intact. River guidance older than 36 hours and NWS hourly forecasts older than 24 hours are not used. Other available sources can still trigger a message. `data/operational_latest.json` records source errors and the latest checked guidance. Quiet hours still apply. Long messages are split at line boundaries to meet GroupMe's length limit. Preview without sending: `python groupme_notify.py --preview`.
+
 After a **successful** scheduled forecast calculation **outside quiet hours**:
 
 | Condition | GroupMe behavior |

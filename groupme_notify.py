@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 import requests
+from operational_monitor import collect, compare, delivered_baseline, message_lines
 
 WATCHED={"Vallecito":"1408010112","Upper Pine":"1408010111","Upper Florida":"1408010407","Animas Canyon":"1408010403","La Plata":"1408010501"}
 SOURCE="https://github.com/Matthew-Richardson/la-plata-qpf-monitor/blob/main/data/latest.md"
@@ -193,21 +194,57 @@ def main():
     parser.add_argument("--force",action="store_true")
     parser.add_argument("--current",default="data/latest.json")
     parser.add_argument("--state",default="data/notification_state.json")
+    parser.add_argument("--preview",action="store_true",help="Fetch and evaluate without sending or saving delivery state")
     args=parser.parse_args()
     report=json.loads(Path(args.current).read_text())
     state_path=Path(args.state)
     state=json.loads(state_path.read_text()) if state_path.exists() else {}
-    reason,new_state=decide(report,state,force=args.force)
+    now=datetime.now(ZoneInfo("America/Denver"))
+    operational=collect(now)
+    for error in operational["errors"]: print("Official source unavailable:",error)
+    Path("data/operational_latest.json").write_text(json.dumps(operational,indent=2)+"\n")
+    reason,new_state=decide(report,state,force=args.force,now=now)
+    changes=compare(operational,state.get("operational",{}),now)
+    if not 6<=now.hour<21:
+        changes=[]
+    if changes:
+        reason=reason or "River / flood / timing change"
+        new_state["last_sent_at"]=now.isoformat()
+    text=None
+    if reason:
+        blocks=[]
+        if reason!="River / flood / timing change": blocks.append(message(report,reason))
+        if changes: blocks.append("\n".join(message_lines(operational,changes)))
+        text="\n\n".join(blocks)
+        new_state["operational"]=delivered_baseline(operational,state.get("operational",{}))
+    if args.preview:
+        print(text or "Quiet: no update required.")
+        return
     if reason:
         bot=os.environ.get("GROUPME_BOT_ID")
         if not bot: raise RuntimeError("Missing GROUPME_BOT_ID Actions secret")
-        response=requests.post("https://api.groupme.com/v3/bots/post",
-                               json={"bot_id":bot,"text":message(report,reason)},timeout=30)
-        response.raise_for_status()
-        print("GroupMe HTTP",response.status_code,reason)
+        # GroupMe bot messages have a 1,000-character limit. Preserve whole lines.
+        for part in message_parts(text):
+            response=requests.post("https://api.groupme.com/v3/bots/post",
+                                   json={"bot_id":bot,"text":part},timeout=30)
+            response.raise_for_status()
+            print("GroupMe HTTP",response.status_code,reason)
     else: print("Quiet: no update required.")
     state_path.parent.mkdir(parents=True,exist_ok=True)
     state_path.write_text(json.dumps(new_state,indent=2)+"\n")
+
+def message_parts(text,limit=950):
+    parts=[]; current=""
+    for line in text.splitlines():
+        while len(line)>limit:
+            if current: parts.append(current); current=""
+            parts.append(line[:limit]); line=line[limit:]
+        candidate=current+"\n"+line if current else line
+        if len(candidate)>limit:
+            parts.append(current); current=line
+        else: current=candidate
+    if current: parts.append(current)
+    return parts
 if __name__=="__main__": main()
 
 
