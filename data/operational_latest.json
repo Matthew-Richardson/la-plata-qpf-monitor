@@ -1,44 +1,20 @@
 {
   "rivers": {
     "drgc2": {
-      "cfs": 6000,
-      "time": "2026-10-23T18:00:00Z",
+      "cfs": 7210,
+      "time": "2026-10-24T00:00:00Z",
       "category": "below action",
-      "stage_ft": 6.46,
-      "issued": "2026-10-20T16:59:00Z",
-      "at_horizon": false
-    },
-    "vnbc2": {
-      "cfs": 1410,
-      "time": "2026-10-23T06:00:00Z",
-      "category": "undefined",
-      "stage_ft": 3.32,
-      "issued": "2026-10-20T14:49:00Z",
-      "at_horizon": false
-    },
-    "lpac2": {
-      "cfs": 1950,
-      "time": "2026-10-23T06:00:00Z",
-      "category": "undefined",
-      "stage_ft": 6.33,
-      "issued": "2026-10-20T14:49:00Z",
-      "at_horizon": false
-    },
-    "lphc2": {
-      "cfs": 442,
-      "time": "2026-10-23T06:00:00Z",
-      "category": "below action",
-      "stage_ft": 4.98,
-      "issued": "2026-10-20T14:49:00Z",
+      "stage_ft": 6.97,
+      "issued": "2026-10-21T16:40:00Z",
       "at_horizon": false
     }
   },
   "outlooks": {
     "2026-10-22T12:00:00+00:00": {
       "level": 2,
-      "start": "2026-10-21T12:00:00Z",
+      "start": "2026-10-21T16:00:00Z",
       "end": "2026-10-22T12:00:00Z",
-      "issued": "2026-10-21T11:50:00+00:00"
+      "issued": "2026-10-21T15:47:00+00:00"
     },
     "2026-10-23T12:00:00+00:00": {
       "level": 3,
@@ -68,29 +44,33 @@
   "timing": {
     "Durango": {
       "window": {
-        "start": "2026-10-21T10:00:00-06:00",
-        "end": "2026-10-23T12:00:00-06:00",
+        "start": "2026-10-21T12:00:00-06:00",
+        "end": "2026-10-25T06:00:00-06:00",
         "open_end": false
       },
-      "issued": "2026-10-21T11:22:09+00:00"
+      "issued": "2026-10-21T18:32:01+00:00"
     },
     "Bayfield": {
       "window": {
-        "start": "2026-10-21T11:00:00-06:00",
-        "end": "2026-10-25T12:00:00-06:00",
+        "start": "2026-10-21T12:00:00-06:00",
+        "end": "2026-10-25T06:00:00-06:00",
         "open_end": false
       },
-      "issued": "2026-10-21T11:22:09+00:00"
+      "issued": "2026-10-21T18:32:01+00:00"
     },
     "Ignacio": {
       "window": {
-        "start": "2026-10-21T11:00:00-06:00",
-        "end": "2026-10-23T18:00:00-06:00",
+        "start": "2026-10-21T12:00:00-06:00",
+        "end": "2026-10-25T06:00:00-06:00",
         "open_end": false
       },
-      "issued": "2026-10-21T11:22:09+00:00"
+      "issued": "2026-10-21T18:32:01+00:00"
     }
   },
-  "errors": [],
-  "checked": "2026-10-21T12:37:26.945218+00:00"
+  "errors": [
+    "rivers/vnbc2: no future river forecast",
+    "rivers/lpac2: no future river forecast",
+    "rivers/lphc2: no future river forecast"
+  ],
+  "checked": "2026-10-21T18:50:00.167486+00:00"
 }
