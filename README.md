@@ -1,6 +1,6 @@
 # La Plata County WPC QPF Monitor
 
-Automated county and watershed precipitation forecasts, using [NOAA WPC QPF](https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml), the U.S. Census La Plata County boundary (FIPS 08067), and USGS HUC8/HUC10 watershed polygons. Reports are **forecast liquid-equivalent precipitation in inches**, not observed rainfall or flood-stage predictions.
+Automated county and watershed precipitation forecasts, using [NOAA WPC QPF](https://www.wpc.ncep.noaa.gov/qpf/day1-7.shtml), the U.S. Census La Plata County boundary (FIPS 08067), USGS gauge-upstream basin delineations, and USGS HUC8/HUC10 watershed polygons. Reports are **forecast liquid-equivalent precipitation in inches**, not observed rainfall or flood-stage predictions.
 
 ## Daily schedule — La Plata County local time
 
@@ -16,7 +16,7 @@ Dates and valid periods in messages use **America/Denver** local time, respectin
 ## Forecast sources and message timestamps
 
 - **WPC QPF** is the primary numerical source for county, period and highlighted-area precipitation totals, including Days 1–7. Trend language such as **increased** or **decreased** compares WPC with WPC.
-- **NBM deterministic QPF** provides a clearly labeled seven-day comparison for the county and the five highlighted HUC10 areas. The monitor uses the newest verified complete 00/06/12/18Z cycle: hourly accumulations through hour 48 and non-overlapping six-hour accumulations through hour 168. NBM does not replace WPC, drive wet/dry status, or trigger material-change language.
+- **NBM deterministic QPF** provides a clearly labeled seven-day comparison for the county and five gauge-upstream catchments. The monitor uses the newest verified complete 00/06/12/18Z cycle: hourly accumulations through hour 48 and non-overlapping six-hour accumulations through hour 168. NBM does not replace WPC, drive wet/dry status, or trigger material-change language.
 - **NWS Grand Junction / NDFD** supplies local precipitation timing and operational context. It may be used as a clearly labeled short-range fallback when a newer WPC graphical forecast is available but WPC numerical GIS files are still pending. NWS/NDFD totals are never silently substituted for WPC totals or compared against earlier WPC totals as a forecast change.
 - **NWS river forecasts** are a separate product and remain in a separate GroupMe text.
 
@@ -40,12 +40,13 @@ Each successful analysis updates [data/latest.md](data/latest.md) and [data/late
 
 - La Plata County area-weighted QPF mean, mapped minimum and maximum
 - Full USGS HUC8 and finer HUC10 watershed averages and ranges, including upstream/out-of-county areas
+- WPC averages for the USGS NLDI basin delineations upstream of Vallecito Creek near Bayfield, Los Pinos River above Vallecito Reservoir, Florida River above Lemon Reservoir, Animas River at Durango and La Plata River at Hesperus
 - Day 1, Day 2, Day 3, Days 4–5, Days 6–7, and seven-day QPF
 - WPC issue times and valid forecast periods
-- Newest complete NBM 168-hour deterministic cycle, valid period, county/HUC10 point means, and grid-point counts
+- Newest complete NBM 168-hour deterministic cycle, valid period, county/gauge-catchment point means, and grid-point counts
 - **Snow:** NOAA WPC Days 1–3 probabilities for ≥4, ≥8, and ≥12 inches, summarized within La Plata County as below 7,000 feet, 7,000–9,000 feet, and above 9,000 feet using the USGS 3DEP elevation service
 
-The rain message highlights Vallecito Creek, upper Los Pinos, headwaters Florida River, Animas Canyon, and headwaters La Plata River HUC10 units. HUC10 units **are not exact gauge-upstream catchments**. Snow is presented by elevation rather than watershed.
+The rain message uses five gauge-upstream catchments rather than general HUC10 units: Vallecito Creek near Bayfield, Los Pinos River above Vallecito Reservoir, Florida River above Lemon Reservoir, Animas River at Durango and La Plata River at Hesperus. The full HUC tables remain in `data/latest.md` for reference. Snow is presented by elevation rather than watershed.
 
 ## When GroupMe sends a message
 
@@ -69,7 +70,7 @@ After a **successful** scheduled forecast calculation **outside quiet hours**:
 | --- | --- |
 | New wet pattern (liquid QPF or mapped ≥10% probability of ≥4 inches of snow somewhere in county in Days 1–3) | Send an initial briefing |
 | Snow probability area appears or the category/threshold changes | Send updated snow guidance, labeled **increased**, **decreased**, or **mixed**, even if liquid QPF is unchanged |
-| During wet pattern, county or highlighted HUC10 seven-day average changes by **0.25 in or more** versus last sent values | Send an updated briefing (morning or evening) that explicitly says **increased**, **decreased**, or **mixed**, with the direction for every changed area |
+| During wet pattern, county or gauge-catchment seven-day average changes by **0.25 in or more** versus last sent values | Send an updated briefing (morning or evening) that explicitly says **increased**, **decreased**, or **mixed**, with the direction for every changed area |
 | Wet pattern continues without material changes | Send a weather outlook **at both the morning and evening Rain Watch checks**, followed by a **separate LPC river forecast text**; explicitly label unchanged guidance |
 | First dry forecast while previously wet | Continue checking; do not announce the end yet |
 | **Two consecutive dry forecasts** | Send one final message: “Returned to dry pattern; routine alerts paused” |
@@ -80,10 +81,10 @@ After a **successful** scheduled forecast calculation **outside quiet hours**:
 
 **Threshold definitions** (seven-day area-weighted QPF):
 
-- **Wet:** county average **>= 0.50 in**, OR any highlighted HUC10 average **>= 1.00 in**, OR a WPC Day 1–3 snowfall probability polygon (≥10% chance of ≥4 in snow) intersects any portion of the county.
-- **Dry:** county average **< 0.25 in** AND **all** highlighted HUC10 averages **< 0.50 in**, AND **no** Day 1–3 WPC ≥4 in snow probability polygon intersects the county, on **two consecutive successful forecasts**.
+- **Wet:** county average **>= 0.50 in**, OR any monitored gauge-catchment average **>= 1.00 in**, OR a WPC Day 1–3 snowfall probability polygon (≥10% chance of ≥4 in snow) intersects any portion of the county.
+- **Dry:** county average **< 0.25 in** AND **all** monitored gauge-catchment averages **< 0.50 in**, AND **no** Day 1–3 WPC ≥4 in snow probability polygon intersects the county, on **two consecutive successful forecasts**.
 - Between wet and dry thresholds the state is retained to avoid notification flapping.
-- A **material change** is an absolute increase or decrease **>= 0.25 in** in county or a highlighted HUC10 seven-day average since the last sent wet briefing.
+- A **material change** is an absolute increase or decrease **>= 0.25 in** in county or a monitored gauge-catchment seven-day average since the last sent wet briefing.
 - Material-change headlines state whether the forecast **increased**, **decreased**, or contains **mixed** changes. Each changed county/basin value also states its own direction and amount.
 
 No emails or SMS are configured. GroupMe notifications go to the private group through a bot. The bot ID is held in the GitHub Actions secret `GROUPME_BOT_ID` and is not checked into source control. Notification state persists in `data/notification_state.json` after successful scheduled/manual checks.
@@ -97,8 +98,8 @@ LPC precipitation | No material changes
 Rain | Tue 10/20 6 AM–Tue 10/27 6 AM
 County 7-day avg: 2.82" (range 2.00–4.00")
 Days 1–3 (Tue 10/20–Fri 10/23): 2.64" | Days 4–5 (Fri 10/23–Sun 10/25): 0.13" | Days 6–7 (Sun 10/25–Tue 10/27): 0.00"
-Areas, 7-day avg: Vallecito 3.51" | Upper Pine 3.38" | Upper Florida 3.43" | Animas Canyon 3.01" | La Plata 2.40"
-NBM comparison: County 0.71" lower at 2.11"; eastern basins 0.38–0.71" lower; La Plata 0.67" lower
+Gauge basins, 7-day avg: Vallecito 3.51" | Los Pinos 3.38" | Lemon 3.20" | Animas 3.01" | La Plata 2.40"
+NBM comparison: County 0.71" lower at 2.11"; eastern gauge basins 0.38–0.71" lower; La Plata 0.67" lower
 Snow | No mapped 10%+ chance of 4"; lighter snow remains possible
 Issued | WPC Tue 10/20, 4:31 AM MDT | NBM Tue 10/20, 6:00 PM MDT | NWS GJT Tue 10/20, 6:16 PM MDT
 ```
@@ -136,7 +137,8 @@ Go to [Actions → La Plata WPC QPF](../../actions/workflows/qpf.yml), select **
 - WPC's mapped precipitation polygons approximate forecast ranges; an area outside mapped precipitation contours is treated as zero in the area-weighted estimate (a lower-bound assumption).
 - Seven-day precipitation amounts alone do not determine flash flood risk, short-duration rainfall intensity, or river crests.
 - NOAA issue periods can differ across products; interpret sums of independently rounded periods cautiously.
-- WPC and NBM can have different rolling valid periods. The NBM line is model comparison guidance, not a like-for-like trend statement. NBM values are means of approximately 2.5-km grid-cell centers inside each polygon; small areas and boundary cells introduce sampling uncertainty.
+- WPC and NBM can have different rolling valid periods. The NBM line is model comparison guidance, not a like-for-like trend statement. NBM values are means of approximately 2.5-km grid-cell centers inside each gauge-catchment polygon; small areas and boundary cells introduce sampling uncertainty.
+- Gauge catchments come from USGS National Linked Data Index basin delineations. They are more relevant to a specific gauge than HUC10 boundaries, but they do not reproduce NWS river-model routing, antecedent soil conditions, reservoir storage or controlled releases.
 - A full 168-hour NBM total is calculated only from complete 00/06/12/18Z cycles whose accumulation windows tile the entire week without gaps or overlaps. If NBM is delayed or unavailable, the WPC calculation and message continue without the comparison line.
 - GitHub scheduled starts are approximate; failures leave the previous valid result intact.
 - The ChatGPT **La Plata Rain Watch** owns the twice-daily timing; GitHub cron and the separate QPF trigger task are intentionally disabled to avoid delayed or duplicate runs.
