@@ -1,6 +1,6 @@
 # La Plata County WPC QPF
 
-Generated UTC: 2026-10-21T04:59:26.943685+00:00
+Generated UTC: 2026-10-21T12:37:22.351214+00:00
 
 | Period | Avg (in) | Min (in) | Max (in) | Coverage | WPC issue |
 |---|---:|---:|---:|---:|---|
@@ -96,16 +96,16 @@ Full HUC10 polygons intersecting La Plata County, plus upstream HUC10 units with
 
 ## NBM seven-day comparison
 
-Cycle UTC: 2026-10-21T00:00:00+00:00
+Cycle UTC: 2026-10-21T06:00:00+00:00
 
 | Area | NBM avg (in) | Grid points |
 |---|---:|---:|
-| La Plata County | 2.11 | 715 |
-| Vallecito | 2.84 | 51 |
-| Upper Pine | 2.67 | 55 |
-| Upper Florida | 2.88 | 46 |
-| Animas Canyon | 2.63 | 39 |
-| La Plata | 1.73 | 130 |
+| La Plata County | 2.15 | 715 |
+| Vallecito | 3.13 | 51 |
+| Upper Pine | 2.99 | 55 |
+| Upper Florida | 3.13 | 46 |
+| Animas Canyon | 2.56 | 39 |
+| La Plata | 1.52 | 130 |
 
 QPF averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities.
 

@@ -2196,7 +2196,7 @@
   },
   "watershed_source": "https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4",
   "watershed_level": "USGS HUC8 full subbasins intersecting La Plata County",
-  "generated_utc": "2026-10-21T04:59:26.943685+00:00",
+  "generated_utc": "2026-10-21T12:37:22.351214+00:00",
   "location": "La Plata County CO",
   "source": "https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/MapServer",
   "periods": {
@@ -2276,10 +2276,10 @@
   "nbm": {
     "status": "complete",
     "source": "https://noaa-nbm-grib2-pds.s3.amazonaws.com",
-    "cycle_utc": "2026-10-21T00:00:00+00:00",
+    "cycle_utc": "2026-10-21T06:00:00+00:00",
     "valid_period": [
-      "2026-10-21T00:00:00+00:00",
-      "2026-10-28T00:00:00+00:00"
+      "2026-10-21T06:00:00+00:00",
+      "2026-10-28T06:00:00+00:00"
     ],
     "forecast_hours": [
       1,
@@ -2354,27 +2354,27 @@
     "grid": "NBM CONUS core deterministic, approximately 2.5 km",
     "totals": {
       "county": {
-        "average_in": 2.11,
+        "average_in": 2.146,
         "grid_points": 715
       },
       "1408010112": {
-        "average_in": 2.841,
+        "average_in": 3.132,
         "grid_points": 51
       },
       "1408010111": {
-        "average_in": 2.671,
+        "average_in": 2.993,
         "grid_points": 55
       },
       "1408010407": {
-        "average_in": 2.878,
+        "average_in": 3.127,
         "grid_points": 46
       },
       "1408010403": {
-        "average_in": 2.631,
+        "average_in": 2.556,
         "grid_points": 39
       },
       "1408010501": {
-        "average_in": 1.727,
+        "average_in": 1.525,
         "grid_points": 130
       }
     },
