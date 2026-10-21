@@ -12,6 +12,27 @@ Runs are serialized to protect forecast and notification state. GroupMe delivery
 
 Dates and valid periods in messages use **America/Denver** local time, respecting daylight saving time.
 
+
+## Forecast sources and message timestamps
+
+- **WPC QPF** is the primary numerical source for county, period and highlighted-area precipitation totals, including Days 1–7. Trend language such as **increased** or **decreased** compares WPC with WPC.
+- **NWS Grand Junction / NDFD** supplies local precipitation timing and operational context. It may be used as a clearly labeled short-range fallback when a newer WPC graphical forecast is available but WPC numerical GIS files are still pending. NWS/NDFD totals are never silently substituted for WPC totals or compared against earlier WPC totals as a forecast change.
+- **NWS river forecasts** are a separate product and remain in a separate GroupMe text.
+
+Product times mean the source's **issuance time**, not the time the monitor checked the source. The weather text uses one compact line:
+
+`Issued | WPC QPF: Tue 10/20, 4:31 AM MDT | NWS GJT: Tue 10/20, 6:16 PM MDT`
+
+When a newer WPC numerical file is pending, the same line identifies both the pending status and the latest available WPC cycle:
+
+`Issued | WPC numerical update pending; latest Tue 10/20, 4:31 AM MDT | NWS GJT: Tue 10/20, 6:16 PM MDT`
+
+The separate river text identifies its own forecast cycle:
+
+`NWS river forecast issued Tue 10/20, 8:35 AM MDT`
+
+These timestamps are examples of formatting only; each run uses the actual latest verified issuance times.
+
 ## What is calculated
 
 Each successful analysis updates [data/latest.md](data/latest.md) and [data/latest.json](data/latest.json) with:
@@ -34,7 +55,7 @@ GroupMe also checks official operational guidance on the **same Rain Watch runs*
 
 Wet-period delivery is a pair: **weather first, rivers second**, at the existing 6:30 AM and 6:30 PM Mountain Time checks. Each pair includes current guidance even when unchanged (four GroupMe texts per wet day). Within a morning/afternoon slot, unchanged duplicate runs are suppressed; material changes or a forced manual run can still send another pair. Dry periods remain quiet unless a material operational change occurs. No extra schedule was added. Messages use plain text without emojis.
 
-The river message shows the four river forecast peaks in **cfs and local time**. Initial activation sends the current active guidance as its baseline. Subsequent comparisons use the last successfully delivered values. A forecast maximum at the end of the available horizon is not presented as a confirmed crest. Delivery baselines advance only after both texts succeed; a partial send can repeat the first text on retry.
+The river message shows the four river forecast peaks in **cfs and local time** and identifies the NWS river-forecast issuance time. Initial activation sends the current active guidance as its baseline. Subsequent comparisons use the last successfully delivered values. A forecast maximum at the end of the available horizon is not presented as a confirmed crest. Delivery baselines advance only after both texts succeed; a partial send can repeat the first text on retry.
 
 Every river text explicitly labels **ACTION STAGE**, **MINOR FLOOD STAGE**, **MODERATE FLOOD STAGE**, or **MAJOR FLOOD STAGE** whenever forecast, including unchanged forecasts, and includes the forecast height in feet. Below-action forecasts and gauges without defined stage thresholds are labeled separately. Classification uses official stage heights rather than comparing flow alone with potentially different published cfs thresholds.
 
@@ -67,15 +88,28 @@ No emails or SMS are configured. GroupMe notifications go to the private group t
 
 ### Example GroupMe notification
 
-The following illustrates the format, using the **October 8, 2026** NOAA WPC values, **not a new live forecast**. Dates use La Plata County local time.
+The following illustrates the preserved rain-message format using the **October 20, 2026** WPC values, **not a new live forecast**. Dates and times use La Plata County local time.
 
 ```text
 LPC precipitation | No material changes
-Rain | Thu 10/8 6 AM–Thu 10/15 6 AM
-County 7-day avg: 2.95" (range 1.50–5.00")
-Days 1–3 (Thu 10/8–Sun 10/11): 0.25" | Days 4–5: 0.97" | Days 6–7: 1.71"
-Areas, 7-day avg: Vallecito 4.00" | Upper Pine 3.88" | Upper Florida 3.93" | Animas Canyon 3.72" | La Plata 1.85"
+Rain | Tue 10/20 6 AM–Tue 10/27 6 AM
+County 7-day avg: 2.82" (range 2.00–4.00")
+Days 1–3 (Tue 10/20–Fri 10/23): 2.64" | Days 4–5 (Fri 10/23–Sun 10/25): 0.13" | Days 6–7 (Sun 10/25–Tue 10/27): 0.00"
+Areas, 7-day avg: Vallecito 3.51" | Upper Pine 3.38" | Upper Florida 3.43" | Animas Canyon 3.01" | La Plata 2.40"
 Snow | No mapped 10%+ chance of 4"; lighter snow remains possible
+Issued | WPC QPF: Tue 10/20, 4:31 AM MDT | NWS GJT: Tue 10/20, 6:16 PM MDT
+```
+
+If WPC numerical GIS data lag behind a newer graphical or NWS forecast, preserve the same short structure and label the missing totals rather than mixing forecast sources:
+
+```text
+LPC precipitation | WPC update pending
+Rain | Heaviest Wednesday night–Thursday
+County 7-day avg: WPC numerical update pending
+NWS forecast: 1–3" across the southern mountains; 2–4"+ near the San Juans and southern foothills
+Areas, 7-day avg: WPC numerical update pending
+Snow | Mainly above 12,000–13,000 feet Thursday
+Issued | WPC numerical update pending; latest Tue 10/20, 4:31 AM MDT | NWS GJT: Tue 10/20, 6:16 PM MDT
 ```
 
 **Example snowfall addendum for a hypothetical winter storm (not a current NOAA forecast):**
