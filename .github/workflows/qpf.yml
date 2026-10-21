@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'qpf_monitor.py'
+      - 'nbm_monitor.py'
       - 'groupme_notify.py'
       - 'operational_monitor.py'
       - 'snow_monitor.py'
@@ -20,7 +21,7 @@ concurrency:
 jobs:
   calculate:
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

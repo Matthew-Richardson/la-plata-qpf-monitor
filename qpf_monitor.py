@@ -8,12 +8,14 @@ from urllib3.util.retry import Retry
 from shapely.geometry import shape
 from shapely.ops import transform, unary_union
 from pyproj import Transformer
+from nbm_monitor import calculate as calculate_nbm
 
 WPC="https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/MapServer"
 COUNTY="https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/27"
 WATERSHEDS="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4"
 WATERSHEDS10="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/5"
 LAYERS={"Day 1":1,"Day 2":2,"Day 3":3,"Days 4-5":4,"Days 6-7":5,"Days 1-7":11}
+WATCHED_HUC10=("1408010112","1408010111","1408010407","1408010403","1408010501")
 PROJECT=Transformer.from_crs("EPSG:4326","EPSG:5070",always_xy=True).transform
 SESSION=requests.Session()
 SESSION.headers["User-Agent"]="LaPlata-QPF-Monitor/1.0"
@@ -164,9 +166,16 @@ def run():
             attr=meta[0]["attributes"]
             output[label]["issue_time"]=attr.get("issue_time")
             output[label]["valid_period"]=[attr.get("start_time"),attr.get("end_time")]
+    nbm_regions={"county":geom}
+    nbm_regions.update({code:fine_basins[code]["geometry"] for code in WATCHED_HUC10})
+    try:
+        nbm=calculate_nbm(nbm_regions)
+    except Exception as exc:
+        nbm={"status":"unavailable","source":"https://noaa-nbm-grib2-pds.s3.amazonaws.com","error":str(exc)}
+        print("NBM comparison unavailable:",exc)
     report={"huc10_watersheds":fine_output,"huc10_source":WATERSHEDS10,"watersheds":watershed_output,"watershed_source":WATERSHEDS,"watershed_level":"USGS HUC8 full subbasins intersecting La Plata County",
             "generated_utc":datetime.now(timezone.utc).isoformat(),"location":"La Plata County CO",
-            "source":WPC,"periods":output,"caveats":"QPF polygon averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities."}
+            "source":WPC,"periods":output,"nbm":nbm,"caveats":"QPF averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities."}
     Path("data").mkdir(exist_ok=True)
     Path("data/latest.json").write_text(json.dumps(report,indent=2)+"\n")
     lines=["# La Plata County WPC QPF","",f"Generated UTC: {report['generated_utc']}","","| Period | Avg (in) | Min (in) | Max (in) | Coverage | WPC issue |","|---|---:|---:|---:|---:|---|"]
@@ -199,6 +208,14 @@ def run():
     for code,basin in sorted(fine_output.items(),key=lambda x:(x[1]["parent_huc8"],x[1]["name"])):
         p=basin["periods"]
         lines.append("| "+basin["name"]+" ("+code+") | "+" | ".join(f"{p[label]['average_in']:.2f}" for label in LAYERS)+" |")
+    lines.extend(["", "## NBM seven-day comparison", ""])
+    if nbm.get("status")=="complete":
+        lines.extend([f"Cycle UTC: {nbm['cycle_utc']}", "", "| Area | NBM avg (in) | Grid points |", "|---|---:|---:|"])
+        names={"county":"La Plata County","1408010112":"Vallecito","1408010111":"Upper Pine","1408010407":"Upper Florida","1408010403":"Animas Canyon","1408010501":"La Plata"}
+        for code,row in nbm["totals"].items():
+            lines.append(f"| {names.get(code,code)} | {row['average_in']:.2f} | {row['grid_points']} |")
+    else:
+        lines.append("Unavailable for this run: "+nbm.get("error","unknown error"))
     lines.extend(["",report["caveats"],"",
         "HUC10 boundaries are not exact upstream catchments for a particular stream gauge.",
         f"Source: {WPC}",f"Watershed boundaries: {WATERSHEDS}; {WATERSHEDS10}"])

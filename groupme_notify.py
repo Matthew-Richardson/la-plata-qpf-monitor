@@ -7,6 +7,7 @@ import requests
 from operational_monitor import collect, compare, delivered_baseline, RIVERS, LEVELS, stamp, dt
 
 WATCHED={"Vallecito":"1408010112","Upper Pine":"1408010111","Upper Florida":"1408010407","Animas Canyon":"1408010403","La Plata":"1408010501"}
+EASTERN=("Vallecito","Upper Pine","Upper Florida","Animas Canyon")
 SOURCE="https://github.com/Matthew-Richardson/la-plata-qpf-monitor/blob/main/data/latest.md"
 
 def normalize_snow_signature(rows):
@@ -152,6 +153,33 @@ def chance_label(pct,threshold):
     chance=f"{pct}%+" if pct>=70 else f"{pct}–{39 if pct==10 else 69}%"
     return f"{chance} for {threshold}+\""
 
+def nbm_comparison_line(report):
+    """Compact model comparison; WPC remains the trend and notification baseline."""
+    nbm=report.get("nbm",{})
+    if nbm.get("status")!="complete": return None
+    values=nbm.get("totals",{})
+    if "county" not in values or any(code not in values for code in WATCHED.values()): return None
+    wpc=totals(report)
+    county=values["county"]["average_in"]
+    delta=county-wpc["county"]
+    if abs(delta)<0.10:
+        parts=[f"County similar at {county:.2f}\""]
+    else:
+        parts=[f"County {abs(delta):.2f}\" {'higher' if delta>0 else 'lower'} at {county:.2f}\""]
+    differences={name:values[code]["average_in"]-wpc[name] for name,code in WATCHED.items()}
+    used=set()
+    for direction,positive in (("higher",True),("lower",False)):
+        names=[name for name,diff in differences.items() if abs(diff)>=0.10 and (diff>0)==positive]
+        if set(names)==set(EASTERN):
+            amounts=[abs(differences[name]) for name in names]
+            amount=f"{min(amounts):.2f}–{max(amounts):.2f}\"" if max(amounts)-min(amounts)>=0.005 else f"{amounts[0]:.2f}\""
+            parts.append(f"eastern basins {amount} {direction}")
+            used.update(names)
+        for name in names:
+            if name not in used:
+                parts.append(f"{name} {abs(differences[name]):.2f}\" {direction}")
+    return "NBM comparison: "+"; ".join(parts)
+
 def message(report,reason):
     p=report["periods"];t=totals(report)
     day123=sum(p[k]["average_in"] for k in ("Day 1","Day 2","Day 3"))
@@ -164,6 +192,8 @@ def message(report,reason):
         f"County 7-day avg: {t['county']:.2f}\" (range {p['Days 1-7']['min_in']:.2f}–{p['Days 1-7']['max_in']:.2f}\")",
         f"Days 1–3 ({short_range(first)}): {day123:.2f}\" | Days 4–5 ({short_range(p['Days 4-5'])}): {p['Days 4-5']['average_in']:.2f}\" | Days 6–7 ({short_range(p['Days 6-7'])}): {p['Days 6-7']['average_in']:.2f}\"",
         "Areas, 7-day avg: "+" | ".join(f"{n} {t[n]:.2f}\"" for n in WATCHED)]
+    comparison=nbm_comparison_line(report)
+    if comparison: lines.append(comparison)
     snow=report.get("snow",{})
     if "periods" in snow:
         if snow.get("active"):
@@ -193,7 +223,22 @@ def message(report,reason):
     return "\n".join(lines)
 
 def weather_brief(report,operational,reason,changes,now):
-    return message(report,reason)
+    text=message(report,reason)
+    def source_time(value):
+        if isinstance(value,(int,float)):
+            value=datetime.fromtimestamp(value/(1000 if value>1e11 else 1),timezone.utc)
+        else:
+            value=datetime.fromisoformat(str(value).replace("Z","+00:00"))
+            if value.tzinfo is None: value=value.replace(tzinfo=timezone.utc)
+        return value.astimezone(ZoneInfo("America/Denver")).strftime("%a %-m/%-d, %-I:%M %p %Z")
+    items=[]
+    wpc=report.get("periods",{}).get("Days 1-7",{}).get("issue_time")
+    if wpc: items.append("WPC "+source_time(wpc))
+    nbm=report.get("nbm",{})
+    if nbm.get("status")=="complete": items.append("NBM "+source_time(nbm["cycle_utc"]))
+    nws=[row.get("issued") for row in operational.get("timing",{}).values() if row.get("issued")]
+    if nws: items.append("NWS GJT "+source_time(max(nws,key=lambda value:dt(value))))
+    return text+("\nIssued | "+" | ".join(items) if items else "")
 
 def river_brief(operational,changes,now):
     lines=[now.strftime('LPC river forecast peaks | %a %-m/%-d')]

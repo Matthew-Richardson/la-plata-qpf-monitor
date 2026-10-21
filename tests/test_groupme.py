@@ -1,7 +1,7 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import pytest
-from groupme_notify import decide, message
+from groupme_notify import decide, message, nbm_comparison_line
 
 def report(q=2.0):
     return {"periods": {**{name:{"average_in":0.1,"valid_period":["2026-10-08 12:00:00","2026-10-09 12:00:00"]} for name in ("Day 1","Day 2","Day 3","Days 4-5","Days 6-7")},
@@ -65,6 +65,24 @@ def test_message():
     assert "County 7-day avg" in text
     assert 'La Plata 2.00"' in text
     assert "flood guidance" not in text
+
+def test_nbm_comparison_is_compact_and_directional():
+    current=report()
+    current["nbm"]={"status":"complete","totals":{
+        "county":{"average_in":1.95},
+        "1408010112":{"average_in":2.30},
+        "1408010111":{"average_in":2.38},
+        "1408010407":{"average_in":2.35},
+        "1408010403":{"average_in":2.31},
+        "1408010501":{"average_in":1.76}}}
+    line=nbm_comparison_line(current)
+    assert line=='NBM comparison: County similar at 1.95"; eastern basins 0.30–0.38" higher; La Plata 0.24" lower'
+    assert line in message(current,"No material changes")
+
+def test_missing_nbm_does_not_change_weather_message():
+    current=report()
+    current["nbm"]={"status":"unavailable","error":"test"}
+    assert "NBM comparison" not in message(current,"No material changes")
 
 def test_material_change_message_is_quick_read_and_directional():
     text=message(report(),"Material change — forecast increased: County increased 0.30in, Upper Pine increased 0.25in")
