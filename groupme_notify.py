@@ -6,8 +6,8 @@ from zoneinfo import ZoneInfo
 import requests
 from operational_monitor import collect, compare, delivered_baseline, RIVERS, LEVELS, stamp, dt
 
-WATCHED={"Vallecito":"1408010112","Upper Pine":"1408010111","Upper Florida":"1408010407","Animas Canyon":"1408010403","La Plata":"1408010501"}
-EASTERN=("Vallecito","Upper Pine","Upper Florida","Animas Canyon")
+WATCHED={"Vallecito":"09352900","Los Pinos":"09352800","Lemon":"09362750","Animas":"09361500","La Plata":"09365500"}
+EASTERN=("Vallecito","Los Pinos","Lemon","Animas")
 SOURCE="https://github.com/Matthew-Richardson/la-plata-qpf-monitor/blob/main/data/latest.md"
 
 def normalize_snow_signature(rows):
@@ -48,7 +48,7 @@ def snow_elevation_summary(snow):
 
 def totals(r):
     return {"county":r["periods"]["Days 1-7"]["average_in"],
-            **{name:r["huc10_watersheds"][huc]["periods"]["Days 1-7"]["average_in"] for name,huc in WATCHED.items()}}
+            **{name:r["gauge_catchments"][site]["periods"]["Days 1-7"]["average_in"] for name,site in WATCHED.items()}}
 
 def wet_slot(now):
     return now.date().isoformat()+(" AM" if now.hour<12 else " PM")
@@ -67,9 +67,13 @@ def decide(report,state,force=False,now=None):
     streak=(state.get("dry_streak",0)+1) if dry else 0
     previous=state.get("status","dry")
     status="wet" if wet else ("dry" if previous=="wet" and streak>=2 else previous)
-    changes=[(n,t[n]-state["last_alert_totals"].get(n,t[n]))
-             for n in t if state.get("last_alert_totals") and
-             abs(t[n]-state["last_alert_totals"].get(n,t[n]))>=0.25]
+    schema=report.get("area_schema","huc10-v1")
+    baseline=state.get("last_alert_totals") or {}
+    if state.get("qpf_area_schema")!=schema:
+        # Preserve a valid county-to-county comparison while suppressing false
+        # watershed changes during the one-time HUC10-to-gauge migration.
+        baseline={"county":baseline["county"]} if "county" in baseline else {}
+    changes=[(n,t[n]-baseline[n]) for n in t if n in baseline and abs(t[n]-baseline[n])>=0.25]
     reason=None
     previous_snow=normalize_snow_signature(state.get("snow_signature",[]))
     elevation_signature=snow_elevation_summary(snow)
@@ -97,8 +101,11 @@ def decide(report,state,force=False,now=None):
     if force and not reason:
         reason="Manual status: "+("No material changes" if status=="wet" else "Dry pattern; monitoring continues")
     next_state={**state,"status":status,"dry_streak":streak,
+                "qpf_area_schema":schema,
                 "snow_signature":[list(x) for x in snow_signature],
                 "snow_elevation_signature":[list(x) for x in elevation_signature]}
+    if state.get("qpf_area_schema")!=schema and status=="wet":
+        next_state["last_alert_totals"]=t
     if reason:
         next_state["last_sent_at"]=now.isoformat()
         if status=="wet": next_state["wet_update_slot"]=wet_slot(now)
@@ -158,7 +165,7 @@ def nbm_comparison_line(report):
     nbm=report.get("nbm",{})
     if nbm.get("status")!="complete": return None
     values=nbm.get("totals",{})
-    if "county" not in values or any(code not in values for code in WATCHED.values()): return None
+    if "county" not in values or any(site not in values for site in WATCHED.values()): return None
     wpc=totals(report)
     county=values["county"]["average_in"]
     delta=county-wpc["county"]
@@ -166,14 +173,14 @@ def nbm_comparison_line(report):
         parts=[f"County similar at {county:.2f}\""]
     else:
         parts=[f"County {abs(delta):.2f}\" {'higher' if delta>0 else 'lower'} at {county:.2f}\""]
-    differences={name:values[code]["average_in"]-wpc[name] for name,code in WATCHED.items()}
+    differences={name:values[site]["average_in"]-wpc[name] for name,site in WATCHED.items()}
     used=set()
     for direction,positive in (("higher",True),("lower",False)):
         names=[name for name,diff in differences.items() if abs(diff)>=0.10 and (diff>0)==positive]
         if set(names)==set(EASTERN):
             amounts=[abs(differences[name]) for name in names]
             amount=f"{min(amounts):.2f}–{max(amounts):.2f}\"" if max(amounts)-min(amounts)>=0.005 else f"{amounts[0]:.2f}\""
-            parts.append(f"eastern basins {amount} {direction}")
+            parts.append(f"eastern gauge basins {amount} {direction}")
             used.update(names)
         for name in names:
             if name not in used:
@@ -191,7 +198,7 @@ def message(report,reason):
         "Rain | "+short_range(p["Days 1-7"],include_time=True),
         f"County 7-day avg: {t['county']:.2f}\" (range {p['Days 1-7']['min_in']:.2f}–{p['Days 1-7']['max_in']:.2f}\")",
         f"Days 1–3 ({short_range(first)}): {day123:.2f}\" | Days 4–5 ({short_range(p['Days 4-5'])}): {p['Days 4-5']['average_in']:.2f}\" | Days 6–7 ({short_range(p['Days 6-7'])}): {p['Days 6-7']['average_in']:.2f}\"",
-        "Areas, 7-day avg: "+" | ".join(f"{n} {t[n]:.2f}\"" for n in WATCHED)]
+        "Gauge basins, 7-day avg: "+" | ".join(f"{n} {t[n]:.2f}\"" for n in WATCHED)]
     comparison=nbm_comparison_line(report)
     if comparison: lines.append(comparison)
     snow=report.get("snow",{})
