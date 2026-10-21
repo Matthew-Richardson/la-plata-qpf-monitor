@@ -14,8 +14,15 @@ WPC="https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/Ma
 COUNTY="https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/27"
 WATERSHEDS="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4"
 WATERSHEDS10="https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/5"
+NLDI="https://api.water.usgs.gov/nldi"
 LAYERS={"Day 1":1,"Day 2":2,"Day 3":3,"Days 4-5":4,"Days 6-7":5,"Days 1-7":11}
-WATCHED_HUC10=("1408010112","1408010111","1408010407","1408010403","1408010501")
+GAUGE_CATCHMENTS={
+    "09352900":{"label":"Vallecito","name":"Vallecito Creek near Bayfield"},
+    "09352800":{"label":"Los Pinos","name":"Los Pinos River above Vallecito Reservoir"},
+    "09362750":{"label":"Lemon","name":"Florida River above Lemon Reservoir"},
+    "09361500":{"label":"Animas","name":"Animas River at Durango"},
+    "09365500":{"label":"La Plata","name":"La Plata River at Hesperus"},
+}
 PROJECT=Transformer.from_crs("EPSG:4326","EPSG:5070",always_xy=True).transform
 SESSION=requests.Session()
 SESSION.headers["User-Agent"]="LaPlata-QPF-Monitor/1.0"
@@ -103,6 +110,20 @@ def fine_watershed_geometries(county_geom, huc8_basins):
     if not result: raise RuntimeError("No HUC10 basins found")
     return result
 
+def gauge_catchment_geometries():
+    """USGS NLDI upstream basin delineations for the monitored streamgages."""
+    result={}
+    for site,metadata in GAUGE_CATCHMENTS.items():
+        url=f"{NLDI}/linked-data/nwissite/USGS-{site}/basin"
+        doc=fetch(url,{"f":"json"})
+        rows=doc.get("features",[]) if doc.get("type")=="FeatureCollection" else []
+        if len(rows)!=1: raise RuntimeError(f"Expected one upstream basin for USGS {site}, got {len(rows)}")
+        boundary=shape(rows[0]["geometry"])
+        if not boundary.is_valid: boundary=boundary.buffer(0)
+        if boundary.is_empty: raise RuntimeError(f"Empty upstream basin for USGS {site}")
+        result[site]={**metadata,"site":site,"geometry":boundary,"source":url}
+    return result
+
 def summarize(region,fs):
     region=transform(PROJECT,region)
     parts=[]; amounts=[]; issue=set(); times=set()
@@ -140,13 +161,15 @@ def run():
     geom=county()
     basins=watershed_geometries(geom)
     fine_basins=fine_watershed_geometries(geom,basins)
+    catchments=gauge_catchment_geometries()
     from shapely.ops import unary_union as union
-    extent=union([geom]+[b["geometry"] for b in basins.values()]+[b["geometry"] for b in fine_basins.values()])
+    extent=union([geom]+[b["geometry"] for b in basins.values()]+[b["geometry"] for b in fine_basins.values()]+[b["geometry"] for b in catchments.values()])
     xmin,ymin,xmax,ymax=extent.bounds
     bbox=f"{xmin-0.05},{ymin-0.05},{xmax+0.05},{ymax+0.05}"
     output={}
     watershed_output={code:{"name":v["name"],"huc8":code,"periods":{}} for code,v in basins.items()}
     fine_output={code:{"name":v["name"],"huc10":code,"parent_huc8":v["parent_huc8"],"periods":{}} for code,v in fine_basins.items()}
+    catchment_output={site:{"label":v["label"],"name":v["name"],"site":site,"source":v["source"],"periods":{}} for site,v in catchments.items()}
     for label,layer in LAYERS.items():
         f=features(f"{WPC}/{layer}",{"where":"1=1","outFields":"qpf,units,issue_time,start_time,end_time",
                "geometry":bbox,"geometryType":"esriGeometryEnvelope","inSR":4326,
@@ -156,6 +179,8 @@ def run():
             watershed_output[code]["periods"][label]=summarize(basin["geometry"],f)
         for code,basin in fine_basins.items():
             fine_output[code]["periods"][label]=summarize(basin["geometry"],f)
+        for site,catchment in catchments.items():
+            catchment_output[site]["periods"][label]=summarize(catchment["geometry"],f)
         if not output[label]["issue_time"]:
             # Metadata query establishes product issuance even if no mapped polygon reaches the county.
             doc=fetch(f"{WPC}/{layer}/query",{"f":"json","where":"1=1",
@@ -167,13 +192,14 @@ def run():
             output[label]["issue_time"]=attr.get("issue_time")
             output[label]["valid_period"]=[attr.get("start_time"),attr.get("end_time")]
     nbm_regions={"county":geom}
-    nbm_regions.update({code:fine_basins[code]["geometry"] for code in WATCHED_HUC10})
+    nbm_regions.update({site:catchment["geometry"] for site,catchment in catchments.items()})
     try:
         nbm=calculate_nbm(nbm_regions)
     except Exception as exc:
         nbm={"status":"unavailable","source":"https://noaa-nbm-grib2-pds.s3.amazonaws.com","error":str(exc)}
         print("NBM comparison unavailable:",exc)
-    report={"huc10_watersheds":fine_output,"huc10_source":WATERSHEDS10,"watersheds":watershed_output,"watershed_source":WATERSHEDS,"watershed_level":"USGS HUC8 full subbasins intersecting La Plata County",
+    report={"area_schema":"gauge-catchments-v1","gauge_catchments":catchment_output,"gauge_catchment_source":NLDI,
+            "huc10_watersheds":fine_output,"huc10_source":WATERSHEDS10,"watersheds":watershed_output,"watershed_source":WATERSHEDS,"watershed_level":"USGS HUC8 full subbasins intersecting La Plata County",
             "generated_utc":datetime.now(timezone.utc).isoformat(),"location":"La Plata County CO",
             "source":WPC,"periods":output,"nbm":nbm,"caveats":"QPF averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities."}
     Path("data").mkdir(exist_ok=True)
@@ -181,6 +207,19 @@ def run():
     lines=["# La Plata County WPC QPF","",f"Generated UTC: {report['generated_utc']}","","| Period | Avg (in) | Min (in) | Max (in) | Coverage | WPC issue |","|---|---:|---:|---:|---:|---|"]
     for label,p in output.items():
         lines.append(f"| {label} | {p['average_in']:.2f} | {p['min_in']:.2f} | {p['max_in']:.2f} | {p['coverage_pct']:.1f}% | {p['issue_time']} |")
+    lines.extend(["", "## Gauge-upstream catchment QPF", "",
+        "USGS NLDI basin delineations upstream of the monitored streamgages.", "",
+        "| Gauge catchment | USGS site | Days 1–7 avg (in) | Min (in) | Max (in) | Coverage |",
+        "|---|---|---:|---:|---:|---:|"])
+    for site,catchment in catchment_output.items():
+        q=catchment["periods"]["Days 1-7"]
+        lines.append(f"| {catchment['name']} | {site} | {q['average_in']:.2f} | {q['min_in']:.2f} | {q['max_in']:.2f} | {q['coverage_pct']:.1f}% |")
+    lines.extend(["", "### Gauge-catchment breakdown by forecast period", "",
+        "| Gauge catchment | Day 1 | Day 2 | Day 3 | Days 4–5 | Days 6–7 | Days 1–7 |",
+        "|---|---:|---:|---:|---:|---:|---:|"])
+    for site,catchment in catchment_output.items():
+        p=catchment["periods"]
+        lines.append("| "+catchment["name"]+" ("+site+") | "+" | ".join(f"{p[label]['average_in']:.2f}" for label in LAYERS)+" |")
     lines.extend(["", "## Watershed QPF — full HUC8 subbasins", "",
           "These USGS subbasins intersect La Plata County but include their full mapped drainage area outside county lines.",
           "HUC8s are broad subbasins, not individual upstream gauge catchments.", "",
@@ -211,14 +250,14 @@ def run():
     lines.extend(["", "## NBM seven-day comparison", ""])
     if nbm.get("status")=="complete":
         lines.extend([f"Cycle UTC: {nbm['cycle_utc']}", "", "| Area | NBM avg (in) | Grid points |", "|---|---:|---:|"])
-        names={"county":"La Plata County","1408010112":"Vallecito","1408010111":"Upper Pine","1408010407":"Upper Florida","1408010403":"Animas Canyon","1408010501":"La Plata"}
+        names={"county":"La Plata County",**{site:row["name"] for site,row in GAUGE_CATCHMENTS.items()}}
         for code,row in nbm["totals"].items():
             lines.append(f"| {names.get(code,code)} | {row['average_in']:.2f} | {row['grid_points']} |")
     else:
         lines.append("Unavailable for this run: "+nbm.get("error","unknown error"))
     lines.extend(["",report["caveats"],"",
-        "HUC10 boundaries are not exact upstream catchments for a particular stream gauge.",
-        f"Source: {WPC}",f"Watershed boundaries: {WATERSHEDS}; {WATERSHEDS10}"])
+        "Gauge catchments are USGS NLDI basin delineations. They improve gauge-specific QPF comparison but do not reproduce reservoir operations or NWS river-model routing.",
+        f"Source: {WPC}",f"Gauge catchments: {NLDI}",f"Watershed boundaries: {WATERSHEDS}; {WATERSHEDS10}"])
     Path("data/latest.md").write_text("\n".join(lines)+"\n")
     print("\n".join(lines))
 if __name__=="__main__": run()
