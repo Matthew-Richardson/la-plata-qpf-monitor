@@ -1,6 +1,6 @@
 # La Plata County WPC QPF
 
-Generated UTC: 2026-10-21T00:29:10.954504+00:00
+Generated UTC: 2026-10-21T04:59:26.943685+00:00
 
 | Period | Avg (in) | Min (in) | Max (in) | Coverage | WPC issue |
 |---|---:|---:|---:|---:|---|
@@ -94,7 +94,20 @@ Full HUC10 polygons intersecting La Plata County, plus upstream HUC10 units with
 | Middle Mancos River (1408010702) | 0.00 | 0.50 | 1.32 | 0.01 | 0.00 | 1.94 |
 | Upper Mancos River (1408010701) | 0.00 | 0.60 | 1.57 | 0.04 | 0.00 | 2.27 |
 
-QPF polygon averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities.
+## NBM seven-day comparison
+
+Cycle UTC: 2026-10-21T00:00:00+00:00
+
+| Area | NBM avg (in) | Grid points |
+|---|---:|---:|
+| La Plata County | 2.11 | 715 |
+| Vallecito | 2.84 | 51 |
+| Upper Pine | 2.67 | 55 |
+| Upper Florida | 2.88 | 46 |
+| Animas Canyon | 2.63 | 39 |
+| La Plata | 1.73 | 130 |
+
+QPF averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities.
 
 HUC10 boundaries are not exact upstream catchments for a particular stream gauge.
 Source: https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/MapServer
