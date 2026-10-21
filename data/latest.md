@@ -1,15 +1,37 @@
 # La Plata County WPC QPF
 
-Generated UTC: 2026-10-21T12:37:22.351214+00:00
+Generated UTC: 2026-10-21T13:22:39.199727+00:00
 
 | Period | Avg (in) | Min (in) | Max (in) | Coverage | WPC issue |
 |---|---:|---:|---:|---:|---|
 | Day 1 | 0.00 | 0.00 | 0.01 | 23.3% | 2026-10-20 10:01:59 |
-| Day 2 | 0.70 | 0.50 | 1.25 | 100.0% | 2026-10-20 10:03:49 |
-| Day 3 | 1.94 | 1.25 | 2.50 | 100.0% | 2026-10-20 10:07:15 |
+| Day 2 | 2.13 | 1.25 | 3.00 | 100.0% | 2026-10-21 12:21:08 |
+| Day 3 | 0.18 | 0.01 | 0.50 | 100.0% | 2026-10-21 12:26:17 |
 | Days 4-5 | 0.13 | 0.01 | 0.25 | 100.0% | 2026-10-20 04:06:22 |
 | Days 6-7 | 0.00 | 0.00 | 0.01 | 2.9% | 2026-10-20 04:06:22 |
-| Days 1-7 | 2.82 | 2.00 | 4.00 | 100.0% | 2026-10-20 10:30:52 |
+| Days 1-7 | 2.48 | 1.25 | 4.00 | 100.0% | 2026-10-20 10:30:52 |
+
+## Gauge-upstream catchment QPF
+
+USGS NLDI basin delineations upstream of the monitored streamgages.
+
+| Gauge catchment | USGS site | Days 1–7 avg (in) | Min (in) | Max (in) | Coverage |
+|---|---|---:|---:|---:|---:|
+| Vallecito Creek near Bayfield | 09352900 | 3.01 | 3.00 | 4.00 | 100.0% |
+| Los Pinos River above Vallecito Reservoir | 09352800 | 3.01 | 2.50 | 4.00 | 100.0% |
+| Florida River above Lemon Reservoir | 09362750 | 3.33 | 3.00 | 4.00 | 100.0% |
+| Animas River at Durango | 09361500 | 2.69 | 2.00 | 4.00 | 100.0% |
+| La Plata River at Hesperus | 09365500 | 3.01 | 2.50 | 4.00 | 100.0% |
+
+### Gauge-catchment breakdown by forecast period
+
+| Gauge catchment | Day 1 | Day 2 | Day 3 | Days 4–5 | Days 6–7 | Days 1–7 |
+|---|---:|---:|---:|---:|---:|---:|
+| Vallecito Creek near Bayfield (09352900) | 0.01 | 3.00 | 0.24 | 0.25 | 0.00 | 3.01 |
+| Los Pinos River above Vallecito Reservoir (09352800) | 0.01 | 2.74 | 0.24 | 0.24 | 0.00 | 3.01 |
+| Florida River above Lemon Reservoir (09362750) | 0.00 | 2.97 | 0.25 | 0.25 | 0.00 | 3.33 |
+| Animas River at Durango (09361500) | 0.01 | 2.36 | 0.10 | 0.12 | 0.00 | 2.69 |
+| La Plata River at Hesperus (09365500) | 0.01 | 2.81 | 0.17 | 0.10 | 0.00 | 3.01 |
 
 ## Watershed QPF — full HUC8 subbasins
 
@@ -18,21 +40,21 @@ HUC8s are broad subbasins, not individual upstream gauge catchments.
 
 | Watershed | HUC8 | Days 1–7 avg (in) | Min (in) | Max (in) | Coverage |
 |---|---|---:|---:|---:|---:|
-| Animas | 14080104 | 2.76 | 1.75 | 4.00 | 100.0% |
-| Mancos | 14080107 | 1.86 | 1.00 | 4.00 | 100.0% |
-| Middle San Juan | 14080105 | 1.58 | 1.00 | 4.00 | 100.0% |
-| Upper Dolores | 14030002 | 1.89 | 1.25 | 4.00 | 100.0% |
-| Upper San Juan | 14080101 | 2.63 | 1.25 | 4.00 | 100.0% |
+| Animas | 14080104 | 2.46 | 1.25 | 4.00 | 100.0% |
+| Mancos | 14080107 | 1.28 | 0.50 | 3.00 | 100.0% |
+| Middle San Juan | 14080105 | 1.02 | 0.25 | 4.00 | 100.0% |
+| Upper Dolores | 14030002 | 1.40 | 0.75 | 4.00 | 100.0% |
+| Upper San Juan | 14080101 | 2.02 | 0.75 | 4.00 | 100.0% |
 
 ### Forecast-period breakdown by watershed
 
 | Watershed | Day 1 | Day 2 | Day 3 | Days 4–5 | Days 6–7 | Days 1–7 |
 |---|---:|---:|---:|---:|---:|---:|
-| Animas (14080104) | 0.01 | 0.68 | 1.88 | 0.11 | 0.00 | 2.76 |
-| Mancos (14080107) | 0.00 | 0.48 | 1.26 | 0.02 | 0.00 | 1.86 |
-| Middle San Juan (14080105) | 0.00 | 0.42 | 1.02 | 0.02 | 0.00 | 1.58 |
-| Upper Dolores (14030002) | 0.00 | 0.55 | 1.23 | 0.03 | 0.00 | 1.89 |
-| Upper San Juan (14080101) | 0.00 | 0.56 | 1.80 | 0.17 | 0.00 | 2.63 |
+| Animas (14080104) | 0.01 | 2.13 | 0.14 | 0.11 | 0.00 | 2.46 |
+| Mancos (14080107) | 0.00 | 1.18 | 0.02 | 0.02 | 0.00 | 1.28 |
+| Middle San Juan (14080105) | 0.00 | 0.93 | 0.03 | 0.02 | 0.00 | 1.02 |
+| Upper Dolores (14030002) | 0.00 | 1.28 | 0.02 | 0.03 | 0.00 | 1.40 |
+| Upper San Juan (14080101) | 0.00 | 1.50 | 0.22 | 0.17 | 0.00 | 2.02 |
 
 ## Fine watershed QPF — USGS HUC10
 
@@ -40,77 +62,78 @@ Full HUC10 polygons intersecting La Plata County, plus upstream HUC10 units with
 
 | HUC10 watershed | HUC10 | Parent HUC8 | 7-day avg (in) | Min (in) | Max (in) |
 |---|---|---|---:|---:|---:|
-| Headwaters Dolores River | 1403000202 | 14030002 | 2.58 | 2.00 | 4.00 |
-| Beaver Creek | 1408010113 | 14080101 | 3.05 | 2.50 | 4.00 |
-| Lower Los Pinos River | 1408010115 | 14080101 | 2.68 | 2.50 | 3.00 |
-| Middle Los Pinos River | 1408010114 | 14080101 | 3.00 | 2.50 | 4.00 |
-| Navajo Reservoir | 1408010116 | 14080101 | 2.62 | 2.50 | 3.00 |
-| Pump Canyon | 1408010118 | 14080101 | 2.62 | 2.00 | 3.00 |
-| Upper Los Pinos River | 1408010111 | 14080101 | 3.38 | 2.50 | 4.00 |
-| Vallecito Creek | 1408010112 | 14080101 | 3.51 | 3.00 | 4.00 |
-| Animas River Canyon | 1408010403 | 14080104 | 3.01 | 2.50 | 4.00 |
-| Cascade Creek | 1408010402 | 14080104 | 2.98 | 2.50 | 3.00 |
-| City of Farmington-Animas River | 1408010410 | 14080104 | 2.20 | 1.75 | 3.00 |
-| Electra Lake-Animas River | 1408010405 | 14080104 | 3.04 | 2.50 | 4.00 |
-| Headwaters Animas River | 1408010401 | 14080104 | 2.52 | 2.00 | 3.00 |
-| Headwaters Florida River | 1408010407 | 14080104 | 3.43 | 3.00 | 4.00 |
-| Hermosa Creek | 1408010404 | 14080104 | 3.02 | 2.50 | 4.00 |
-| Lightner Creek-Animas River | 1408010406 | 14080104 | 2.97 | 2.50 | 4.00 |
-| Middle Animas Valley | 1408010409 | 14080104 | 2.57 | 2.50 | 3.00 |
-| Outlet Florida River | 1408010408 | 14080104 | 2.68 | 2.50 | 3.00 |
-| Barker Arroyo-La Plata River | 1408010503 | 14080105 | 1.86 | 1.50 | 2.00 |
-| Headwaters La Plata River | 1408010501 | 14080105 | 2.40 | 2.00 | 4.00 |
-| McDermott Arroyo-La Plata River | 1408010502 | 14080105 | 2.16 | 1.75 | 2.50 |
-| Salt Creek Wash | 1408010506 | 14080105 | 1.53 | 1.00 | 2.00 |
-| Middle Mancos River | 1408010702 | 14080107 | 1.94 | 1.50 | 2.00 |
-| Upper Mancos River | 1408010701 | 14080107 | 2.27 | 1.75 | 4.00 |
+| Headwaters Dolores River | 1403000202 | 14030002 | 2.15 | 1.75 | 4.00 |
+| Beaver Creek | 1408010113 | 14080101 | 2.85 | 2.00 | 3.00 |
+| Lower Los Pinos River | 1408010115 | 14080101 | 2.25 | 1.75 | 3.00 |
+| Middle Los Pinos River | 1408010114 | 14080101 | 2.88 | 2.00 | 3.00 |
+| Navajo Reservoir | 1408010116 | 14080101 | 1.89 | 1.25 | 3.00 |
+| Pump Canyon | 1408010118 | 14080101 | 2.06 | 1.50 | 2.50 |
+| Upper Los Pinos River | 1408010111 | 14080101 | 3.01 | 2.50 | 4.00 |
+| Vallecito Creek | 1408010112 | 14080101 | 3.00 | 3.00 | 4.00 |
+| Animas River Canyon | 1408010403 | 14080104 | 2.92 | 2.50 | 4.00 |
+| Cascade Creek | 1408010402 | 14080104 | 2.90 | 2.50 | 3.00 |
+| City of Farmington-Animas River | 1408010410 | 14080104 | 1.73 | 1.25 | 2.50 |
+| Electra Lake-Animas River | 1408010405 | 14080104 | 2.90 | 2.50 | 4.00 |
+| Headwaters Animas River | 1408010401 | 14080104 | 2.23 | 2.00 | 3.00 |
+| Headwaters Florida River | 1408010407 | 14080104 | 3.17 | 3.00 | 4.00 |
+| Hermosa Creek | 1408010404 | 14080104 | 2.72 | 2.50 | 4.00 |
+| Lightner Creek-Animas River | 1408010406 | 14080104 | 2.64 | 2.00 | 3.00 |
+| Middle Animas Valley | 1408010409 | 14080104 | 2.21 | 2.00 | 2.50 |
+| Outlet Florida River | 1408010408 | 14080104 | 2.32 | 2.00 | 3.00 |
+| Barker Arroyo-La Plata River | 1408010503 | 14080105 | 1.35 | 1.00 | 1.50 |
+| Headwaters La Plata River | 1408010501 | 14080105 | 2.01 | 1.50 | 4.00 |
+| McDermott Arroyo-La Plata River | 1408010502 | 14080105 | 1.77 | 1.50 | 2.50 |
+| Salt Creek Wash | 1408010506 | 14080105 | 0.89 | 0.50 | 1.25 |
+| Middle Mancos River | 1408010702 | 14080107 | 1.31 | 1.00 | 1.75 |
+| Upper Mancos River | 1408010701 | 14080107 | 1.93 | 1.50 | 3.00 |
 
 ### HUC10 breakdown by forecast period
 
 | HUC10 watershed | Day 1 | Day 2 | Day 3 | Days 4–5 | Days 6–7 | Days 1–7 |
 |---|---:|---:|---:|---:|---:|---:|
-| Headwaters Dolores River (1403000202) | 0.01 | 0.67 | 1.78 | 0.09 | 0.00 | 2.58 |
-| Beaver Creek (1408010113) | 0.00 | 0.74 | 2.21 | 0.25 | 0.00 | 3.05 |
-| Lower Los Pinos River (1408010115) | 0.00 | 0.61 | 1.88 | 0.14 | 0.00 | 2.68 |
-| Middle Los Pinos River (1408010114) | 0.00 | 0.73 | 2.13 | 0.24 | 0.00 | 3.00 |
-| Navajo Reservoir (1408010116) | 0.00 | 0.62 | 1.74 | 0.14 | 0.00 | 2.62 |
-| Pump Canyon (1408010118) | 0.00 | 0.61 | 1.80 | 0.10 | 0.00 | 2.62 |
-| Upper Los Pinos River (1408010111) | 0.01 | 0.76 | 2.34 | 0.24 | 0.00 | 3.38 |
-| Vallecito Creek (1408010112) | 0.01 | 0.92 | 2.49 | 0.25 | 0.00 | 3.51 |
-| Animas River Canyon (1408010403) | 0.01 | 0.79 | 2.10 | 0.14 | 0.00 | 3.01 |
-| Cascade Creek (1408010402) | 0.01 | 0.75 | 1.99 | 0.10 | 0.00 | 2.98 |
-| City of Farmington-Animas River (1408010410) | 0.00 | 0.52 | 1.53 | 0.06 | 0.00 | 2.20 |
-| Electra Lake-Animas River (1408010405) | 0.00 | 0.78 | 2.06 | 0.17 | 0.00 | 3.04 |
-| Headwaters Animas River (1408010401) | 0.04 | 0.55 | 1.70 | 0.10 | 0.00 | 2.52 |
-| Headwaters Florida River (1408010407) | 0.00 | 0.87 | 2.33 | 0.25 | 0.00 | 3.43 |
-| Hermosa Creek (1408010404) | 0.01 | 0.81 | 2.02 | 0.10 | 0.00 | 3.02 |
-| Lightner Creek-Animas River (1408010406) | 0.00 | 0.85 | 1.99 | 0.10 | 0.00 | 2.97 |
-| Middle Animas Valley (1408010409) | 0.00 | 0.57 | 1.79 | 0.10 | 0.00 | 2.57 |
-| Outlet Florida River (1408010408) | 0.00 | 0.59 | 1.87 | 0.11 | 0.00 | 2.68 |
-| Barker Arroyo-La Plata River (1408010503) | 0.00 | 0.50 | 1.22 | 0.01 | 0.00 | 1.86 |
-| Headwaters La Plata River (1408010501) | 0.00 | 0.64 | 1.65 | 0.05 | 0.00 | 2.40 |
-| McDermott Arroyo-La Plata River (1408010502) | 0.00 | 0.50 | 1.49 | 0.06 | 0.00 | 2.16 |
-| Salt Creek Wash (1408010506) | 0.00 | 0.35 | 1.02 | 0.01 | 0.00 | 1.53 |
-| Middle Mancos River (1408010702) | 0.00 | 0.50 | 1.32 | 0.01 | 0.00 | 1.94 |
-| Upper Mancos River (1408010701) | 0.00 | 0.60 | 1.57 | 0.04 | 0.00 | 2.27 |
+| Headwaters Dolores River (1403000202) | 0.01 | 1.96 | 0.06 | 0.09 | 0.00 | 2.15 |
+| Beaver Creek (1408010113) | 0.00 | 2.16 | 0.25 | 0.25 | 0.00 | 2.85 |
+| Lower Los Pinos River (1408010115) | 0.00 | 1.76 | 0.27 | 0.14 | 0.00 | 2.25 |
+| Middle Los Pinos River (1408010114) | 0.00 | 2.31 | 0.25 | 0.24 | 0.00 | 2.88 |
+| Navajo Reservoir (1408010116) | 0.00 | 1.36 | 0.25 | 0.14 | 0.00 | 1.89 |
+| Pump Canyon (1408010118) | 0.00 | 1.61 | 0.23 | 0.10 | 0.00 | 2.06 |
+| Upper Los Pinos River (1408010111) | 0.01 | 2.73 | 0.24 | 0.24 | 0.00 | 3.01 |
+| Vallecito Creek (1408010112) | 0.01 | 2.88 | 0.24 | 0.25 | 0.00 | 3.00 |
+| Animas River Canyon (1408010403) | 0.01 | 2.65 | 0.12 | 0.14 | 0.00 | 2.92 |
+| Cascade Creek (1408010402) | 0.01 | 2.49 | 0.10 | 0.10 | 0.00 | 2.90 |
+| City of Farmington-Animas River (1408010410) | 0.00 | 1.44 | 0.15 | 0.06 | 0.00 | 1.73 |
+| Electra Lake-Animas River (1408010405) | 0.00 | 2.46 | 0.17 | 0.17 | 0.00 | 2.90 |
+| Headwaters Animas River (1408010401) | 0.04 | 2.03 | 0.03 | 0.10 | 0.00 | 2.23 |
+| Headwaters Florida River (1408010407) | 0.00 | 2.77 | 0.25 | 0.25 | 0.00 | 3.17 |
+| Hermosa Creek (1408010404) | 0.01 | 2.36 | 0.10 | 0.10 | 0.00 | 2.72 |
+| Lightner Creek-Animas River (1408010406) | 0.00 | 2.30 | 0.11 | 0.10 | 0.00 | 2.64 |
+| Middle Animas Valley (1408010409) | 0.00 | 1.90 | 0.15 | 0.10 | 0.00 | 2.21 |
+| Outlet Florida River (1408010408) | 0.00 | 1.92 | 0.25 | 0.11 | 0.00 | 2.32 |
+| Barker Arroyo-La Plata River (1408010503) | 0.00 | 1.19 | 0.02 | 0.01 | 0.00 | 1.35 |
+| Headwaters La Plata River (1408010501) | 0.00 | 1.84 | 0.09 | 0.05 | 0.00 | 2.01 |
+| McDermott Arroyo-La Plata River (1408010502) | 0.00 | 1.51 | 0.10 | 0.06 | 0.00 | 1.77 |
+| Salt Creek Wash (1408010506) | 0.00 | 0.82 | 0.01 | 0.01 | 0.00 | 0.89 |
+| Middle Mancos River (1408010702) | 0.00 | 1.21 | 0.01 | 0.01 | 0.00 | 1.31 |
+| Upper Mancos River (1408010701) | 0.00 | 1.73 | 0.05 | 0.04 | 0.00 | 1.93 |
 
 ## NBM seven-day comparison
 
-Cycle UTC: 2026-10-21T06:00:00+00:00
+Cycle UTC: 2026-10-21T12:00:00+00:00
 
 | Area | NBM avg (in) | Grid points |
 |---|---:|---:|
-| La Plata County | 2.15 | 715 |
-| Vallecito | 3.13 | 51 |
-| Upper Pine | 2.99 | 55 |
-| Upper Florida | 3.13 | 46 |
-| Animas Canyon | 2.56 | 39 |
-| La Plata | 1.52 | 130 |
+| La Plata County | 2.27 | 715 |
+| Vallecito Creek near Bayfield | 3.42 | 33 |
+| Los Pinos River above Vallecito Reservoir | 3.06 | 52 |
+| Florida River above Lemon Reservoir | 3.44 | 22 |
+| Animas River at Durango | 2.42 | 286 |
+| La Plata River at Hesperus | 2.15 | 14 |
 
 QPF averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities.
 
-HUC10 boundaries are not exact upstream catchments for a particular stream gauge.
+Gauge catchments are USGS NLDI basin delineations. They improve gauge-specific QPF comparison but do not reproduce reservoir operations or NWS river-model routing.
 Source: https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/MapServer
+Gauge catchments: https://api.water.usgs.gov/nldi
 Watershed boundaries: https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4; https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/5
 
 ## WPC Day 1–3 snowfall probability by elevation
