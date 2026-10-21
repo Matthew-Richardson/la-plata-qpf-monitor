@@ -159,8 +159,19 @@ def summarize(region,fs):
 
 def run():
     geom=county()
-    basins=watershed_geometries(geom)
-    fine_basins=fine_watershed_geometries(geom,basins)
+    watershed_errors=[]
+    try:
+        basins=watershed_geometries(geom)
+    except Exception as exc:
+        basins={}
+        watershed_errors.append("HUC8: "+str(exc))
+        print("Optional HUC8 watershed detail unavailable:",exc)
+    try:
+        fine_basins=fine_watershed_geometries(geom,basins)
+    except Exception as exc:
+        fine_basins={}
+        watershed_errors.append("HUC10: "+str(exc))
+        print("Optional HUC10 watershed detail unavailable:",exc)
     catchments=gauge_catchment_geometries()
     from shapely.ops import unary_union as union
     extent=union([geom]+[b["geometry"] for b in basins.values()]+[b["geometry"] for b in fine_basins.values()]+[b["geometry"] for b in catchments.values()])
@@ -199,6 +210,8 @@ def run():
         nbm={"status":"unavailable","source":"https://noaa-nbm-grib2-pds.s3.amazonaws.com","error":str(exc)}
         print("NBM comparison unavailable:",exc)
     report={"area_schema":"gauge-catchments-v1","gauge_catchments":catchment_output,"gauge_catchment_source":NLDI,
+            "optional_watershed_status":"unavailable" if watershed_errors else "available",
+            "optional_watershed_errors":watershed_errors,
             "huc10_watersheds":fine_output,"huc10_source":WATERSHEDS10,"watersheds":watershed_output,"watershed_source":WATERSHEDS,"watershed_level":"USGS HUC8 full subbasins intersecting La Plata County",
             "generated_utc":datetime.now(timezone.utc).isoformat(),"location":"La Plata County CO",
             "source":WPC,"periods":output,"nbm":nbm,"caveats":"QPF averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities."}
