@@ -4,10 +4,11 @@ import pytest
 from groupme_notify import decide, message, nbm_comparison_line
 
 def report(q=2.0):
-    return {"periods": {**{name:{"average_in":0.1,"valid_period":["2026-10-08 12:00:00","2026-10-09 12:00:00"]} for name in ("Day 1","Day 2","Day 3","Days 4-5","Days 6-7")},
+    return {"area_schema":"gauge-catchments-v1",
+            "periods": {**{name:{"average_in":0.1,"valid_period":["2026-10-08 12:00:00","2026-10-09 12:00:00"]} for name in ("Day 1","Day 2","Day 3","Days 4-5","Days 6-7")},
                         "Days 1-7":{"average_in":q,"min_in":0.1,"max_in":3.0,"valid_period":["2026-10-08 12:00:00","2026-10-15 12:00:00"]}},
-            "huc10_watersheds":{code:{"periods":{"Days 1-7":{"average_in":q}}}
-            for code in ("1408010112","1408010111","1408010407","1408010403","1408010501")}}
+            "gauge_catchments":{site:{"periods":{"Days 1-7":{"average_in":q}}}
+            for site in ("09352900","09352800","09362750","09361500","09365500")}}
 MORNING=datetime(2026,10,8,7,tzinfo=ZoneInfo("America/Denver"))
 EVENING=datetime(2026,10,8,19,tzinfo=ZoneInfo("America/Denver"))
 
@@ -43,7 +44,7 @@ def test_material_change_decrease_says_direction():
 def test_material_change_mixed_says_each_direction():
     _,state=decide(report(),{},now=EVENING)
     changed=report(2.3)
-    changed["huc10_watersheds"]["1408010112"]["periods"]["Days 1-7"]["average_in"]=1.7
+    changed["gauge_catchments"]["09352900"]["periods"]["Days 1-7"]["average_in"]=1.7
     reason,_=decide(changed,state,now=EVENING)
     assert reason.startswith("Material change — forecast mixed:")
     assert "County increased 0.30in" in reason
@@ -70,13 +71,13 @@ def test_nbm_comparison_is_compact_and_directional():
     current=report()
     current["nbm"]={"status":"complete","totals":{
         "county":{"average_in":1.95},
-        "1408010112":{"average_in":2.30},
-        "1408010111":{"average_in":2.38},
-        "1408010407":{"average_in":2.35},
-        "1408010403":{"average_in":2.31},
-        "1408010501":{"average_in":1.76}}}
+        "09352900":{"average_in":2.30},
+        "09352800":{"average_in":2.38},
+        "09362750":{"average_in":2.35},
+        "09361500":{"average_in":2.31},
+        "09365500":{"average_in":1.76}}}
     line=nbm_comparison_line(current)
-    assert line=='NBM comparison: County similar at 1.95"; eastern basins 0.30–0.38" higher; La Plata 0.24" lower'
+    assert line=='NBM comparison: County similar at 1.95"; eastern gauge basins 0.30–0.38" higher; La Plata 0.24" lower'
     assert line in message(current,"No material changes")
 
 def test_missing_nbm_does_not_change_weather_message():
@@ -85,10 +86,18 @@ def test_missing_nbm_does_not_change_weather_message():
     assert "NBM comparison" not in message(current,"No material changes")
 
 def test_material_change_message_is_quick_read_and_directional():
-    text=message(report(),"Material change — forecast increased: County increased 0.30in, Upper Pine increased 0.25in")
+    text=message(report(),"Material change — forecast increased: County increased 0.30in, Los Pinos increased 0.25in")
     assert text.startswith("LPC precipitation | Rain increased")
-    assert 'Change: County increased 0.30", Upper Pine increased 0.25"' in text
+    assert 'Change: County increased 0.30", Los Pinos increased 0.25"' in text
     assert "Valid:" not in text and "Basins:" not in text
+
+def test_gauge_schema_migration_does_not_report_false_basin_change():
+    old={"status":"wet","wet_update_slot":"2026-10-08 PM","qpf_area_schema":"huc10-v1",
+         "last_alert_totals":{"county":2.0,"Vallecito":4.0,"La Plata":1.0}}
+    reason,state=decide(report(),old,now=EVENING)
+    assert reason is None
+    assert state["qpf_area_schema"]=="gauge-catchments-v1"
+    assert state["last_alert_totals"]["Vallecito"]==2.0
 
 def test_snow_message_collapses_nested_probability_categories():
     current=report()
