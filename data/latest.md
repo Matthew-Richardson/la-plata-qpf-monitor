@@ -1,13 +1,13 @@
 # La Plata County WPC QPF
 
-Generated UTC: 2026-10-22T12:32:32.895013+00:00
+Generated UTC: 2026-10-22T21:48:05.929756+00:00
 
 | Period | Avg (in) | Min (in) | Max (in) | Coverage | WPC issue |
 |---|---:|---:|---:|---:|---|
 | Day 1 | 2.32 | 1.25 | 4.00 | 100.0% | 2026-10-22 10:02:52 |
 | Day 2 | 0.10 | 0.01 | 0.25 | 100.0% | 2026-10-22 10:03:10 |
 | Day 3 | 0.48 | 0.10 | 0.75 | 100.0% | 2026-10-22 10:05:48 |
-| Days 4-5 | 0.01 | 0.00 | 0.01 | 88.4% | 2026-10-22 05:02:52 |
+| Days 4-5 | 0.01 | 0.00 | 0.01 | 84.3% | 2026-10-22 17:01:37 |
 | Days 6-7 | 0.00 | 0.00 | 0.00 | 0.0% | 2026-10-22 05:02:52 |
 | Days 1-7 | 2.98 | 1.25 | 5.00 | 100.0% | 2026-10-22 10:28:34 |
 
@@ -53,8 +53,8 @@ HUC8s are broad subbasins, not individual upstream gauge catchments.
 | Animas (14080104) | 2.38 | 0.09 | 0.47 | 0.01 | 0.00 | 3.00 |
 | Mancos (14080107) | 1.11 | 0.01 | 0.15 | 0.00 | 0.00 | 1.35 |
 | Middle San Juan (14080105) | 0.92 | 0.01 | 0.09 | 0.00 | 0.00 | 1.09 |
-| Upper Dolores (14030002) | 1.38 | 0.01 | 0.18 | 0.01 | 0.00 | 1.72 |
-| Upper San Juan (14080101) | 1.70 | 0.19 | 0.35 | 0.02 | 0.00 | 2.41 |
+| Upper Dolores (14030002) | 1.38 | 0.01 | 0.18 | 0.00 | 0.00 | 1.72 |
+| Upper San Juan (14080101) | 1.70 | 0.19 | 0.35 | 0.01 | 0.00 | 2.41 |
 
 ## Fine watershed QPF — USGS HUC10
 
@@ -96,12 +96,12 @@ Full HUC10 polygons intersecting La Plata County, plus upstream HUC10 units with
 | Lower Los Pinos River (1408010115) | 1.90 | 0.11 | 0.35 | 0.01 | 0.00 | 2.54 |
 | Middle Los Pinos River (1408010114) | 2.58 | 0.10 | 0.61 | 0.01 | 0.00 | 3.32 |
 | Navajo Reservoir (1408010116) | 1.41 | 0.15 | 0.26 | 0.01 | 0.00 | 1.97 |
-| Pump Canyon (1408010118) | 1.67 | 0.09 | 0.32 | 0.01 | 0.00 | 2.17 |
+| Pump Canyon (1408010118) | 1.67 | 0.09 | 0.32 | 0.00 | 0.00 | 2.17 |
 | Upper Los Pinos River (1408010111) | 3.25 | 0.20 | 0.75 | 0.01 | 0.00 | 4.64 |
 | Vallecito Creek (1408010112) | 3.49 | 0.21 | 0.75 | 0.01 | 0.00 | 4.69 |
 | Animas River Canyon (1408010403) | 2.98 | 0.12 | 0.64 | 0.01 | 0.00 | 3.83 |
 | Cascade Creek (1408010402) | 2.92 | 0.10 | 0.50 | 0.01 | 0.00 | 3.59 |
-| City of Farmington-Animas River (1408010410) | 1.43 | 0.05 | 0.20 | 0.01 | 0.00 | 1.80 |
+| City of Farmington-Animas River (1408010410) | 1.43 | 0.05 | 0.20 | 0.00 | 0.00 | 1.80 |
 | Electra Lake-Animas River (1408010405) | 2.80 | 0.11 | 0.58 | 0.01 | 0.00 | 3.46 |
 | Headwaters Animas River (1408010401) | 2.62 | 0.06 | 0.46 | 0.01 | 0.00 | 3.10 |
 | Headwaters Florida River (1408010407) | 3.13 | 0.18 | 0.74 | 0.01 | 0.00 | 4.14 |
@@ -111,23 +111,23 @@ Full HUC10 polygons intersecting La Plata County, plus upstream HUC10 units with
 | Outlet Florida River (1408010408) | 1.98 | 0.10 | 0.47 | 0.01 | 0.00 | 2.67 |
 | Barker Arroyo-La Plata River (1408010503) | 1.16 | 0.01 | 0.11 | 0.00 | 0.00 | 1.37 |
 | Headwaters La Plata River (1408010501) | 1.80 | 0.03 | 0.32 | 0.01 | 0.00 | 2.24 |
-| McDermott Arroyo-La Plata River (1408010502) | 1.48 | 0.04 | 0.23 | 0.01 | 0.00 | 1.86 |
+| McDermott Arroyo-La Plata River (1408010502) | 1.48 | 0.04 | 0.23 | 0.00 | 0.00 | 1.86 |
 | Salt Creek Wash (1408010506) | 0.72 | 0.00 | 0.03 | 0.00 | 0.00 | 0.82 |
 | Middle Mancos River (1408010702) | 1.09 | 0.01 | 0.15 | 0.00 | 0.00 | 1.35 |
-| Upper Mancos River (1408010701) | 1.68 | 0.02 | 0.27 | 0.01 | 0.00 | 2.09 |
+| Upper Mancos River (1408010701) | 1.68 | 0.02 | 0.27 | 0.00 | 0.00 | 2.09 |
 
 ## NBM seven-day comparison
 
-Cycle UTC: 2026-10-22T06:00:00+00:00
+Cycle UTC: 2026-10-22T18:00:00+00:00
 
 | Area | NBM avg (in) | Grid points |
 |---|---:|---:|
-| La Plata County | 1.70 | 715 |
-| Vallecito Creek near Bayfield | 2.42 | 33 |
-| Los Pinos River above Vallecito Reservoir | 2.48 | 52 |
-| Florida River above Lemon Reservoir | 2.31 | 22 |
-| Animas River at Durango | 1.82 | 286 |
-| La Plata River at Hesperus | 1.70 | 14 |
+| La Plata County | 1.35 | 715 |
+| Vallecito Creek near Bayfield | 2.10 | 33 |
+| Los Pinos River above Vallecito Reservoir | 1.98 | 52 |
+| Florida River above Lemon Reservoir | 2.12 | 22 |
+| Animas River at Durango | 1.57 | 286 |
+| La Plata River at Hesperus | 1.30 | 14 |
 
 QPF averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities.
 
@@ -138,5 +138,9 @@ Watershed boundaries: https://hydro.nationalmap.gov/arcgis/rest/services/wbd/Map
 
 ## WPC Day 1–3 snowfall probability by elevation
 
-- Day 3, 7,000–9,000 ft: ≥4 in at ≥40%
+- Day 1, 7,000–9,000 ft: ≥4 in at ≥10%
+- Day 1, Above 9,000 ft: ≥4 in at ≥10%
+- Day 2, 7,000–9,000 ft: ≥4 in at ≥10%
+- Day 2, Above 9,000 ft: ≥4 in at ≥10%
+- Day 3, 7,000–9,000 ft: ≥4 in at ≥10%
 - Day 3, Above 9,000 ft: ≥4 in at ≥40%
