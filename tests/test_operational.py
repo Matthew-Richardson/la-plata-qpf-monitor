@@ -77,6 +77,24 @@ def test_river_units_freshness_and_stage_category(monkeypatch):
     series['forecast']['issuedTime']=(NOW-timedelta(days=2)).isoformat()
     with pytest.raises(ValueError,match='stale'):river('drgc2',NOW)
 
+def test_lemon_uses_fresh_observation_when_no_forecast(monkeypatch):
+    meta={'flood':{'categories':{'action':{'stage':3.9}}}}
+    series={
+        'forecast':{'issuedTime':'0001-01-01T00:00:00Z'},
+        'observed':{'issuedTime':NOW.isoformat(),'secondaryUnits':'kcfs','primaryUnits':'ft','data':[
+            {'validTime':(NOW-timedelta(minutes=15)).isoformat(),'secondary':1.02,'primary':3.81}]}}
+    monkeypatch.setattr('operational_monitor.get',lambda u:series if u.endswith('stageflow') else meta)
+    r=river('fric2',NOW)
+    assert r['cfs']==1020 and r['observed'] and r['category']=='below action'
+
+def test_river_brief_labels_lemon_as_observed():
+    current=forecast()
+    current['rivers']['fric2']={'cfs':1020,'time':NOW.isoformat(),'category':'below action',
+        'stage_ft':3.81,'issued':NOW.isoformat(),'at_horizon':False,'observed':True}
+    text=groupme_notify.river_brief(current,[],NOW)
+    assert 'Florida above Lemon: 1,020 cfs observed' in text
+    assert 'no current NWS forecast' in text
+
 def test_failed_send_preserves_delivery_baseline(tmp_path,monkeypatch):
     monkeypatch.chdir(tmp_path)
     (tmp_path/'data').mkdir()

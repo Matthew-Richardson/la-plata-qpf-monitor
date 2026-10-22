@@ -260,10 +260,16 @@ def river_brief(operational,changes,now):
         suffix=' — '+labels[category] if category in labels else ''
         if category in ('action','minor','moderate','major') and v.get('stage_ft') is not None:
             suffix=f" / {v['stage_ft']:.2f} ft"+suffix
+        if v.get('observed'):
+            if v.get('stage_ft') is not None and category not in ('action','minor','moderate','major'):
+                suffix=f" / {v['stage_ft']:.2f} ft"+suffix
+            time=dt(v['time']).astimezone(ZoneInfo('America/Denver')).strftime('%a %-m/%-d, %-I:%M %p')
+            lines.append(f"{name}: {v['cfs']:,} cfs observed {time}{suffix}; no current NWS forecast")
+            continue
         label='max through ' if v['at_horizon'] else ''
         time=dt(v['time']).astimezone(ZoneInfo('America/Denver')).strftime('%a %-m/%-d, %-I %p')
         lines.append(f"{name}: {v['cfs']:,} cfs {label}{time}{suffix}")
-    values=operational.get('rivers',{}).values()
+    values=[v for v in operational.get('rivers',{}).values() if not v.get('observed')]
     if values:
         issued=max(dt(v['issued']) for v in values).astimezone(ZoneInfo('America/Denver'))
         lines.append(issued.strftime('NWS forecast issued %a %-m/%-d, %-I:%M %p %Z. All times %Z.'))

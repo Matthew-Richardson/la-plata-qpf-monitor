@@ -14,7 +14,9 @@ from shapely.ops import transform
 
 LOCAL = ZoneInfo("America/Denver")
 RIVERS = {"drgc2": "Animas at Durango", "vnbc2": "Vallecito Creek",
-          "lpac2": "Los Pinos above Vallecito", "lphc2": "La Plata at Hesperus"}
+          "lpac2": "Los Pinos above Vallecito", "lphc2": "La Plata at Hesperus",
+          "fric2": "Florida above Lemon"}
+OBSERVED_ONLY_RIVERS = {"fric2"}
 TOWNS = {"Durango": (37.2753, -107.8801), "Bayfield": (37.2256, -107.5981),
          "Ignacio": (37.115, -107.633)}
 ERO = "https://mapservices.weather.noaa.gov/vector/rest/services/hazards/wpc_precip_hazards/MapServer"
@@ -36,10 +38,40 @@ def get(url):
         response.raise_for_status()
         return response.json()
 
+def stage_category(metadata, stage):
+    categories = metadata.get("flood", {}).get("categories", {})
+    category = "undefined" if all((v.get("stage") or -9999) < 0 for v in categories.values()) else "below action"
+    for label in ("action", "minor", "moderate", "major"):
+        threshold = categories.get(label, {}).get("stage")
+        if stage is not None and threshold is not None and threshold >= 0 and stage >= threshold:
+            category = label
+    return category
+
+def observed_river(metadata, series, now):
+    observed = series.get("observed") or {}
+    unit = observed.get("secondaryUnits")
+    if unit not in ("kcfs", "cfs"):
+        raise ValueError("unknown observed river flow units")
+    rows = [r for r in observed.get("data", []) if r.get("secondary") is not None and r["secondary"] >= 0
+            and dt(r["validTime"]) <= now]
+    if not rows:
+        raise ValueError("no river observation")
+    latest = max(rows, key=lambda r: dt(r["validTime"]))
+    if now - dt(latest["validTime"]) > timedelta(hours=6):
+        raise ValueError("stale river observation")
+    flow = latest["secondary"] * (1000 if unit == "kcfs" else 1)
+    stage = latest.get("primary") if observed.get("primaryUnits") == "ft" else None
+    return {"cfs": round(flow), "time": latest["validTime"],
+            "category": stage_category(metadata, stage), "stage_ft": stage,
+            "issued": observed.get("issuedTime") or latest["validTime"],
+            "at_horizon": False, "observed": True}
+
 def river(gauge, now):
     url = "https://api.water.noaa.gov/nwps/v1/gauges/" + gauge
     metadata, series = get(url), get(url + "/stageflow")
     forecast = series.get("forecast") or {}
+    if gauge in OBSERVED_ONLY_RIVERS and (not forecast.get("issuedTime") or forecast["issuedTime"].startswith("0001-")):
+        return observed_river(metadata, series, now)
     if now - dt(forecast["issuedTime"]) > timedelta(hours=36):
         raise ValueError("stale river forecast")
     unit = forecast.get("secondaryUnits")
@@ -52,14 +84,9 @@ def river(gauge, now):
     peak = max(rows, key=lambda r: r["secondary"])
     flow = peak["secondary"] * (1000 if unit == "kcfs" else 1)
     stage = peak.get("primary") if forecast.get("primaryUnits") == "ft" else None
-    categories = metadata.get("flood", {}).get("categories", {})
-    category = "undefined" if all((v.get("stage") or -9999) < 0 for v in categories.values()) else "below action"
-    for label in ("action", "minor", "moderate", "major"):
-        threshold = categories.get(label, {}).get("stage")
-        if stage is not None and threshold is not None and threshold >= 0 and stage >= threshold:
-            category = label
+    category = stage_category(metadata, stage)
     return {"cfs": round(flow), "time": peak["validTime"], "category": category, "stage_ft": stage,
-            "issued": forecast["issuedTime"], "at_horizon": peak is rows[-1]}
+            "issued": forecast["issuedTime"], "at_horizon": peak is rows[-1], "observed": False}
 
 def timing_window(periods, now):
     """Next sustained >=50% hourly precipitation window; bridge gaps <=6h."""
@@ -147,6 +174,8 @@ def compare(current, previous, now):
     """Material changes relative to last delivered values, never last poll."""
     changes = []
     for gauge, value in current.get("rivers", {}).items():
+        if value.get("observed"):
+            continue
         old = previous.get("rivers", {}).get(gauge)
         name = RIVERS[gauge]
         if old is None:
@@ -201,13 +230,19 @@ def delivered_baseline(current, previous):
 def message_lines(current, changes):
     lines = ["LPC weather | River / flood / timing update", *changes]
     for gauge, value in current.get("rivers", {}).items():
+        if value.get("observed"):
+            category = "" if value["category"] in ("undefined", "below action") else f" | {value['category']} stage"
+            lines.append(f"{RIVERS[gauge]}: {value['cfs']:,} cfs observed {stamp(value['time'])}{category}; no current NWS forecast")
+            continue
         suffix = "forecast maximum" if value["at_horizon"] else "forecast peak"
         category = "" if value["category"] in ("undefined", "below action") else f" | {value['category']} stage"
         lines.append(f"{RIVERS[gauge]}: {value['cfs']:,} cfs {stamp(value['time'])}{category} ({suffix})")
     lines.append("All times Mountain. River values are forecast peaks, not observations.")
     if current.get("rivers"):
-        issue = max(v["issued"] for v in current["rivers"].values())
-        lines.append("Latest NOAA river issue: " + dt(issue).astimezone(LOCAL).strftime("%a %-m/%-d %-I:%M %p"))
+        forecasts = [v for v in current["rivers"].values() if not v.get("observed")]
+        if forecasts:
+            issue = max(v["issued"] for v in forecasts)
+            lines.append("Latest NOAA river issue: " + dt(issue).astimezone(LOCAL).strftime("%a %-m/%-d %-I:%M %p"))
     if current.get("timing"):
         lines.append("NWS timing = sustained ≥50% precipitation chance; not exact onset/end.")
     if current.get("errors"):
