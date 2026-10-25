@@ -1,57 +1,57 @@
 {
   "rivers": {
     "drgc2": {
-      "cfs": 6700,
-      "time": "2026-10-24T13:00:00Z",
+      "cfs": 5380,
+      "time": "2026-10-25T06:00:00Z",
       "category": "below action",
-      "stage_ft": 6.76,
-      "issued": "2026-10-24T10:38:00Z",
+      "stage_ft": 6.18,
+      "issued": "2026-10-24T21:40:00Z",
       "at_horizon": false,
       "observed": false
     },
     "vnbc2": {
-      "cfs": 1250,
-      "time": "2026-10-24T13:00:00Z",
+      "cfs": 941,
+      "time": "2026-10-25T01:00:00Z",
       "category": "undefined",
-      "stage_ft": 3.19,
-      "issued": "2026-10-24T10:38:00Z",
+      "stage_ft": 2.89,
+      "issued": "2026-10-24T21:21:00Z",
       "at_horizon": false,
       "observed": false
     },
     "lpac2": {
-      "cfs": 1500,
-      "time": "2026-10-24T13:00:00Z",
+      "cfs": 1430,
+      "time": "2026-10-25T06:00:00Z",
       "category": "undefined",
-      "stage_ft": 5.95,
-      "issued": "2026-10-24T10:38:00Z",
+      "stage_ft": 5.89,
+      "issued": "2026-10-24T21:21:00Z",
       "at_horizon": false,
       "observed": false
     },
     "lphc2": {
-      "cfs": 300,
-      "time": "2026-10-24T13:00:00Z",
+      "cfs": 355,
+      "time": "2026-10-25T01:00:00Z",
       "category": "below action",
-      "stage_ft": 4.69,
-      "issued": "2026-10-24T10:38:00Z",
+      "stage_ft": 4.81,
+      "issued": "2026-10-24T21:21:00Z",
       "at_horizon": false,
       "observed": false
     },
     "fric2": {
-      "cfs": 582,
-      "time": "2026-10-24T11:15:00Z",
+      "cfs": 532,
+      "time": "2026-10-24T21:15:00Z",
       "category": "below action",
-      "stage_ft": 3.24,
-      "issued": "2026-10-24T11:15:00Z",
+      "stage_ft": 3.16,
+      "issued": "2026-10-24T21:15:00Z",
       "at_horizon": false,
       "observed": true
     }
   },
   "outlooks": {
     "2026-10-25T12:00:00+00:00": {
-      "level": 1,
-      "start": "2026-10-24T12:00:00Z",
+      "level": 2,
+      "start": "2026-10-24T16:00:00Z",
       "end": "2026-10-25T12:00:00Z",
-      "issued": "2026-10-24T07:29:00+00:00"
+      "issued": "2026-10-24T15:51:00+00:00"
     },
     "2026-10-26T12:00:00+00:00": {
       "level": 0,
@@ -81,29 +81,29 @@
   "timing": {
     "Durango": {
       "window": {
-        "start": "2026-10-24T08:00:00-06:00",
-        "end": "2026-10-25T15:00:00-06:00",
+        "start": "2026-10-24T18:00:00-06:00",
+        "end": "2026-10-25T18:00:00-06:00",
         "open_end": false
       },
-      "issued": "2026-10-24T11:57:14+00:00"
+      "issued": "2026-10-24T22:57:13+00:00"
     },
     "Bayfield": {
       "window": {
-        "start": "2026-10-24T08:00:00-06:00",
-        "end": "2026-10-25T15:00:00-06:00",
+        "start": "2026-10-24T18:00:00-06:00",
+        "end": "2026-10-25T18:00:00-06:00",
         "open_end": false
       },
-      "issued": "2026-10-24T11:57:14+00:00"
+      "issued": "2026-10-24T22:57:13+00:00"
     },
     "Ignacio": {
       "window": {
-        "start": "2026-10-24T09:00:00-06:00",
-        "end": "2026-10-25T12:00:00-06:00",
+        "start": "2026-10-24T18:00:00-06:00",
+        "end": "2026-10-25T18:00:00-06:00",
         "open_end": false
       },
-      "issued": "2026-10-24T11:57:14+00:00"
+      "issued": "2026-10-24T22:57:13+00:00"
     }
   },
   "errors": [],
-  "checked": "2026-10-24T12:39:12.692165+00:00"
+  "checked": "2026-10-25T00:32:27.951712+00:00"
 }
