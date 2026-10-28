@@ -1,19 +1,19 @@
 {
   "status": "wet",
   "dry_streak": 0,
-  "last_sent_at": "2026-10-27T06:34:57.671276-06:00",
+  "last_sent_at": "2026-10-27T18:37:32.830006-06:00",
   "last_alert_totals": {
-    "county": 1.478,
-    "Vallecito": 1.959,
-    "Los Pinos": 1.727,
+    "county": 1.521,
+    "Vallecito": 2.0,
+    "Los Pinos": 1.887,
     "Lemon": 2.0,
-    "Animas": 1.758,
-    "La Plata": 2.263
+    "Animas": 1.822,
+    "La Plata": 2.097
   },
-  "unchanged_day": "2026-10-21",
+  "unchanged_day": "2026-10-27",
   "snow_signature": [],
   "snow_elevation_signature": [],
-  "wet_update_slot": "2026-10-27 AM",
+  "wet_update_slot": "2026-10-27 PM",
   "operational": {
     "rivers": {
       "drgc2": {
@@ -53,11 +53,11 @@
         "observed": false
       },
       "fric2": {
-        "cfs": 270,
-        "time": "2026-10-27T11:15:00Z",
+        "cfs": 258,
+        "time": "2026-10-27T21:15:00Z",
         "category": "below action",
-        "stage_ft": 2.65,
-        "issued": "2026-10-27T11:15:00Z",
+        "stage_ft": 2.62,
+        "issued": "2026-10-27T21:15:00Z",
         "at_horizon": false,
         "observed": true
       }
@@ -133,7 +133,7 @@
         "level": 1,
         "start": "2026-10-30T12:00:00Z",
         "end": "2026-10-31T12:00:00Z",
-        "issued": "2026-10-27T08:13:00+00:00"
+        "issued": "2026-10-27T19:44:00+00:00"
       },
       "2026-11-01T12:00:00+00:00": {
         "level": 0,
@@ -149,7 +149,7 @@
           "end": "2026-10-31T06:00:00-06:00",
           "open_end": false
         },
-        "issued": "2026-10-27T09:27:05+00:00"
+        "issued": "2026-10-27T18:32:08+00:00"
       },
       "Bayfield": {
         "window": {
@@ -157,7 +157,7 @@
           "end": "2026-10-31T06:00:00-06:00",
           "open_end": false
         },
-        "issued": "2026-10-27T09:27:05+00:00"
+        "issued": "2026-10-27T18:32:08+00:00"
       },
       "Ignacio": {
         "window": {
@@ -165,7 +165,7 @@
           "end": "2026-10-31T06:00:00-06:00",
           "open_end": false
         },
-        "issued": "2026-10-27T09:27:05+00:00"
+        "issued": "2026-10-27T18:32:08+00:00"
       }
     }
   },

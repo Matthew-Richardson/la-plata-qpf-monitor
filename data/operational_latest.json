@@ -1,47 +1,11 @@
 {
   "rivers": {
-    "drgc2": {
-      "cfs": 3120,
-      "time": "2026-10-27T13:00:00Z",
-      "category": "below action",
-      "stage_ft": 5,
-      "issued": "2026-10-26T21:02:00Z",
-      "at_horizon": false,
-      "observed": false
-    },
-    "vnbc2": {
-      "cfs": 489,
-      "time": "2026-10-27T13:00:00Z",
-      "category": "undefined",
-      "stage_ft": 2.33,
-      "issued": "2026-10-26T21:02:00Z",
-      "at_horizon": false,
-      "observed": false
-    },
-    "lpac2": {
-      "cfs": 885,
-      "time": "2026-10-27T13:00:00Z",
-      "category": "undefined",
-      "stage_ft": 5.3,
-      "issued": "2026-10-26T21:02:00Z",
-      "at_horizon": false,
-      "observed": false
-    },
-    "lphc2": {
-      "cfs": 191,
-      "time": "2026-11-02T00:00:00Z",
-      "category": "below action",
-      "stage_ft": 4.43,
-      "issued": "2026-10-26T21:02:00Z",
-      "at_horizon": false,
-      "observed": false
-    },
     "fric2": {
-      "cfs": 270,
-      "time": "2026-10-27T11:15:00Z",
+      "cfs": 258,
+      "time": "2026-10-27T21:15:00Z",
       "category": "below action",
-      "stage_ft": 2.65,
-      "issued": "2026-10-27T11:15:00Z",
+      "stage_ft": 2.62,
+      "issued": "2026-10-27T21:15:00Z",
       "at_horizon": false,
       "observed": true
     }
@@ -69,7 +33,7 @@
       "level": 1,
       "start": "2026-10-30T12:00:00Z",
       "end": "2026-10-31T12:00:00Z",
-      "issued": "2026-10-27T08:13:00+00:00"
+      "issued": "2026-10-27T19:44:00+00:00"
     },
     "2026-11-01T12:00:00+00:00": {
       "level": 0,
@@ -85,7 +49,7 @@
         "end": "2026-10-31T06:00:00-06:00",
         "open_end": false
       },
-      "issued": "2026-10-27T09:27:05+00:00"
+      "issued": "2026-10-27T18:32:08+00:00"
     },
     "Bayfield": {
       "window": {
@@ -93,7 +57,7 @@
         "end": "2026-10-31T06:00:00-06:00",
         "open_end": false
       },
-      "issued": "2026-10-27T09:27:05+00:00"
+      "issued": "2026-10-27T18:32:08+00:00"
     },
     "Ignacio": {
       "window": {
@@ -101,9 +65,14 @@
         "end": "2026-10-31T06:00:00-06:00",
         "open_end": false
       },
-      "issued": "2026-10-27T09:27:05+00:00"
+      "issued": "2026-10-27T18:32:08+00:00"
     }
   },
-  "errors": [],
-  "checked": "2026-10-27T12:34:57.671276+00:00"
+  "errors": [
+    "rivers/drgc2: no future river forecast",
+    "rivers/vnbc2: no future river forecast",
+    "rivers/lpac2: no future river forecast",
+    "rivers/lphc2: no future river forecast"
+  ],
+  "checked": "2026-10-28T00:37:32.830006+00:00"
 }
