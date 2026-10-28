@@ -1,22 +1,6 @@
 {
-  "rivers": {
-    "fric2": {
-      "cfs": 258,
-      "time": "2026-10-27T21:15:00Z",
-      "category": "below action",
-      "stage_ft": 2.62,
-      "issued": "2026-10-27T21:15:00Z",
-      "at_horizon": false,
-      "observed": true
-    }
-  },
+  "rivers": {},
   "outlooks": {
-    "2026-10-28T12:00:00+00:00": {
-      "level": 0,
-      "start": "2026-10-27T12:00:00+00:00",
-      "end": "2026-10-28T12:00:00+00:00",
-      "issued": null
-    },
     "2026-10-29T12:00:00+00:00": {
       "level": 0,
       "start": "2026-10-28T12:00:00+00:00",
@@ -33,46 +17,53 @@
       "level": 1,
       "start": "2026-10-30T12:00:00Z",
       "end": "2026-10-31T12:00:00Z",
-      "issued": "2026-10-27T19:44:00+00:00"
+      "issued": "2026-10-28T07:44:00+00:00"
     },
     "2026-11-01T12:00:00+00:00": {
       "level": 0,
       "start": "2026-10-31T12:00:00+00:00",
       "end": "2026-11-01T12:00:00+00:00",
       "issued": null
+    },
+    "2026-11-02T12:00:00+00:00": {
+      "level": 1,
+      "start": "2026-11-01T12:00:00Z",
+      "end": "2026-11-02T12:00:00Z",
+      "issued": "2026-10-28T08:27:00+00:00"
     }
   },
   "timing": {
     "Durango": {
       "window": {
         "start": "2026-10-31T00:00:00-06:00",
-        "end": "2026-10-31T06:00:00-06:00",
+        "end": "2026-10-31T12:00:00-06:00",
         "open_end": false
       },
-      "issued": "2026-10-27T18:32:08+00:00"
+      "issued": "2026-10-28T10:51:45+00:00"
     },
     "Bayfield": {
       "window": {
         "start": "2026-10-31T00:00:00-06:00",
-        "end": "2026-10-31T06:00:00-06:00",
+        "end": "2026-10-31T12:00:00-06:00",
         "open_end": false
       },
-      "issued": "2026-10-27T18:32:08+00:00"
+      "issued": "2026-10-28T10:51:45+00:00"
     },
     "Ignacio": {
       "window": {
         "start": "2026-10-31T00:00:00-06:00",
-        "end": "2026-10-31T06:00:00-06:00",
+        "end": "2026-10-31T12:00:00-06:00",
         "open_end": false
       },
-      "issued": "2026-10-27T18:32:08+00:00"
+      "issued": "2026-10-28T10:51:45+00:00"
     }
   },
   "errors": [
-    "rivers/drgc2: no future river forecast",
-    "rivers/vnbc2: no future river forecast",
-    "rivers/lpac2: no future river forecast",
-    "rivers/lphc2: no future river forecast"
+    "rivers/drgc2: stale river forecast",
+    "rivers/vnbc2: stale river forecast",
+    "rivers/lpac2: stale river forecast",
+    "rivers/lphc2: stale river forecast",
+    "rivers/fric2: stale river observation"
   ],
-  "checked": "2026-10-28T00:37:32.830006+00:00"
+  "checked": "2026-10-28T12:28:43.537446+00:00"
 }
