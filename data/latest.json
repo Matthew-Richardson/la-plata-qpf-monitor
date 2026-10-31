@@ -8,74 +8,71 @@
       "source": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-09352900/basin",
       "periods": {
         "Day 1": {
-          "average_in": 0.572,
-          "min_in": 0.25,
+          "average_in": 0.623,
+          "min_in": 0.5,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.1,
-          "min_in": 0.1,
-          "max_in": 0.1,
+          "average_in": 1.663,
+          "min_in": 1.5,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.499,
-          "min_in": 2.0,
-          "max_in": 3.0,
+          "average_in": 1.25,
+          "min_in": 1.25,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.1,
-          "min_in": 0.1,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
           "average_in": 0.01,
-          "min_in": 0.01,
+          "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 98.35,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 3.271,
+          "average_in": 3.432,
           "min_in": 3.0,
           "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -88,74 +85,71 @@
       "source": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-09352800/basin",
       "periods": {
         "Day 1": {
-          "average_in": 0.489,
+          "average_in": 0.525,
           "min_in": 0.25,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.083,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.566,
+          "min_in": 1.0,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.362,
-          "min_in": 2.0,
-          "max_in": 3.0,
+          "average_in": 1.111,
+          "min_in": 0.75,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.07,
-          "min_in": 0.01,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.01,
-          "min_in": 0.01,
+          "average_in": 0.004,
+          "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 39.27,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 3.052,
+          "average_in": 3.067,
           "min_in": 2.5,
           "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -168,74 +162,71 @@
       "source": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-09362750/basin",
       "periods": {
         "Day 1": {
-          "average_in": 0.75,
-          "min_in": 0.75,
+          "average_in": 0.702,
+          "min_in": 0.5,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.1,
-          "min_in": 0.1,
-          "max_in": 0.1,
+          "average_in": 1.752,
+          "min_in": 1.75,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.891,
-          "min_in": 2.5,
-          "max_in": 3.0,
+          "average_in": 1.203,
+          "min_in": 1.0,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.097,
-          "min_in": 0.01,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
           "average_in": 0.01,
-          "min_in": 0.01,
+          "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 97.44,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 3.995,
+          "average_in": 3.685,
           "min_in": 3.0,
           "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -248,74 +239,71 @@
       "source": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-09361500/basin",
       "periods": {
         "Day 1": {
-          "average_in": 0.447,
-          "min_in": 0.1,
+          "average_in": 0.424,
+          "min_in": 0.25,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.061,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.3,
+          "min_in": 0.5,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.102,
-          "min_in": 1.25,
-          "max_in": 3.0,
+          "average_in": 1.071,
+          "min_in": 0.75,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.096,
-          "min_in": 0.01,
-          "max_in": 0.25,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.01,
+          "average_in": 0.007,
           "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 96.63,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 73.87,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 2.892,
-          "min_in": 1.75,
+          "average_in": 2.851,
+          "min_in": 2.0,
           "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -328,74 +316,71 @@
       "source": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-09365500/basin",
       "periods": {
         "Day 1": {
-          "average_in": 0.704,
+          "average_in": 0.689,
           "min_in": 0.5,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.1,
-          "min_in": 0.1,
-          "max_in": 0.1,
+          "average_in": 1.85,
+          "min_in": 1.5,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.948,
-          "min_in": 2.0,
-          "max_in": 4.0,
+          "average_in": 1.167,
+          "min_in": 0.75,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.091,
-          "min_in": 0.01,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
           "average_in": 0.008,
           "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 82.7,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 75.37,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 4.288,
+          "average_in": 3.672,
           "min_in": 3.0,
-          "max_in": 5.0,
+          "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -412,54 +397,42 @@
       "parent_huc8": "14080101",
       "periods": {
         "Day 1": {
-          "average_in": 0.225,
+          "average_in": 0.247,
           "min_in": 0.1,
-          "max_in": 0.5,
+          "max_in": 0.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.01,
-          "min_in": 0.01,
-          "max_in": 0.01,
+          "average_in": 0.812,
+          "min_in": 0.5,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.457,
-          "min_in": 1.0,
-          "max_in": 2.0,
+          "average_in": 0.577,
+          "min_in": 0.5,
+          "max_in": 1.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.01,
-          "min_in": 0.01,
-          "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Days 6-7": {
           "average_in": 0.0,
           "min_in": 0.0,
           "max_in": 0.0,
@@ -468,15 +441,27 @@
           "valid_period": null,
           "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
-        "Days 1-7": {
-          "average_in": 1.807,
-          "min_in": 1.5,
-          "max_in": 3.0,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+        "Days 6-7": {
+          "average_in": 0.002,
+          "min_in": 0.0,
+          "max_in": 0.01,
+          "coverage_pct": 22.81,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        },
+        "Days 1-7": {
+          "average_in": 1.765,
+          "min_in": 1.5,
+          "max_in": 2.5,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:27:57",
+          "valid_period": [
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -492,48 +477,45 @@
           "min_in": 0.25,
           "max_in": 0.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.01,
-          "min_in": 0.01,
-          "max_in": 0.01,
+          "average_in": 0.885,
+          "min_in": 0.5,
+          "max_in": 1.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.531,
-          "min_in": 1.25,
-          "max_in": 2.0,
+          "average_in": 0.5,
+          "min_in": 0.5,
+          "max_in": 0.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.01,
+          "average_in": 0.0,
           "min_in": 0.0,
-          "max_in": 0.01,
-          "coverage_pct": 99.87,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
           "average_in": 0.0,
@@ -545,14 +527,14 @@
           "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 1-7": {
-          "average_in": 1.884,
+          "average_in": 1.744,
           "min_in": 1.5,
-          "max_in": 2.5,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -568,48 +550,45 @@
           "min_in": 0.25,
           "max_in": 0.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.01,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 0.769,
+          "min_in": 0.5,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.348,
-          "min_in": 0.75,
-          "max_in": 2.0,
+          "average_in": 0.344,
+          "min_in": 0.25,
+          "max_in": 0.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.003,
+          "average_in": 0.0,
           "min_in": 0.0,
-          "max_in": 0.01,
-          "coverage_pct": 25.98,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
           "average_in": 0.0,
@@ -621,14 +600,14 @@
           "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 1-7": {
-          "average_in": 1.752,
+          "average_in": 1.544,
           "min_in": 1.0,
           "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -640,52 +619,49 @@
       "parent_huc8": "14080105",
       "periods": {
         "Day 1": {
-          "average_in": 0.25,
+          "average_in": 0.286,
           "min_in": 0.25,
-          "max_in": 0.25,
+          "max_in": 0.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.028,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 0.96,
+          "min_in": 0.75,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.522,
-          "min_in": 1.25,
-          "max_in": 2.0,
+          "average_in": 0.378,
+          "min_in": 0.25,
+          "max_in": 0.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.002,
+          "average_in": 0.0,
           "min_in": 0.0,
-          "max_in": 0.01,
-          "coverage_pct": 22.14,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
           "average_in": 0.0,
@@ -697,14 +673,14 @@
           "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 1-7": {
-          "average_in": 1.957,
+          "average_in": 1.887,
           "min_in": 1.5,
           "max_in": 2.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -720,34 +696,34 @@
           "min_in": 0.25,
           "max_in": 0.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.01,
-          "min_in": 0.01,
-          "max_in": 0.01,
+          "average_in": 0.68,
+          "min_in": 0.5,
+          "max_in": 1.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.1,
-          "min_in": 0.75,
-          "max_in": 1.5,
+          "average_in": 0.289,
+          "min_in": 0.25,
+          "max_in": 0.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
@@ -770,14 +746,14 @@
           "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 1-7": {
-          "average_in": 1.53,
+          "average_in": 1.438,
           "min_in": 1.0,
-          "max_in": 2.0,
+          "max_in": 1.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -789,74 +765,71 @@
       "parent_huc8": "14080101",
       "periods": {
         "Day 1": {
-          "average_in": 0.58,
-          "min_in": 0.25,
+          "average_in": 0.614,
+          "min_in": 0.5,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.1,
-          "min_in": 0.1,
-          "max_in": 0.1,
+          "average_in": 1.685,
+          "min_in": 1.5,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.565,
-          "min_in": 2.0,
-          "max_in": 3.0,
+          "average_in": 1.189,
+          "min_in": 1.0,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.089,
-          "min_in": 0.01,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.01,
-          "min_in": 0.01,
+          "average_in": 0.007,
+          "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 70.65,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 3.361,
+          "average_in": 3.371,
           "min_in": 3.0,
           "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -868,74 +841,71 @@
       "parent_huc8": "14080101",
       "periods": {
         "Day 1": {
-          "average_in": 0.29,
-          "min_in": 0.25,
+          "average_in": 0.249,
+          "min_in": 0.1,
           "max_in": 0.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.011,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.03,
+          "min_in": 0.75,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.765,
-          "min_in": 1.25,
-          "max_in": 2.5,
+          "average_in": 0.6,
+          "min_in": 0.5,
+          "max_in": 1.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.01,
-          "min_in": 0.01,
-          "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
           "average_in": 0.0,
           "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 0.14,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 2.06,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 2.204,
-          "min_in": 1.75,
+          "average_in": 2.028,
+          "min_in": 1.5,
           "max_in": 3.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -947,74 +917,71 @@
       "parent_huc8": "14080104",
       "periods": {
         "Day 1": {
-          "average_in": 0.496,
+          "average_in": 0.5,
           "min_in": 0.25,
-          "max_in": 0.75,
+          "max_in": 0.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.088,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.289,
+          "min_in": 1.0,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.153,
-          "min_in": 2.0,
-          "max_in": 2.5,
+          "average_in": 1.286,
+          "min_in": 1.0,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.1,
-          "min_in": 0.1,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
           "average_in": 0.01,
           "min_in": 0.01,
           "max_in": 0.01,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 2.988,
+          "average_in": 2.997,
           "min_in": 2.5,
           "max_in": 3.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -1026,74 +993,71 @@
       "parent_huc8": "14080104",
       "periods": {
         "Day 1": {
-          "average_in": 0.399,
+          "average_in": 0.474,
           "min_in": 0.25,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.1,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.34,
+          "min_in": 1.0,
+          "max_in": 1.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.183,
-          "min_in": 2.0,
-          "max_in": 3.0,
+          "average_in": 1.144,
+          "min_in": 1.0,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.1,
-          "min_in": 0.1,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
           "average_in": 0.01,
-          "min_in": 0.01,
+          "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 96.91,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 2.947,
+          "average_in": 2.988,
           "min_in": 2.5,
           "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -1105,74 +1069,71 @@
       "parent_huc8": "14080104",
       "periods": {
         "Day 1": {
-          "average_in": 0.528,
-          "min_in": 0.5,
+          "average_in": 0.439,
+          "min_in": 0.25,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.044,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.437,
+          "min_in": 1.25,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.172,
-          "min_in": 2.0,
-          "max_in": 3.0,
+          "average_in": 1.038,
+          "min_in": 0.75,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.096,
-          "min_in": 0.01,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.01,
-          "min_in": 0.01,
+          "average_in": 0.009,
+          "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 89.71,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 3.067,
-          "min_in": 3.0,
+          "average_in": 2.988,
+          "min_in": 2.5,
           "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -1184,74 +1145,71 @@
       "parent_huc8": "14080104",
       "periods": {
         "Day 1": {
-          "average_in": 0.548,
-          "min_in": 0.5,
+          "average_in": 0.502,
+          "min_in": 0.25,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.076,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.46,
+          "min_in": 1.25,
+          "max_in": 1.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.27,
-          "min_in": 2.0,
-          "max_in": 3.0,
+          "average_in": 0.935,
+          "min_in": 0.75,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.055,
-          "min_in": 0.01,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.01,
+          "average_in": 0.005,
           "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 98.97,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 52.02,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 3.088,
-          "min_in": 3.0,
+          "average_in": 2.906,
+          "min_in": 2.5,
           "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -1263,74 +1221,71 @@
       "parent_huc8": "14080104",
       "periods": {
         "Day 1": {
-          "average_in": 0.563,
+          "average_in": 0.448,
           "min_in": 0.25,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.1,
-          "min_in": 0.1,
-          "max_in": 0.1,
+          "average_in": 1.523,
+          "min_in": 1.25,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.345,
-          "min_in": 2.0,
-          "max_in": 3.0,
+          "average_in": 0.832,
+          "min_in": 0.5,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.042,
-          "min_in": 0.01,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.004,
+          "average_in": 0.002,
           "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 39.12,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 19.7,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 3.136,
+          "average_in": 2.803,
           "min_in": 2.5,
           "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -1342,74 +1297,71 @@
       "parent_huc8": "14080104",
       "periods": {
         "Day 1": {
-          "average_in": 0.679,
-          "min_in": 0.5,
+          "average_in": 0.604,
+          "min_in": 0.25,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.1,
-          "min_in": 0.1,
-          "max_in": 0.1,
+          "average_in": 1.699,
+          "min_in": 1.5,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.751,
-          "min_in": 2.5,
-          "max_in": 3.0,
+          "average_in": 1.073,
+          "min_in": 0.75,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.059,
-          "min_in": 0.01,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.01,
-          "min_in": 0.01,
+          "average_in": 0.005,
+          "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 52.55,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 3.667,
-          "min_in": 3.0,
+          "average_in": 3.358,
+          "min_in": 2.5,
           "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -1421,74 +1373,68 @@
       "parent_huc8": "14080104",
       "periods": {
         "Day 1": {
-          "average_in": 0.282,
+          "average_in": 0.252,
           "min_in": 0.25,
           "max_in": 0.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.034,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.154,
+          "min_in": 1.0,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.95,
-          "min_in": 1.75,
-          "max_in": 2.5,
+          "average_in": 0.578,
+          "min_in": 0.5,
+          "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.01,
-          "min_in": 0.01,
-          "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.001,
+          "average_in": 0.0,
           "min_in": 0.0,
-          "max_in": 0.01,
-          "coverage_pct": 6.66,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 1-7": {
-          "average_in": 2.383,
-          "min_in": 2.0,
+          "average_in": 2.159,
+          "min_in": 1.75,
           "max_in": 3.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -1500,52 +1446,49 @@
       "parent_huc8": "14080104",
       "periods": {
         "Day 1": {
-          "average_in": 0.271,
+          "average_in": 0.257,
           "min_in": 0.25,
           "max_in": 0.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.074,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.192,
+          "min_in": 1.0,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.907,
-          "min_in": 1.75,
-          "max_in": 2.0,
+          "average_in": 0.545,
+          "min_in": 0.5,
+          "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.01,
-          "min_in": 0.01,
-          "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
           "average_in": 0.0,
@@ -1557,14 +1500,14 @@
           "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 1-7": {
-          "average_in": 2.343,
-          "min_in": 2.0,
-          "max_in": 3.0,
+          "average_in": 2.195,
+          "min_in": 1.75,
+          "max_in": 2.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -1576,74 +1519,71 @@
       "parent_huc8": "14080105",
       "periods": {
         "Day 1": {
-          "average_in": 0.45,
+          "average_in": 0.433,
           "min_in": 0.25,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.05,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.253,
+          "min_in": 0.75,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.983,
-          "min_in": 1.25,
-          "max_in": 4.0,
+          "average_in": 0.671,
+          "min_in": 0.25,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.024,
+          "average_in": 0.0,
           "min_in": 0.0,
-          "max_in": 0.1,
-          "coverage_pct": 78.19,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.002,
+          "average_in": 0.001,
           "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 18.78,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 8.55,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 2.661,
+          "average_in": 2.457,
           "min_in": 1.75,
-          "max_in": 5.0,
+          "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -1655,74 +1595,71 @@
       "parent_huc8": "14080107",
       "periods": {
         "Day 1": {
-          "average_in": 0.587,
+          "average_in": 0.477,
           "min_in": 0.25,
-          "max_in": 1.0,
+          "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.036,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.211,
+          "min_in": 1.0,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.097,
-          "min_in": 1.5,
-          "max_in": 3.0,
+          "average_in": 0.882,
+          "min_in": 0.5,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.048,
-          "min_in": 0.01,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.006,
+          "average_in": 0.003,
           "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 63.88,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 32.64,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 2.908,
+          "average_in": 2.606,
           "min_in": 2.0,
-          "max_in": 5.0,
+          "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -1734,289 +1671,49 @@
       "parent_huc8": "14080107",
       "periods": {
         "Day 1": {
-          "average_in": 0.326,
+          "average_in": 0.266,
           "min_in": 0.25,
           "max_in": 0.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.01,
-          "min_in": 0.01,
-          "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
-          "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Day 3": {
-          "average_in": 1.328,
-          "min_in": 1.0,
-          "max_in": 1.75,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
-          "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Days 4-5": {
-          "average_in": 0.009,
-          "min_in": 0.0,
-          "max_in": 0.01,
-          "coverage_pct": 88.01,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Days 6-7": {
-          "average_in": 0.001,
-          "min_in": 0.0,
-          "max_in": 0.01,
-          "coverage_pct": 8.24,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Days 1-7": {
-          "average_in": 1.822,
-          "min_in": 1.25,
-          "max_in": 2.5,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
-          "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        }
-      }
-    },
-    "1403000202": {
-      "name": "Headwaters Dolores River",
-      "huc10": "1403000202",
-      "parent_huc8": "14030002",
-      "periods": {
-        "Day 1": {
-          "average_in": 0.473,
-          "min_in": 0.25,
-          "max_in": 0.75,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
-          "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Day 2": {
-          "average_in": 0.027,
-          "min_in": 0.01,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
-          "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Day 3": {
-          "average_in": 2.103,
-          "min_in": 1.75,
-          "max_in": 3.0,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
-          "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Days 4-5": {
-          "average_in": 0.108,
-          "min_in": 0.1,
-          "max_in": 0.25,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Days 6-7": {
-          "average_in": 0.01,
-          "min_in": 0.01,
-          "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Days 1-7": {
-          "average_in": 3.058,
-          "min_in": 2.5,
-          "max_in": 5.0,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
-          "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        }
-      }
-    },
-    "1408010111": {
-      "name": "Upper Los Pinos River",
-      "huc10": "1408010111",
-      "parent_huc8": "14080101",
-      "periods": {
-        "Day 1": {
-          "average_in": 0.489,
-          "min_in": 0.25,
-          "max_in": 0.75,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
-          "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Day 2": {
-          "average_in": 0.083,
-          "min_in": 0.01,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
-          "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Day 3": {
-          "average_in": 2.379,
-          "min_in": 2.0,
-          "max_in": 3.0,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
-          "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Days 4-5": {
-          "average_in": 0.067,
-          "min_in": 0.01,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Days 6-7": {
-          "average_in": 0.01,
-          "min_in": 0.01,
-          "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Days 1-7": {
-          "average_in": 3.066,
-          "min_in": 2.5,
-          "max_in": 4.0,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
-          "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        }
-      }
-    },
-    "1408010506": {
-      "name": "Salt Creek Wash",
-      "huc10": "1408010506",
-      "parent_huc8": "14080105",
-      "periods": {
-        "Day 1": {
-          "average_in": 0.242,
-          "min_in": 0.1,
-          "max_in": 0.25,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
-          "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Day 2": {
-          "average_in": 0.01,
-          "min_in": 0.01,
-          "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
-          "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Day 3": {
-          "average_in": 0.724,
-          "min_in": 0.5,
+          "average_in": 0.906,
+          "min_in": 0.75,
           "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        },
+        "Day 3": {
+          "average_in": 0.485,
+          "min_in": 0.25,
+          "max_in": 0.75,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:07:56",
+          "valid_period": [
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.002,
+          "average_in": 0.0,
           "min_in": 0.0,
-          "max_in": 0.01,
-          "coverage_pct": 19.64,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
           "average_in": 0.0,
@@ -2028,14 +1725,239 @@
           "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 1-7": {
-          "average_in": 1.103,
+          "average_in": 1.899,
+          "min_in": 1.5,
+          "max_in": 2.5,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:27:57",
+          "valid_period": [
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        }
+      }
+    },
+    "1403000202": {
+      "name": "Headwaters Dolores River",
+      "huc10": "1403000202",
+      "parent_huc8": "14030002",
+      "periods": {
+        "Day 1": {
+          "average_in": 0.402,
+          "min_in": 0.25,
+          "max_in": 0.75,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:04:13",
+          "valid_period": [
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        },
+        "Day 2": {
+          "average_in": 1.225,
+          "min_in": 1.0,
+          "max_in": 2.0,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:06:32",
+          "valid_period": [
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        },
+        "Day 3": {
+          "average_in": 1.13,
+          "min_in": 1.0,
+          "max_in": 1.5,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:07:56",
+          "valid_period": [
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        },
+        "Days 4-5": {
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
+        },
+        "Days 6-7": {
+          "average_in": 0.009,
+          "min_in": 0.0,
+          "max_in": 0.01,
+          "coverage_pct": 90.44,
+          "issue_time": "2026-10-30 16:04:13",
+          "valid_period": [
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        },
+        "Days 1-7": {
+          "average_in": 2.857,
+          "min_in": 2.5,
+          "max_in": 4.0,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:27:57",
+          "valid_period": [
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        }
+      }
+    },
+    "1408010111": {
+      "name": "Upper Los Pinos River",
+      "huc10": "1408010111",
+      "parent_huc8": "14080101",
+      "periods": {
+        "Day 1": {
+          "average_in": 0.524,
+          "min_in": 0.25,
+          "max_in": 0.75,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:04:13",
+          "valid_period": [
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        },
+        "Day 2": {
+          "average_in": 1.574,
+          "min_in": 1.0,
+          "max_in": 2.0,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:06:32",
+          "valid_period": [
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        },
+        "Day 3": {
+          "average_in": 1.112,
+          "min_in": 0.75,
+          "max_in": 1.25,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:07:56",
+          "valid_period": [
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        },
+        "Days 4-5": {
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
+        },
+        "Days 6-7": {
+          "average_in": 0.004,
+          "min_in": 0.0,
+          "max_in": 0.01,
+          "coverage_pct": 37.34,
+          "issue_time": "2026-10-30 16:04:13",
+          "valid_period": [
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        },
+        "Days 1-7": {
+          "average_in": 3.063,
+          "min_in": 2.5,
+          "max_in": 4.0,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:27:57",
+          "valid_period": [
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        }
+      }
+    },
+    "1408010506": {
+      "name": "Salt Creek Wash",
+      "huc10": "1408010506",
+      "parent_huc8": "14080105",
+      "periods": {
+        "Day 1": {
+          "average_in": 0.235,
+          "min_in": 0.1,
+          "max_in": 0.25,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:04:13",
+          "valid_period": [
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        },
+        "Day 2": {
+          "average_in": 0.474,
+          "min_in": 0.25,
+          "max_in": 0.75,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:06:32",
+          "valid_period": [
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        },
+        "Day 3": {
+          "average_in": 0.241,
+          "min_in": 0.1,
+          "max_in": 0.5,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:07:56",
+          "valid_period": [
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
+          ],
+          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+        },
+        "Days 4-5": {
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
+        },
+        "Days 6-7": {
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
+        },
+        "Days 1-7": {
+          "average_in": 1.15,
           "min_in": 0.75,
           "max_in": 1.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -2047,74 +1969,68 @@
       "parent_huc8": "14080101",
       "periods": {
         "Day 1": {
-          "average_in": 0.484,
+          "average_in": 0.327,
           "min_in": 0.25,
-          "max_in": 0.75,
+          "max_in": 0.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.036,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.416,
+          "min_in": 1.0,
+          "max_in": 1.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.391,
-          "min_in": 1.75,
-          "max_in": 3.0,
+          "average_in": 0.962,
+          "min_in": 0.5,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.01,
-          "min_in": 0.01,
-          "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.003,
+          "average_in": 0.0,
           "min_in": 0.0,
-          "max_in": 0.01,
-          "coverage_pct": 34.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 1-7": {
-          "average_in": 2.972,
+          "average_in": 2.792,
           "min_in": 2.0,
-          "max_in": 4.0,
+          "max_in": 3.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -2126,74 +2042,68 @@
       "parent_huc8": "14080101",
       "periods": {
         "Day 1": {
-          "average_in": 0.468,
+          "average_in": 0.428,
           "min_in": 0.25,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.078,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.485,
+          "min_in": 1.0,
+          "max_in": 1.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 2.384,
-          "min_in": 1.75,
-          "max_in": 3.0,
+          "average_in": 0.903,
+          "min_in": 0.5,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.013,
-          "min_in": 0.01,
-          "max_in": 0.1,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.006,
+          "average_in": 0.0,
           "min_in": 0.0,
-          "max_in": 0.01,
-          "coverage_pct": 64.01,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 1-7": {
-          "average_in": 2.957,
+          "average_in": 2.823,
           "min_in": 2.0,
-          "max_in": 4.0,
+          "max_in": 3.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -2205,74 +2115,71 @@
       "parent_huc8": "14080104",
       "periods": {
         "Day 1": {
-          "average_in": 0.246,
-          "min_in": 0.1,
+          "average_in": 0.269,
+          "min_in": 0.25,
           "max_in": 0.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.022,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 0.959,
+          "min_in": 0.5,
+          "max_in": 1.25,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.786,
-          "min_in": 1.25,
-          "max_in": 2.5,
+          "average_in": 1.118,
+          "min_in": 1.0,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.131,
-          "min_in": 0.1,
-          "max_in": 0.25,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.01,
-          "min_in": 0.01,
+          "average_in": 0.005,
+          "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 53.44,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 2.365,
-          "min_in": 1.75,
+          "average_in": 2.521,
+          "min_in": 2.0,
           "max_in": 3.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -2286,74 +2193,71 @@
       "huc8": "14080104",
       "periods": {
         "Day 1": {
-          "average_in": 0.404,
-          "min_in": 0.1,
+          "average_in": 0.377,
+          "min_in": 0.25,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.055,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 1.217,
+          "min_in": 0.5,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.99,
-          "min_in": 0.75,
-          "max_in": 3.0,
+          "average_in": 0.827,
+          "min_in": 0.25,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.056,
+          "average_in": 0.0,
           "min_in": 0.0,
-          "max_in": 0.25,
-          "coverage_pct": 85.13,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.006,
+          "average_in": 0.004,
           "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 58.86,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 41.31,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 2.646,
+          "average_in": 2.515,
           "min_in": 1.0,
           "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -2364,74 +2268,71 @@
       "huc8": "14030002",
       "periods": {
         "Day 1": {
-          "average_in": 0.384,
+          "average_in": 0.326,
           "min_in": 0.1,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.012,
-          "min_in": 0.0,
-          "max_in": 0.1,
-          "coverage_pct": 77.74,
-          "issue_time": "2026-10-30 10:05:18",
+          "average_in": 0.808,
+          "min_in": 0.25,
+          "max_in": 2.0,
+          "coverage_pct": 100.0,
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.397,
-          "min_in": 0.75,
-          "max_in": 3.0,
+          "average_in": 0.679,
+          "min_in": 0.25,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.048,
-          "min_in": 0.01,
-          "max_in": 0.25,
-          "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "average_in": 0.0,
+          "min_in": 0.0,
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.005,
+          "average_in": 0.002,
           "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 53.07,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 23.64,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 2.023,
+          "average_in": 1.966,
           "min_in": 1.0,
-          "max_in": 5.0,
+          "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -2442,74 +2343,71 @@
       "huc8": "14080101",
       "periods": {
         "Day 1": {
-          "average_in": 0.226,
+          "average_in": 0.312,
           "min_in": 0.1,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.037,
-          "min_in": 0.01,
-          "max_in": 0.25,
+          "average_in": 0.983,
+          "min_in": 0.25,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.736,
-          "min_in": 0.5,
-          "max_in": 3.0,
+          "average_in": 0.921,
+          "min_in": 0.1,
+          "max_in": 2.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.039,
+          "average_in": 0.0,
           "min_in": 0.0,
-          "max_in": 0.1,
-          "coverage_pct": 82.92,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.006,
+          "average_in": 0.003,
           "min_in": 0.0,
-          "max_in": 0.1,
-          "coverage_pct": 36.91,
-          "issue_time": "2026-10-30 03:50:01",
+          "max_in": 0.01,
+          "coverage_pct": 31.03,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 2.153,
-          "min_in": 0.75,
-          "max_in": 4.0,
+          "average_in": 2.301,
+          "min_in": 0.5,
+          "max_in": 5.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -2520,74 +2418,71 @@
       "huc8": "14080105",
       "periods": {
         "Day 1": {
-          "average_in": 0.249,
-          "min_in": 0.01,
+          "average_in": 0.225,
+          "min_in": 0.1,
           "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.018,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 0.579,
+          "min_in": 0.25,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 0.89,
-          "min_in": 0.25,
-          "max_in": 4.0,
+          "average_in": 0.282,
+          "min_in": 0.1,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.005,
-          "min_in": 0.0,
-          "max_in": 0.1,
-          "coverage_pct": 19.57,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
-        },
-        "Days 6-7": {
           "average_in": 0.0,
           "min_in": 0.0,
-          "max_in": 0.01,
-          "coverage_pct": 2.99,
-          "issue_time": "2026-10-30 03:50:01",
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
+        },
+        "Days 6-7": {
+          "average_in": 0.004,
+          "min_in": 0.0,
+          "max_in": 0.1,
+          "coverage_pct": 33.12,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 1.304,
+          "average_in": 1.283,
           "min_in": 0.5,
-          "max_in": 5.0,
+          "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -2598,74 +2493,71 @@
       "huc8": "14080107",
       "periods": {
         "Day 1": {
-          "average_in": 0.372,
-          "min_in": 0.25,
-          "max_in": 1.0,
+          "average_in": 0.313,
+          "min_in": 0.1,
+          "max_in": 0.75,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:03:49",
+          "issue_time": "2026-10-30 22:04:13",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-10-31 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-01 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 2": {
-          "average_in": 0.017,
-          "min_in": 0.01,
-          "max_in": 0.1,
+          "average_in": 0.872,
+          "min_in": 0.25,
+          "max_in": 2.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:05:18",
+          "issue_time": "2026-10-30 22:06:32",
           "valid_period": [
-            "2026-10-31 12:00:00",
-            "2026-11-01 12:00:00"
+            "2026-11-01 00:00:00",
+            "2026-11-02 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Day 3": {
-          "average_in": 1.345,
-          "min_in": 0.5,
-          "max_in": 3.0,
+          "average_in": 0.522,
+          "min_in": 0.25,
+          "max_in": 1.5,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:07:03",
+          "issue_time": "2026-10-30 22:07:56",
           "valid_period": [
-            "2026-11-01 12:00:00",
-            "2026-11-02 12:00:00"
+            "2026-11-02 00:00:00",
+            "2026-11-03 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 4-5": {
-          "average_in": 0.018,
+          "average_in": 0.0,
           "min_in": 0.0,
-          "max_in": 0.1,
-          "coverage_pct": 84.86,
-          "issue_time": "2026-10-30 03:50:01",
-          "valid_period": [
-            "2026-11-02 12:00:00",
-            "2026-11-04 12:00:00"
-          ],
-          "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+          "max_in": 0.0,
+          "coverage_pct": 0.0,
+          "issue_time": null,
+          "valid_period": null,
+          "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
         },
         "Days 6-7": {
-          "average_in": 0.002,
+          "average_in": 0.001,
           "min_in": 0.0,
           "max_in": 0.01,
-          "coverage_pct": 18.99,
-          "issue_time": "2026-10-30 03:50:01",
+          "coverage_pct": 8.27,
+          "issue_time": "2026-10-30 16:04:13",
           "valid_period": [
-            "2026-11-04 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-11-05 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         },
         "Days 1-7": {
-          "average_in": 1.912,
+          "average_in": 1.875,
           "min_in": 0.75,
-          "max_in": 5.0,
+          "max_in": 4.0,
           "coverage_pct": 100.0,
-          "issue_time": "2026-10-30 10:30:11",
+          "issue_time": "2026-10-30 22:27:57",
           "valid_period": [
-            "2026-10-30 12:00:00",
-            "2026-11-06 12:00:00"
+            "2026-10-31 00:00:00",
+            "2026-11-07 00:00:00"
           ],
           "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
         }
@@ -2674,79 +2566,79 @@
   },
   "watershed_source": "https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4",
   "watershed_level": "USGS HUC8 full subbasins intersecting La Plata County",
-  "generated_utc": "2026-10-30T12:31:50.780601+00:00",
+  "generated_utc": "2026-10-31T00:37:26.329771+00:00",
   "location": "La Plata County CO",
   "source": "https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/MapServer",
   "periods": {
     "Day 1": {
-      "average_in": 0.436,
+      "average_in": 0.4,
       "min_in": 0.25,
       "max_in": 0.75,
       "coverage_pct": 100.0,
-      "issue_time": "2026-10-30 10:03:49",
+      "issue_time": "2026-10-30 22:04:13",
       "valid_period": [
-        "2026-10-30 12:00:00",
-        "2026-10-31 12:00:00"
+        "2026-10-31 00:00:00",
+        "2026-11-01 00:00:00"
       ],
       "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
     },
     "Day 2": {
-      "average_in": 0.056,
-      "min_in": 0.01,
-      "max_in": 0.1,
+      "average_in": 1.329,
+      "min_in": 0.75,
+      "max_in": 2.0,
       "coverage_pct": 100.0,
-      "issue_time": "2026-10-30 10:05:18",
+      "issue_time": "2026-10-30 22:06:32",
       "valid_period": [
-        "2026-10-31 12:00:00",
-        "2026-11-01 12:00:00"
+        "2026-11-01 00:00:00",
+        "2026-11-02 00:00:00"
       ],
       "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
     },
     "Day 3": {
-      "average_in": 2.114,
-      "min_in": 1.25,
-      "max_in": 4.0,
+      "average_in": 0.775,
+      "min_in": 0.25,
+      "max_in": 1.5,
       "coverage_pct": 100.0,
-      "issue_time": "2026-10-30 10:07:03",
+      "issue_time": "2026-10-30 22:07:56",
       "valid_period": [
-        "2026-11-01 12:00:00",
-        "2026-11-02 12:00:00"
+        "2026-11-02 00:00:00",
+        "2026-11-03 00:00:00"
       ],
       "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
     },
     "Days 4-5": {
-      "average_in": 0.035,
+      "average_in": 0.0,
       "min_in": 0.0,
-      "max_in": 0.1,
-      "coverage_pct": 90.86,
-      "issue_time": "2026-10-30 03:50:01",
+      "max_in": 0.0,
+      "coverage_pct": 0.0,
+      "issue_time": "2026-10-30 16:04:13",
       "valid_period": [
-        "2026-11-02 12:00:00",
-        "2026-11-04 12:00:00"
+        "2026-11-03 00:00:00",
+        "2026-11-05 00:00:00"
       ],
-      "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
+      "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
     },
     "Days 6-7": {
-      "average_in": 0.004,
+      "average_in": 0.002,
       "min_in": 0.0,
       "max_in": 0.01,
-      "coverage_pct": 42.06,
-      "issue_time": "2026-10-30 03:50:01",
+      "coverage_pct": 23.88,
+      "issue_time": "2026-10-30 16:04:13",
       "valid_period": [
-        "2026-11-04 12:00:00",
-        "2026-11-06 12:00:00"
+        "2026-11-05 00:00:00",
+        "2026-11-07 00:00:00"
       ],
       "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
     },
     "Days 1-7": {
-      "average_in": 2.753,
+      "average_in": 2.585,
       "min_in": 1.75,
-      "max_in": 5.0,
+      "max_in": 4.0,
       "coverage_pct": 100.0,
-      "issue_time": "2026-10-30 10:30:11",
+      "issue_time": "2026-10-30 22:27:57",
       "valid_period": [
-        "2026-10-30 12:00:00",
-        "2026-11-06 12:00:00"
+        "2026-10-31 00:00:00",
+        "2026-11-07 00:00:00"
       ],
       "note": "Areas outside WPC QPF contours are treated as zero; area average is a lower-bound approximation."
     }
@@ -2754,10 +2646,10 @@
   "nbm": {
     "status": "complete",
     "source": "https://noaa-nbm-grib2-pds.s3.amazonaws.com",
-    "cycle_utc": "2026-10-30T06:00:00+00:00",
+    "cycle_utc": "2026-10-30T18:00:00+00:00",
     "valid_period": [
-      "2026-10-30T06:00:00+00:00",
-      "2026-11-06T06:00:00+00:00"
+      "2026-10-30T18:00:00+00:00",
+      "2026-11-06T18:00:00+00:00"
     ],
     "forecast_hours": [
       1,
@@ -2832,27 +2724,27 @@
     "grid": "NBM CONUS core deterministic, approximately 2.5 km",
     "totals": {
       "county": {
-        "average_in": 2.076,
+        "average_in": 2.181,
         "grid_points": 715
       },
       "09352900": {
-        "average_in": 2.436,
+        "average_in": 2.521,
         "grid_points": 33
       },
       "09352800": {
-        "average_in": 2.284,
+        "average_in": 2.321,
         "grid_points": 52
       },
       "09362750": {
-        "average_in": 2.488,
+        "average_in": 2.628,
         "grid_points": 22
       },
       "09361500": {
-        "average_in": 2.189,
+        "average_in": 2.262,
         "grid_points": 286
       },
       "09365500": {
-        "average_in": 2.328,
+        "average_in": 2.46,
         "grid_points": 14
       }
     },
@@ -2867,12 +2759,16 @@
       "Day 1": [
         {
           "threshold_in": 4,
+          "category": "Moderate (40-69%)",
+          "minimum_probability_pct": 40
+        },
+        {
+          "threshold_in": 4,
           "category": "Slight (10-39%)",
           "minimum_probability_pct": 10
         }
       ],
-      "Day 2": [],
-      "Day 3": [
+      "Day 2": [
         {
           "threshold_in": 12,
           "category": "Slight (10-39%)",
@@ -2880,14 +2776,31 @@
         },
         {
           "threshold_in": 8,
+          "category": "Moderate (40-69%)",
+          "minimum_probability_pct": 40
+        },
+        {
+          "threshold_in": 8,
+          "category": "Slight (10-39%)",
+          "minimum_probability_pct": 10
+        },
+        {
+          "threshold_in": 4,
           "category": "High (70-100%)",
           "minimum_probability_pct": 70
         },
         {
-          "threshold_in": 8,
+          "threshold_in": 4,
           "category": "Moderate (40-69%)",
           "minimum_probability_pct": 40
         },
+        {
+          "threshold_in": 4,
+          "category": "Slight (10-39%)",
+          "minimum_probability_pct": 10
+        }
+      ],
+      "Day 3": [
         {
           "threshold_in": 8,
           "category": "Slight (10-39%)",
@@ -2922,18 +2835,23 @@
         "Above 9,000 ft": [
           {
             "threshold_in": 4,
-            "minimum_probability_pct": 10
+            "minimum_probability_pct": 40
           }
         ]
       },
       "Day 2": {
         "Below 7,000 ft": [],
-        "7,000\u20139,000 ft": [],
-        "Above 9,000 ft": []
-      },
-      "Day 3": {
-        "Below 7,000 ft": [],
         "7,000\u20139,000 ft": [
+          {
+            "threshold_in": 4,
+            "minimum_probability_pct": 40
+          },
+          {
+            "threshold_in": 8,
+            "minimum_probability_pct": 10
+          }
+        ],
+        "Above 9,000 ft": [
           {
             "threshold_in": 4,
             "minimum_probability_pct": 70
@@ -2946,6 +2864,19 @@
             "threshold_in": 12,
             "minimum_probability_pct": 10
           }
+        ]
+      },
+      "Day 3": {
+        "Below 7,000 ft": [],
+        "7,000\u20139,000 ft": [
+          {
+            "threshold_in": 4,
+            "minimum_probability_pct": 40
+          },
+          {
+            "threshold_in": 8,
+            "minimum_probability_pct": 10
+          }
         ],
         "Above 9,000 ft": [
           {
@@ -2954,10 +2885,6 @@
           },
           {
             "threshold_in": 8,
-            "minimum_probability_pct": 70
-          },
-          {
-            "threshold_in": 12,
             "minimum_probability_pct": 10
           }
         ]
