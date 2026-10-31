@@ -1,20 +1,35 @@
 {
   "status": "wet",
   "dry_streak": 0,
-  "last_sent_at": "2026-10-30T06:31:54.029470-06:00",
+  "last_sent_at": "2026-10-30T18:37:42.068679-06:00",
   "last_alert_totals": {
-    "county": 2.753,
-    "Vallecito": 3.271,
-    "Los Pinos": 3.052,
-    "Lemon": 3.995,
-    "Animas": 2.892,
-    "La Plata": 4.288
+    "county": 2.585,
+    "Vallecito": 3.432,
+    "Los Pinos": 3.067,
+    "Lemon": 3.685,
+    "Animas": 2.851,
+    "La Plata": 3.672
   },
   "unchanged_day": "2026-10-28",
   "snow_signature": [
     [
       "Day 1",
       4,
+      40
+    ],
+    [
+      "Day 2",
+      4,
+      70
+    ],
+    [
+      "Day 2",
+      8,
+      40
+    ],
+    [
+      "Day 2",
+      12,
       10
     ],
     [
@@ -25,11 +40,6 @@
     [
       "Day 3",
       8,
-      70
-    ],
-    [
-      "Day 3",
-      12,
       10
     ]
   ],
@@ -44,24 +54,48 @@
       "Day 1",
       "Above 9,000 ft",
       4,
+      40
+    ],
+    [
+      "Day 2",
+      "7,000\u20139,000 ft",
+      4,
+      40
+    ],
+    [
+      "Day 2",
+      "7,000\u20139,000 ft",
+      8,
+      10
+    ],
+    [
+      "Day 2",
+      "Above 9,000 ft",
+      4,
+      70
+    ],
+    [
+      "Day 2",
+      "Above 9,000 ft",
+      8,
+      40
+    ],
+    [
+      "Day 2",
+      "Above 9,000 ft",
+      12,
       10
     ],
     [
       "Day 3",
       "7,000\u20139,000 ft",
       4,
-      70
-    ],
-    [
-      "Day 3",
-      "7,000\u20139,000 ft",
-      8,
       40
     ],
     [
       "Day 3",
       "7,000\u20139,000 ft",
-      12,
+      8,
       10
     ],
     [
@@ -74,60 +108,54 @@
       "Day 3",
       "Above 9,000 ft",
       8,
-      70
-    ],
-    [
-      "Day 3",
-      "Above 9,000 ft",
-      12,
       10
     ]
   ],
-  "wet_update_slot": "2026-10-30 AM",
+  "wet_update_slot": "2026-10-30 PM",
   "operational": {
     "rivers": {
       "drgc2": {
-        "cfs": 4230,
+        "cfs": 4060,
         "time": "2026-11-02T12:00:00Z",
         "category": "below action",
-        "stage_ft": 5.62,
-        "issued": "2026-10-29T14:56:00Z",
+        "stage_ft": 5.53,
+        "issued": "2026-10-30T15:48:00Z",
         "at_horizon": false,
         "observed": false
       },
       "vnbc2": {
-        "cfs": 735,
+        "cfs": 654,
         "time": "2026-11-02T06:00:00Z",
         "category": "undefined",
-        "stage_ft": 2.66,
-        "issued": "2026-10-29T14:56:00Z",
+        "stage_ft": 2.56,
+        "issued": "2026-10-30T15:48:00Z",
         "at_horizon": false,
         "observed": false
       },
       "lpac2": {
-        "cfs": 1130,
+        "cfs": 1100,
         "time": "2026-11-02T06:00:00Z",
         "category": "undefined",
-        "stage_ft": 5.58,
-        "issued": "2026-10-29T14:56:00Z",
+        "stage_ft": 5.55,
+        "issued": "2026-10-30T15:48:00Z",
         "at_horizon": false,
         "observed": false
       },
       "lphc2": {
-        "cfs": 405,
+        "cfs": 400,
         "time": "2026-11-02T00:00:00Z",
         "category": "below action",
-        "stage_ft": 4.93,
-        "issued": "2026-10-29T14:56:00Z",
+        "stage_ft": 4.92,
+        "issued": "2026-10-30T15:48:00Z",
         "at_horizon": false,
         "observed": false
       },
       "fric2": {
-        "cfs": 174,
-        "time": "2026-10-30T11:15:00Z",
+        "cfs": 165,
+        "time": "2026-10-30T23:15:00Z",
         "category": "below action",
-        "stage_ft": 2.39,
-        "issued": "2026-10-30T11:15:00Z",
+        "stage_ft": 2.36,
+        "issued": "2026-10-30T23:15:00Z",
         "at_horizon": false,
         "observed": true
       }
@@ -201,9 +229,9 @@
       },
       "2026-10-31T12:00:00+00:00": {
         "level": 1,
-        "start": "2026-10-30T12:00:00Z",
+        "start": "2026-10-30T16:00:00Z",
         "end": "2026-10-31T12:00:00Z",
-        "issued": "2026-10-30T08:28:00+00:00"
+        "issued": "2026-10-30T15:56:00+00:00"
       },
       "2026-11-01T12:00:00+00:00": {
         "level": 0,
@@ -215,7 +243,7 @@
         "level": 3,
         "start": "2026-11-01T12:00:00Z",
         "end": "2026-11-02T12:00:00Z",
-        "issued": "2026-10-30T08:19:00+00:00"
+        "issued": "2026-10-30T20:12:00+00:00"
       },
       "2026-11-03T12:00:00+00:00": {
         "level": 0,
@@ -233,27 +261,27 @@
     "timing": {
       "Durango": {
         "window": {
-          "start": "2026-10-30T20:00:00-06:00",
-          "end": "2026-10-31T09:00:00-06:00",
+          "start": "2026-10-30T21:00:00-06:00",
+          "end": "2026-10-31T05:00:00-06:00",
           "open_end": false
         },
-        "issued": "2026-10-30T10:02:14+00:00"
+        "issued": "2026-10-30T21:41:53+00:00"
       },
       "Bayfield": {
-        "window": {
-          "start": "2026-10-30T21:00:00-06:00",
-          "end": "2026-10-31T09:00:00-06:00",
-          "open_end": false
-        },
-        "issued": "2026-10-30T10:02:14+00:00"
-      },
-      "Ignacio": {
         "window": {
           "start": "2026-10-30T22:00:00-06:00",
           "end": "2026-10-31T06:00:00-06:00",
           "open_end": false
         },
-        "issued": "2026-10-30T10:02:14+00:00"
+        "issued": "2026-10-30T21:41:53+00:00"
+      },
+      "Ignacio": {
+        "window": {
+          "start": "2026-10-30T22:00:00-06:00",
+          "end": "2026-10-31T05:00:00-06:00",
+          "open_end": false
+        },
+        "issued": "2026-10-30T21:41:53+00:00"
       }
     }
   },
