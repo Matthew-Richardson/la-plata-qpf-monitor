@@ -272,7 +272,7 @@ def river_brief(operational,changes,now):
     values=[v for v in operational.get('rivers',{}).values() if not v.get('observed')]
     if values:
         issued=max(dt(v['issued']) for v in values).astimezone(ZoneInfo('America/Denver'))
-        lines.append(issued.strftime('NWS forecast issued %a %-m/%-d, %-I:%M %p %Z. All times %Z.'))
+        lines.append(issued.strftime('NWS forecast issued %a %-m/%-d, %-I:%M %p %Z.')+' Peak times are local Mountain Time.')
     return '\n'.join(lines)
 
 def main():
