@@ -1,7 +1,7 @@
 {
   "status": "dry",
-  "dry_streak": 4,
-  "last_sent_at": "2026-11-04T06:33:58.800913-07:00",
+  "dry_streak": 5,
+  "last_sent_at": "2026-11-04T18:31:51.615455-07:00",
   "last_alert_totals": null,
   "unchanged_day": "2026-10-28",
   "snow_signature": [],
@@ -10,47 +10,47 @@
   "operational": {
     "rivers": {
       "drgc2": {
-        "cfs": 4190,
-        "time": "2026-11-04T14:00:00Z",
+        "cfs": 3480,
+        "time": "2026-11-05T06:00:00Z",
         "category": "below action",
-        "stage_ft": 5.6,
-        "issued": "2026-11-03T21:37:00Z",
+        "stage_ft": 5.21,
+        "issued": "2026-11-04T17:20:00Z",
         "at_horizon": false,
         "observed": false
       },
       "vnbc2": {
-        "cfs": 544,
-        "time": "2026-11-04T14:00:00Z",
+        "cfs": 470,
+        "time": "2026-11-05T02:00:00Z",
         "category": "undefined",
-        "stage_ft": 2.41,
-        "issued": "2026-11-03T21:37:00Z",
+        "stage_ft": 2.3,
+        "issued": "2026-11-04T15:51:00Z",
         "at_horizon": false,
         "observed": false
       },
       "lpac2": {
-        "cfs": 1080,
-        "time": "2026-11-04T14:00:00Z",
+        "cfs": 975,
+        "time": "2026-11-05T02:00:00Z",
         "category": "undefined",
-        "stage_ft": 5.53,
-        "issued": "2026-11-03T21:37:00Z",
+        "stage_ft": 5.41,
+        "issued": "2026-11-04T15:51:00Z",
         "at_horizon": false,
         "observed": false
       },
       "lphc2": {
-        "cfs": 255,
-        "time": "2026-11-04T14:00:00Z",
+        "cfs": 205,
+        "time": "2026-11-05T02:00:00Z",
         "category": "below action",
-        "stage_ft": 4.6,
-        "issued": "2026-11-03T21:37:00Z",
+        "stage_ft": 4.47,
+        "issued": "2026-11-04T15:51:00Z",
         "at_horizon": false,
         "observed": false
       },
       "fric2": {
-        "cfs": 366,
-        "time": "2026-11-04T12:15:00Z",
+        "cfs": 323,
+        "time": "2026-11-05T00:15:00Z",
         "category": "below action",
-        "stage_ft": 2.86,
-        "issued": "2026-11-04T12:15:00Z",
+        "stage_ft": 2.77,
+        "issued": "2026-11-05T00:15:00Z",
         "at_horizon": false,
         "observed": true
       }
@@ -186,15 +186,15 @@
     "timing": {
       "Durango": {
         "window": null,
-        "issued": "2026-11-04T10:21:59+00:00"
+        "issued": "2026-11-04T22:42:11+00:00"
       },
       "Bayfield": {
         "window": null,
-        "issued": "2026-11-04T10:21:59+00:00"
+        "issued": "2026-11-04T22:42:11+00:00"
       },
       "Ignacio": {
         "window": null,
-        "issued": "2026-11-04T10:21:59+00:00"
+        "issued": "2026-11-04T22:42:11+00:00"
       }
     }
   },
