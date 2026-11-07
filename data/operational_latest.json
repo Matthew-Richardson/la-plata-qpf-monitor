@@ -1,47 +1,47 @@
 {
   "rivers": {
     "drgc2": {
-      "cfs": 2700,
-      "time": "2026-11-06T14:00:00Z",
+      "cfs": 2410,
+      "time": "2026-11-07T02:00:00Z",
       "category": "below action",
-      "stage_ft": 4.74,
-      "issued": "2026-11-05T16:11:00Z",
+      "stage_ft": 4.55,
+      "issued": "2026-11-06T14:53:00Z",
       "at_horizon": false,
       "observed": false
     },
     "vnbc2": {
       "cfs": 324,
-      "time": "2026-11-06T14:00:00Z",
+      "time": "2026-11-07T02:00:00Z",
       "category": "undefined",
       "stage_ft": 2.05,
-      "issued": "2026-11-05T16:11:00Z",
+      "issued": "2026-11-06T14:53:00Z",
       "at_horizon": false,
       "observed": false
     },
     "lpac2": {
-      "cfs": 784,
-      "time": "2026-11-06T14:00:00Z",
+      "cfs": 741,
+      "time": "2026-11-07T02:00:00Z",
       "category": "undefined",
-      "stage_ft": 5.17,
-      "issued": "2026-11-05T16:11:00Z",
+      "stage_ft": 5.11,
+      "issued": "2026-11-06T14:53:00Z",
       "at_horizon": false,
       "observed": false
     },
     "lphc2": {
-      "cfs": 128,
-      "time": "2026-11-06T14:00:00Z",
+      "cfs": 131,
+      "time": "2026-11-07T02:00:00Z",
       "category": "below action",
-      "stage_ft": 4.22,
-      "issued": "2026-11-05T16:11:00Z",
+      "stage_ft": 4.23,
+      "issued": "2026-11-06T14:53:00Z",
       "at_horizon": false,
       "observed": false
     },
     "fric2": {
-      "cfs": 227,
-      "time": "2026-11-06T12:15:00Z",
+      "cfs": 209,
+      "time": "2026-11-07T00:15:00Z",
       "category": "below action",
-      "stage_ft": 2.54,
-      "issued": "2026-11-06T12:15:00Z",
+      "stage_ft": 2.49,
+      "issued": "2026-11-07T00:15:00Z",
       "at_horizon": false,
       "observed": true
     }
@@ -81,17 +81,17 @@
   "timing": {
     "Durango": {
       "window": null,
-      "issued": "2026-11-06T12:36:49+00:00"
+      "issued": "2026-11-06T22:32:41+00:00"
     },
     "Bayfield": {
       "window": null,
-      "issued": "2026-11-06T12:36:49+00:00"
+      "issued": "2026-11-06T22:32:41+00:00"
     },
     "Ignacio": {
       "window": null,
-      "issued": "2026-11-06T12:36:49+00:00"
+      "issued": "2026-11-06T22:32:41+00:00"
     }
   },
   "errors": [],
-  "checked": "2026-11-06T13:35:37.892479+00:00"
+  "checked": "2026-11-07T01:28:07.021028+00:00"
 }
