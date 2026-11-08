@@ -2086,7 +2086,7 @@
   },
   "watershed_source": "https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/4",
   "watershed_level": "USGS HUC8 full subbasins intersecting La Plata County",
-  "generated_utc": "2026-11-07T13:34:19.806630+00:00",
+  "generated_utc": "2026-11-08T01:34:28.493389+00:00",
   "location": "La Plata County CO",
   "source": "https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/MapServer",
   "periods": {
@@ -2095,10 +2095,10 @@
       "min_in": 0.0,
       "max_in": 0.0,
       "coverage_pct": 0.0,
-      "issue_time": "2026-11-07 10:03:05",
+      "issue_time": "2026-11-07 22:05:19",
       "valid_period": [
-        "2026-11-07 12:00:00",
-        "2026-11-08 12:00:00"
+        "2026-11-08 00:00:00",
+        "2026-11-09 00:00:00"
       ],
       "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
     },
@@ -2107,10 +2107,10 @@
       "min_in": 0.0,
       "max_in": 0.0,
       "coverage_pct": 0.0,
-      "issue_time": "2026-11-07 10:03:24",
+      "issue_time": "2026-11-07 22:06:25",
       "valid_period": [
-        "2026-11-08 12:00:00",
-        "2026-11-09 12:00:00"
+        "2026-11-09 00:00:00",
+        "2026-11-10 00:00:00"
       ],
       "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
     },
@@ -2119,10 +2119,10 @@
       "min_in": 0.0,
       "max_in": 0.0,
       "coverage_pct": 0.0,
-      "issue_time": "2026-11-07 10:06:08",
+      "issue_time": "2026-11-07 22:07:31",
       "valid_period": [
-        "2026-11-09 12:00:00",
-        "2026-11-10 12:00:00"
+        "2026-11-10 00:00:00",
+        "2026-11-11 00:00:00"
       ],
       "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
     },
@@ -2131,10 +2131,10 @@
       "min_in": 0.0,
       "max_in": 0.0,
       "coverage_pct": 0.0,
-      "issue_time": "2026-11-07 04:32:31",
+      "issue_time": "2026-11-07 17:18:14",
       "valid_period": [
-        "2026-11-10 12:00:00",
-        "2026-11-12 12:00:00"
+        "2026-11-11 00:00:00",
+        "2026-11-13 00:00:00"
       ],
       "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
     },
@@ -2143,10 +2143,10 @@
       "min_in": 0.0,
       "max_in": 0.0,
       "coverage_pct": 0.0,
-      "issue_time": "2026-11-07 04:32:31",
+      "issue_time": "2026-11-07 17:18:14",
       "valid_period": [
-        "2026-11-12 12:00:00",
-        "2026-11-14 12:00:00"
+        "2026-11-13 00:00:00",
+        "2026-11-15 00:00:00"
       ],
       "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
     },
@@ -2155,10 +2155,10 @@
       "min_in": 0.0,
       "max_in": 0.0,
       "coverage_pct": 0.0,
-      "issue_time": "2026-11-07 10:28:02",
+      "issue_time": "2026-11-07 22:26:34",
       "valid_period": [
-        "2026-11-07 12:00:00",
-        "2026-11-14 12:00:00"
+        "2026-11-08 00:00:00",
+        "2026-11-15 00:00:00"
       ],
       "note": "No WPC mapped precipitation polygons intersect the county; below display threshold, not necessarily exactly zero."
     }
@@ -2166,10 +2166,10 @@
   "nbm": {
     "status": "complete",
     "source": "https://noaa-nbm-grib2-pds.s3.amazonaws.com",
-    "cycle_utc": "2026-11-07T12:00:00+00:00",
+    "cycle_utc": "2026-11-08T00:00:00+00:00",
     "valid_period": [
-      "2026-11-07T12:00:00+00:00",
-      "2026-11-14T12:00:00+00:00"
+      "2026-11-08T00:00:00+00:00",
+      "2026-11-15T00:00:00+00:00"
     ],
     "forecast_hours": [
       1,
@@ -2244,27 +2244,27 @@
     "grid": "NBM CONUS core deterministic, approximately 2.5 km",
     "totals": {
       "county": {
-        "average_in": 0.031,
+        "average_in": 0.109,
         "grid_points": 715
       },
       "09352900": {
-        "average_in": 0.019,
+        "average_in": 0.062,
         "grid_points": 33
       },
       "09352800": {
-        "average_in": 0.023,
+        "average_in": 0.062,
         "grid_points": 52
       },
       "09362750": {
-        "average_in": 0.024,
+        "average_in": 0.075,
         "grid_points": 22
       },
       "09361500": {
-        "average_in": 0.025,
+        "average_in": 0.08,
         "grid_points": 286
       },
       "09365500": {
-        "average_in": 0.039,
+        "average_in": 0.136,
         "grid_points": 14
       }
     },
