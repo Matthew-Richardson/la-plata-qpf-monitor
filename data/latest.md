@@ -1,15 +1,15 @@
 # La Plata County WPC QPF
 
-Generated UTC: 2026-11-08T01:34:28.493389+00:00
+Generated UTC: 2026-11-08T13:30:22.326955+00:00
 
 | Period | Avg (in) | Min (in) | Max (in) | Coverage | WPC issue |
 |---|---:|---:|---:|---:|---|
-| Day 1 | 0.00 | 0.00 | 0.00 | 0.0% | 2026-11-07 22:05:19 |
-| Day 2 | 0.00 | 0.00 | 0.00 | 0.0% | 2026-11-07 22:06:25 |
-| Day 3 | 0.00 | 0.00 | 0.00 | 0.0% | 2026-11-07 22:07:31 |
-| Days 4-5 | 0.00 | 0.00 | 0.00 | 0.0% | 2026-11-07 17:18:14 |
-| Days 6-7 | 0.00 | 0.00 | 0.00 | 0.0% | 2026-11-07 17:18:14 |
-| Days 1-7 | 0.00 | 0.00 | 0.00 | 0.0% | 2026-11-07 22:26:34 |
+| Day 1 | 0.00 | 0.00 | 0.00 | 0.0% | 2026-11-08 11:00:17 |
+| Day 2 | 0.00 | 0.00 | 0.00 | 0.0% | 2026-11-08 11:04:57 |
+| Day 3 | 0.00 | 0.00 | 0.00 | 0.0% | 2026-11-08 11:05:31 |
+| Days 4-5 | 0.00 | 0.00 | 0.00 | 0.0% | 2026-11-08 05:10:44 |
+| Days 6-7 | 0.00 | 0.00 | 0.00 | 0.0% | 2026-11-08 05:10:44 |
+| Days 1-7 | 0.00 | 0.00 | 0.00 | 0.0% | 2026-11-08 11:22:29 |
 
 ## Gauge-upstream catchment QPF
 
@@ -118,16 +118,16 @@ Full HUC10 polygons intersecting La Plata County, plus upstream HUC10 units with
 
 ## NBM seven-day comparison
 
-Cycle UTC: 2026-11-08T00:00:00+00:00
+Cycle UTC: 2026-11-08T12:00:00+00:00
 
 | Area | NBM avg (in) | Grid points |
 |---|---:|---:|
-| La Plata County | 0.11 | 715 |
-| Vallecito Creek near Bayfield | 0.06 | 33 |
+| La Plata County | 0.08 | 715 |
+| Vallecito Creek near Bayfield | 0.05 | 33 |
 | Los Pinos River above Vallecito Reservoir | 0.06 | 52 |
 | Florida River above Lemon Reservoir | 0.07 | 22 |
-| Animas River at Durango | 0.08 | 286 |
-| La Plata River at Hesperus | 0.14 | 14 |
+| Animas River at Durango | 0.06 | 286 |
+| La Plata River at Hesperus | 0.10 | 14 |
 
 QPF averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities.
 
