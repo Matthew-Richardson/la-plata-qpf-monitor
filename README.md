@@ -56,7 +56,9 @@ GroupMe also checks official operational guidance on the **same Rain Watch runs*
 - **WPC excessive-rainfall outlooks, Days 1–5:** check polygons against the actual county boundary. Alert on new risk coverage or an increase/decrease in risk category. The same valid period is tracked across daily layer rollovers. A risk somewhere in the county does not imply the whole county has that category.
 - **NWS hourly timing:** check Durango, Bayfield and Ignacio. Track the next sustained window with hourly precipitation probability at least 50% (at least six wet hours, bridging gaps up to six hours). Alert on a new/removed window or a start/end shift of **6 hours or more**. This is a likely-precipitation window, not an exact onset, ending time, peak-intensity forecast, or interpretation of AFD prose.
 
-Wet-period delivery is a pair: **weather first, rivers second**, at the existing 6:30 AM and 6:30 PM Mountain Time checks. Each pair includes current guidance even when unchanged (four GroupMe texts per wet day). Within a morning/afternoon slot, unchanged duplicate runs are suppressed; material changes or a forced manual run can still send another pair. Dry periods remain quiet unless a material operational change occurs. No extra schedule was added. Messages use plain text without emojis.
+Wet-period delivery is a three-text sequence: **weather first, rivers second, local drainage rain-only summary third**, at the existing 6:30 AM and 6:30 PM Mountain Time checks. Each sequence includes current guidance even when unchanged. Within a morning/afternoon slot, unchanged duplicate runs are suppressed; material changes or a forced manual run can still send another sequence. Dry periods remain quiet unless a material operational change occurs. No extra schedule was added. Messages use plain text without emojis.
+
+The third text reports NWS/NDFD **rain-only** basin averages for Junction Creek, Hermosa Creek and Stevens Creek above the alluvial fan. It shows rolling 3-day and 7-day windows with local dates. The monitor subtracts modeled snowfall water-equivalent from total QPF using a 10:1 snow-to-liquid estimate; these are derived rain estimates, not a directly published NWS rain field. A rain-on-snow line is flagged when a basin averages at least 1 inch of modeled snow on one local day followed by at least 0.25 inch of modeled rain the next day. This consecutive-day model signal does not incorporate observed SNOTEL snowpack or replace a separate antecedent-snow analysis.
 
 The river message shows the four river forecast peaks in **cfs and local time**, the current Florida River observation above Lemon Reservoir with its observation time, and the NWS river-forecast issuance time. Initial activation sends the current active guidance as its baseline. Subsequent comparisons use the last successfully delivered values. A forecast maximum at the end of the available horizon is not presented as a confirmed crest. Delivery baselines advance only after both texts succeed; a partial send can repeat the first text on retry.
 
@@ -89,6 +91,18 @@ After a **successful** scheduled forecast calculation **outside quiet hours**:
 
 No emails or SMS are configured. GroupMe notifications go to the private group through a bot. The bot ID is held in the GitHub Actions secret `GROUPME_BOT_ID` and is not checked into source control. Notification state persists in `data/notification_state.json` after successful scheduled/manual checks.
 
+### Local drainage rain-only example
+
+```text
+Local drainage rain-only averages | NWS grid
+3-day (Wed 11/11–Sat 11/14): Junction 0.21\" | Hermosa 0.32\" | Stevens 0.26\"
+7-day (Wed 11/11–Wed 11/18): Junction 0.39\" | Hermosa 0.61\" | Stevens 0.48\"
+Rain-on-snow: no consecutive-day modeled snow→rain signal
+Rain only; modeled snow excluded. Full upstream basins.
+NWS grid issued Wed 11/11, 6:22 PM MST
+```
+
+Values above illustrate the message format; each run calculates current values and dates.
 ### Example GroupMe notification
 
 The following illustrates the preserved rain-message format using the **October 20, 2026** WPC values, **not a new live forecast**. Dates and times use La Plata County local time.
