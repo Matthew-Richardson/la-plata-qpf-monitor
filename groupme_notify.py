@@ -4,7 +4,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 import requests
-from operational_monitor import collect, compare, delivered_baseline, RIVERS, LEVELS, stamp, dt\nfrom local_rain_monitor import collect_local_rain, brief as local_rain_brief
+from operational_monitor import collect, compare, delivered_baseline, RIVERS, LEVELS, stamp, dt
+from local_rain_monitor import collect_local_rain, brief as local_rain_brief
 
 WATCHED={"Vallecito":"09352900","Los Pinos":"09352800","Lemon":"09362750","Animas":"09361500","La Plata":"09365500"}
 EASTERN=("Vallecito","Los Pinos","Lemon","Animas")
