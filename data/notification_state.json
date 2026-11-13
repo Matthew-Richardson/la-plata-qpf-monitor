@@ -1,86 +1,103 @@
 {
   "status": "wet",
   "dry_streak": 0,
-  "last_sent_at": "2026-11-12T18:34:20.035225-07:00",
+  "last_sent_at": "2026-11-13T06:39:08.237334-07:00",
   "last_alert_totals": {
-    "county": 1.296,
-    "Vallecito": 1.853,
-    "Los Pinos": 1.614,
-    "Lemon": 1.982,
-    "Animas": 1.45,
-    "La Plata": 1.92
+    "county": 1.34,
+    "Vallecito": 1.936,
+    "Los Pinos": 1.875,
+    "Lemon": 2.0,
+    "Animas": 1.623,
+    "La Plata": 1.927
   },
   "unchanged_day": "2026-10-28",
   "snow_signature": [
     [
+      "Day 1",
+      4,
+      10
+    ],
+    [
       "Day 2",
       4,
-      70
+      40
     ],
     [
       "Day 2",
       8,
-      40
+      10
     ]
   ],
   "snow_elevation_signature": [
     [
+      "Day 1",
+      "7,000\u20139,000 ft",
+      4,
+      10
+    ],
+    [
+      "Day 1",
+      "Above 9,000 ft",
+      4,
+      10
+    ],
+    [
       "Day 2",
       "7,000\u20139,000 ft",
       4,
-      70
+      40
     ],
     [
       "Day 2",
       "7,000\u20139,000 ft",
       8,
-      40
+      10
     ],
     [
       "Day 2",
       "Above 9,000 ft",
       4,
-      70
+      40
     ],
     [
       "Day 2",
       "Above 9,000 ft",
       8,
-      40
+      10
     ],
     [
       "Day 2",
       "Below 7,000 ft",
       4,
-      40
+      10
     ]
   ],
-  "wet_update_slot": "2026-11-12 PM",
+  "wet_update_slot": "2026-11-13 AM",
   "operational": {
     "rivers": {
       "drgc2": {
-        "cfs": 1250,
-        "time": "2026-11-13T02:00:00Z",
+        "cfs": 1240,
+        "time": "2026-11-19T00:00:00Z",
         "category": "below action",
-        "stage_ft": 3.64,
+        "stage_ft": 3.63,
         "issued": "2026-11-12T15:25:00Z",
         "at_horizon": false,
         "observed": false
       },
       "vnbc2": {
-        "cfs": 171,
-        "time": "2026-11-13T02:00:00Z",
+        "cfs": 168,
+        "time": "2026-11-13T14:00:00Z",
         "category": "undefined",
-        "stage_ft": 1.7,
+        "stage_ft": 1.69,
         "issued": "2026-11-12T15:25:00Z",
         "at_horizon": false,
         "observed": false
       },
       "lpac2": {
-        "cfs": 357,
-        "time": "2026-11-13T02:00:00Z",
+        "cfs": 353,
+        "time": "2026-11-13T14:00:00Z",
         "category": "undefined",
-        "stage_ft": 4.53,
+        "stage_ft": 4.52,
         "issued": "2026-11-12T15:25:00Z",
         "at_horizon": false,
         "observed": false
@@ -95,11 +112,11 @@
         "observed": false
       },
       "fric2": {
-        "cfs": 119,
-        "time": "2026-11-13T00:15:00Z",
+        "cfs": 101,
+        "time": "2026-11-13T12:15:00Z",
         "category": "below action",
-        "stage_ft": 2.2,
-        "issued": "2026-11-13T00:15:00Z",
+        "stage_ft": 2.13,
+        "issued": "2026-11-13T12:15:00Z",
         "at_horizon": false,
         "observed": true
       }
@@ -278,32 +295,38 @@
         "start": "2026-11-16T12:00:00+00:00",
         "end": "2026-11-17T12:00:00+00:00",
         "issued": null
+      },
+      "2026-11-18T12:00:00+00:00": {
+        "level": 0,
+        "start": "2026-11-17T12:00:00+00:00",
+        "end": "2026-11-18T12:00:00+00:00",
+        "issued": null
       }
     },
     "timing": {
       "Durango": {
         "window": {
-          "start": "2026-11-13T23:00:00-07:00",
-          "end": "2026-11-14T17:00:00-07:00",
+          "start": "2026-11-14T00:00:00-07:00",
+          "end": "2026-11-14T14:00:00-07:00",
           "open_end": false
         },
-        "issued": "2026-11-13T01:06:58+00:00"
+        "issued": "2026-11-13T11:52:27+00:00"
       },
       "Bayfield": {
         "window": {
-          "start": "2026-11-14T02:00:00-07:00",
+          "start": "2026-11-14T01:00:00-07:00",
           "end": "2026-11-14T17:00:00-07:00",
           "open_end": false
         },
-        "issued": "2026-11-13T01:06:58+00:00"
+        "issued": "2026-11-13T11:52:27+00:00"
       },
       "Ignacio": {
         "window": {
-          "start": "2026-11-14T02:00:00-07:00",
+          "start": "2026-11-14T01:00:00-07:00",
           "end": "2026-11-14T17:00:00-07:00",
           "open_end": false
         },
-        "issued": "2026-11-13T01:06:58+00:00"
+        "issued": "2026-11-13T11:52:27+00:00"
       }
     }
   },
