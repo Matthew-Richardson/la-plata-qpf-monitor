@@ -5,7 +5,6 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 import requests
 from operational_monitor import collect, compare, delivered_baseline, OBSERVED_ONLY_RIVERS, RIVERS, LEVELS, stamp, dt
-from local_rain_monitor import collect_local_rain, brief as local_rain_brief
 
 WATCHED={"Vallecito":"09352900","Los Pinos":"09352800","Lemon":"09362750","Animas":"09361500","La Plata":"09365500"}
 EASTERN=("Vallecito","Los Pinos","Lemon","Animas")
@@ -202,20 +201,15 @@ def message(report,reason):
     return "\n".join(lines)
 
 def weather_brief(report,operational,reason,changes,now):
-    text=message(report,reason)
-    def source_time(value):
-        if isinstance(value,(int,float)):
-            value=datetime.fromtimestamp(value/(1000 if value>1e11 else 1),timezone.utc)
-        else:
-            value=datetime.fromisoformat(str(value).replace("Z","+00:00"))
-            if value.tzinfo is None: value=value.replace(tzinfo=timezone.utc)
-        return value.astimezone(ZoneInfo("America/Denver")).strftime("%a %-m/%-d, %-I:%M %p %Z")
-    items=[]
-    wpc=report.get("periods",{}).get("Days 1-7",{}).get("issue_time")
-    if wpc: items.append("WPC "+source_time(wpc))
-    nws=[row.get("issued") for row in operational.get("timing",{}).values() if row.get("issued")]
-    if nws: items.append("NWS GJT "+source_time(max(nws,key=lambda value:dt(value))))
-    return text+("\nIssued | "+" | ".join(items) if items else "")
+    period=report['periods']['Days 1-7']
+    lines=[alert_heading(reason),f"WPC 7-day avg: {period['average_in']:.2f}\" ({short_range(period)})"]
+    # Keep active snow guidance, but drop routine no-snow text and basin tables.
+    if report.get('snow',{}).get('active'):
+        text=message(report,reason).splitlines()
+        start=next((i for i,line in enumerate(text) if line.startswith('Snow |')),None)
+        if start is not None: lines.extend(text[start:])
+    lines.extend(change for change in changes if change.startswith(('NWS timing','WPC')))
+    return '\n'.join(lines)
 
 def no_significant_rises(operational, now):
     """Require complete, fresh guidance; significant = >=20% and >=100 cfs."""
@@ -294,14 +288,6 @@ def main():
         texts=[weather_brief(report,operational,reason,changes,now)]
         if new_state.get('status')=='wet' or changes:
             texts.append(river_brief(operational,changes,now))
-        if new_state.get('status')=='wet':
-            try:
-                local_rain=collect_local_rain(now.astimezone(timezone.utc))
-                operational["local_rain"]=local_rain
-                Path("data/operational_latest.json").write_text(json.dumps(operational,indent=2)+"\\n")
-                texts.append(local_rain_brief(local_rain))
-            except Exception as error:
-                print("Local drainage rain-only summary unavailable:",error)
         new_state["operational"]=delivered_baseline(operational,state.get("operational",{}))
         if new_state.get('status')=='wet':
             new_state['wet_update_slot']=wet_slot(now)

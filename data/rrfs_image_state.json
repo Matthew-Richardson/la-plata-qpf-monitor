@@ -2,5 +2,41 @@
   "last_sent_slot": "2026-11-13 AM",
   "cycle": "2026111306",
   "sent_at": "2026-11-13T14:57:07.375348+00:00",
-  "image_url": "https://i.groupme.com/2000x1375.png.ea990bb26b25498caafcca719e41aaf3"
+  "image_url": "https://i.groupme.com/2000x1375.png.ea990bb26b25498caafcca719e41aaf3",
+  "basin_totals": {
+    "lightner": {
+      "qpf": 0.8179,
+      "rain": 0.2868
+    },
+    "junction": {
+      "qpf": 0.8097,
+      "rain": 0.2129
+    },
+    "hermosa": {
+      "qpf": 0.9123,
+      "rain": 0.0791
+    },
+    "florida": {
+      "qpf": 1.095,
+      "rain": 0.0517
+    },
+    "vallecito": {
+      "qpf": 1.044,
+      "rain": 0.0349
+    },
+    "pinos": {
+      "qpf": 1.0929,
+      "rain": 0.0625
+    },
+    "animas": {
+      "qpf": 0.851,
+      "rain": 0.0846
+    },
+    "laplata": {
+      "qpf": 1.4319,
+      "rain": 0.1296
+    }
+  },
+  "forecast_start": "2026-11-13T06:00:00+00:00",
+  "forecast_end": "2026-11-16T18:00:00+00:00"
 }

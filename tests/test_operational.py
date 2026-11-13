@@ -96,9 +96,6 @@ def test_river_brief_labels_lemon_as_observed():
     assert 'no current NWS forecast' in text
 
 def test_failed_send_preserves_delivery_baseline(tmp_path,monkeypatch):
-    monkeypatch.setattr(groupme_notify,'collect_local_rain',lambda now:{})
-    monkeypatch.setattr(groupme_notify,'local_rain_brief',lambda data:
-        'Local drainage rain-only averages | NWS grid\n3-day (test): 0.1\n7-day (test): 0.2\nRain only; modeled snow excluded.')
     monkeypatch.chdir(tmp_path)
     (tmp_path/'data').mkdir()
     (tmp_path/'data/latest.json').write_text(json.dumps(report()))
@@ -116,9 +113,6 @@ def test_failed_send_preserves_delivery_baseline(tmp_path,monkeypatch):
     assert json.loads(state_path.read_text())==baseline
 
 def test_preview_never_sends_or_saves_baseline(tmp_path,monkeypatch):
-    monkeypatch.setattr(groupme_notify,'collect_local_rain',lambda now:{})
-    monkeypatch.setattr(groupme_notify,'local_rain_brief',lambda data:
-        'Local drainage rain-only averages | NWS grid\n3-day (test): 0.1\n7-day (test): 0.2\nRain only; modeled snow excluded.')
     monkeypatch.chdir(tmp_path)
     (tmp_path/'data').mkdir()
     (tmp_path/'data/latest.json').write_text(json.dumps(report()))
@@ -128,10 +122,7 @@ def test_preview_never_sends_or_saves_baseline(tmp_path,monkeypatch):
     groupme_notify.main()
     assert not (tmp_path/'data/notification_state.json').exists()
 
-def test_wet_brief_sends_weather_rivers_and_local_rain_as_separate_posts(tmp_path,monkeypatch):
-    monkeypatch.setattr(groupme_notify,'collect_local_rain',lambda now:{})
-    monkeypatch.setattr(groupme_notify,'local_rain_brief',lambda data:
-        'Local drainage rain-only averages | NWS grid\n3-day (test): 0.1\n7-day (test): 0.2\nRain only; modeled snow excluded.')
+def test_wet_brief_sends_only_short_weather_and_rivers(tmp_path,monkeypatch):
     monkeypatch.chdir(tmp_path)
     (tmp_path/'data').mkdir()
     (tmp_path/'data/latest.json').write_text(json.dumps(report()))
@@ -147,14 +138,13 @@ def test_wet_brief_sends_weather_rivers_and_local_rain_as_separate_posts(tmp_pat
     def send(*a,**k):posts.append(k['json']['text']);return Response()
     monkeypatch.setattr(groupme_notify.requests,'post',send)
     groupme_notify.main()
-    assert len(posts)==3
+    assert len(posts)==2
     assert posts[0].startswith('LPC precipitation |')
     assert posts[1].startswith('LPC river forecast |')
-    assert posts[2].startswith('Local drainage rain-only averages | NWS grid')
     assert 'Animas at Durango' not in posts[0]
     assert 'La Plata at Hesperus' in posts[1] and 'state line' not in posts[1]
-    assert '3-day (' in posts[2] and '7-day (' in posts[2]
-    assert 'Rain only; modeled snow excluded.' in posts[2]
+    assert 'Gauge basins' not in posts[0] and 'Days 1–3' not in posts[0]
+    assert len(posts[0])<180
     assert all(len(t)<=1000 for t in posts)
     assert json.loads((tmp_path/'data/notification_state.json').read_text())['operational']['rivers']
 

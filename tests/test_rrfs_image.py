@@ -44,11 +44,18 @@ def test_rain_cannot_exceed_precip(prepared):
     with pytest.raises(ValueError,match='exceeds'):rrfs.validate_grid(g,m)
 
 
-def test_caption_has_local_start_and_forecast_through(prepared):
-    _,m,_=prepared;text=rrfs.caption(m)
-    assert 'Thu 11/12, 11:00 PM MST' in text
-    assert 'Mon 11/16, 11:00 AM MST' in text
-    assert '(84 hours)' in text
+@pytest.mark.parametrize('delta,label',[(0,'Unchanged'),(.09,'Unchanged'),(.1,'Increased'),(-.1,'Decreased')])
+def test_caption_is_short_and_compares_last_delivered_totals(prepared,delta,label):
+    _,m,g=prepared;old=rrfs.basin_totals(g);new=deepcopy(old)
+    for row in new.values():row['qpf']+=delta
+    assert rrfs.caption(m,new,old)=='RRFS 84h totals: '+label+'.'
+    assert rrfs.caption(m,new,None)=='RRFS 84h forecast.'
+
+
+def test_caption_keeps_opposing_basin_changes_explicit(prepared):
+    _,m,g=prepared;old=rrfs.basin_totals(g);new=deepcopy(old)
+    ids=list(new);new[ids[0]]['rain']+=.2;new[ids[1]]['rain']-=.2
+    assert rrfs.caption(m,new,old)=='RRFS 84h totals: Mixed changes.'
 
 
 def test_delivery_slots_use_mountain_time_and_quiet_hours():
@@ -69,6 +76,7 @@ def test_upload_attach_and_deduplicate_only_after_success(prepared,monkeypatch):
     assert rrfs.send(p,state,NOW)
     assert posts[0][1]['headers']['X-Access-Token']=='test-token'
     assert posts[1][1]['json']['attachments']==[{'type':'image','url':'https://i.groupme.com/test.png'}]
+    assert json.loads(state.read_text())['basin_totals']==rrfs.basin_totals(prepared[2])
     assert not rrfs.send(p,state,NOW)
     assert len(posts)==2
     manifest=json.loads((p/'manifest.json').read_text())

@@ -54,9 +54,7 @@ GroupMe also checks official operational guidance on the **same Rain Watch runs*
 - **WPC excessive-rainfall outlooks, Days 1–5:** check polygons against the actual county boundary. Alert on new risk coverage or an increase/decrease in risk category. The same valid period is tracked across daily layer rollovers. A risk somewhere in the county does not imply the whole county has that category.
 - **NWS hourly timing:** check Durango, Bayfield and Ignacio. Track the next sustained window with hourly precipitation probability at least 50% (at least six wet hours, bridging gaps up to six hours). Alert on a new/removed window or a start/end shift of **6 hours or more**. This is a likely-precipitation window, not an exact onset, ending time, peak-intensity forecast, or interpretation of AFD prose.
 
-Wet-period delivery is a three-text sequence: **weather first, rivers second, local drainage rain-only summary third**, at the existing 6:30 AM and 6:30 PM Mountain Time checks. Each sequence includes current guidance even when unchanged. Within a morning/afternoon slot, unchanged duplicate runs are suppressed; material changes or a forced manual run can still send another sequence. Dry periods remain quiet unless a material operational change occurs. No extra schedule was added. Messages use plain text without emojis.
-
-The third text reports NWS/NDFD **rain-only** basin averages for Junction Creek, Hermosa Creek and Stevens Creek above the alluvial fan. It shows rolling 3-day and 7-day windows with local dates. The monitor subtracts modeled snowfall water-equivalent from total QPF using a 10:1 snow-to-liquid estimate; these are derived rain estimates, not a directly published NWS rain field. A rain-on-snow line is flagged when a basin averages at least 1 inch of modeled snow on one local day followed by at least 0.25 inch of modeled rain the next day. This consecutive-day model signal does not incorporate observed SNOTEL snowpack or replace a separate antecedent-snow analysis.
+Wet-period delivery now sends a short WPC weather summary, the river text, and the RRFS image at the existing 6:30 AM and 6:30 PM Mountain Time checks. The separate local-drainage rain-only third text has been removed. Routine basin tables, period breakdowns and no-snow boilerplate are omitted from the weather text; active snow guidance and material official timing/risk changes remain.
 
 When all four forecast gauges have fresh guidance and a usable observed or near-term baseline, the river message summarizes “No significant rises expected” if every forecast increase is less than 20% or 100 cfs. This is a monitor threshold, not an official flood threshold. Action/flood stages, missing baselines, unavailable forecasts, and significant rises retain detailed output. Florida above Lemon remains explicitly labeled as an observation, not a forecast. Otherwise, the river message shows the four river forecast peaks in **cfs and local time**, the current Florida River observation above Lemon Reservoir with its observation time, and the NWS river-forecast issuance time. Initial activation sends the current active guidance as its baseline. Subsequent comparisons use the last successfully delivered values. A forecast maximum at the end of the available horizon is not presented as a confirmed crest. Delivery baselines advance only after both texts succeed; a partial send can repeat the first text on retry.
 
@@ -89,55 +87,16 @@ After a **successful** scheduled forecast calculation **outside quiet hours**:
 
 No emails or SMS are configured. GroupMe notifications go to the private group through a bot. The bot ID is held in the GitHub Actions secret `GROUPME_BOT_ID` and is not checked into source control. Notification state persists in `data/notification_state.json` after successful scheduled/manual checks.
 
-### Local drainage rain-only example
+### Compact notification example
 
-```text
-Local drainage rain-only averages | NWS grid
-3-day (Wed 11/11–Sat 11/14): Junction 0.21\" | Hermosa 0.32\" | Stevens 0.26\"
-7-day (Wed 11/11–Wed 11/18): Junction 0.39\" | Hermosa 0.61\" | Stevens 0.48\"
-Rain-on-snow: no consecutive-day modeled snow→rain signal
-Rain only; modeled snow excluded. Full upstream basins.
-NWS grid issued Wed 11/11, 6:22 PM MST
-```
-
-Values above illustrate the message format; each run calculates current values and dates.
-### Example GroupMe notification
-
-The following illustrates the preserved rain-message format using the **October 20, 2026** WPC values, **not a new live forecast**. Dates and times use La Plata County local time.
+Illustrative format, not a live forecast:
 
 ```text
 LPC precipitation | No material changes
-Rain | Tue 10/20 6 AM–Tue 10/27 6 AM
-County 7-day avg: 2.82" (range 2.00–4.00")
-Days 1–3 (Tue 10/20–Fri 10/23): 2.64" | Days 4–5 (Fri 10/23–Sun 10/25): 0.13" | Days 6–7 (Sun 10/25–Tue 10/27): 0.00"
-Gauge basins, 7-day avg: Vallecito 3.51" | Los Pinos 3.38" | Lemon 3.20" | Animas 3.01" | La Plata 2.40"
-Snow | No mapped 10%+ chance of 4"; lighter snow remains possible
-Issued | WPC Tue 10/20, 4:31 AM MDT | NWS GJT Tue 10/20, 6:16 PM MDT
+WPC 7-day avg: 2.82" (Tue 10/20–Tue 10/27)
 ```
 
-If WPC numerical GIS data lag behind a newer graphical or NWS forecast, preserve the same short structure and label the missing totals rather than mixing forecast sources:
-
-```text
-LPC precipitation | WPC update pending
-Rain | Heaviest Wednesday night–Thursday
-County 7-day avg: WPC numerical update pending
-NWS forecast: 1–3" across the southern mountains; 2–4"+ near the San Juans and southern foothills
-Areas, 7-day avg: WPC numerical update pending
-Snow | Mainly above 12,000–13,000 feet Thursday
-Issued | WPC numerical update pending; latest Tue 10/20, 4:31 AM MDT | NWS GJT: Tue 10/20, 6:16 PM MDT
-```
-
-**Example snowfall addendum for a hypothetical winter storm (not a current NOAA forecast):**
-
-```text
-LPC precipitation | ↑ Snow increased
-Snow | Fri 10/9–Sat 10/10
-Below 7,000 ft: no mapped 10%+ chance of 4"+
-7,000–9,000 ft: 40–69% for 4"+
-Above 9,000 ft: 70%+ for 4"+; 40–69% for 8"+
-```
-
-The snow block is quick-look guidance based on meaningful overlap between WPC probability polygons and each USGS 3DEP elevation band. It does not replace NWS point forecasts or pass/road observations. Day 4–7 snowfall depth is not estimated from QPF.
+The river summary remains separate. The image caption is a single short change label. Active snow guidance and material official timing/risk changes are retained when relevant; map values and map timestamps are not repeated in its caption.
 
 ## Running manually / validating
 
@@ -163,3 +122,5 @@ The existing 6:30 AM and 6:30 PM Mountain Time Rain Watch triggers also send a s
 Each scheduled run renders the map and uploads it as an Actions artifact. Automatic image delivery is limited to one successful post per local morning/evening slot; a forced manual workflow may send another. Only successful uploads/posts advance `data/rrfs_image_state.json`. Runs outside 6:30 AM–9 PM do not post an image. Runs older than 18 hours, expired or incomplete forecasts, changed grids, and invalid data are withheld instead of reposting an old PNG. A Pages publishing rollover is retried once. RRFS render failures do not prevent the existing WPC text updates. Image-upload failures are reported in Actions while text delivery retains its existing behavior.
 
 The rainfall panel subtracts modeled snow water equivalent; freezing rain or mixed precipitation can remain. The Florida above Lemon boundary is approximate. Upstream Animas is delineated at Durango; La Plata is delineated at Hesperus. The watershed polygons and weights for this image are local assets and do not change the interactive RRFS site.
+
+The image caption is limited to `RRFS 84h totals: Increased.`, `Decreased.`, or `Unchanged.` compared with the last successfully posted image. A change of at least 0.10 inch in any displayed basin's total precipitation or estimated rain counts; opposing material changes are labeled `Mixed changes` rather than forced into one direction. This compares rolling 84-hour totals, not a fixed storm window. Forecast dates, times, locations and values remain on the image. Missing comparison data say `RRFS 84h forecast.` and establish a baseline only after a successful post.

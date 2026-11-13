@@ -93,13 +93,22 @@ def delivery_slot(now):
     return local.strftime('%Y-%m-%d') + (' PM' if minutes >= 18*60+30 else ' AM')
 
 
-def caption(manifest):
-    start = timestamp(manifest['initialized']).astimezone(LOCAL)
-    end = timestamp(manifest['frames'][-1]['valid']).astimezone(LOCAL)
-    fmt = '%a %-m/%-d, %-I:%M %p %Z'
-    return ('LPC RRFS | Total precipitation and estimated rain\n'
-            'Model start: '+start.strftime(fmt)+'\nForecast through: '+end.strftime(fmt)+
-            ' (84 hours)\nTown-center totals and watershed averages, inches. Forecast guidance, not a warning.')
+def basin_totals(grid):
+    """Track the same displayed 84-hour basin totals as the posted map."""
+    basins=json.loads((ROOT/'assets/rrfs/watershed-weights.json').read_text())['basins']
+    return {b['id']:{field:round(sum(grid[field][i]*w for i,w in b['samples'])/
+                                sum(w for _,w in b['samples']),4)
+                     for field in ('qpf','rain')} for b in basins}
+
+
+def caption(manifest, current=None, previous=None):
+    if not current or not previous or set(current)!=set(previous):
+        return 'RRFS 84h forecast.'
+    differences=[current[b][f]-previous[b][f] for b in current for f in ('qpf','rain')]
+    up=any(d>=.10-1e-9 for d in differences)
+    down=any(d<=-.10+1e-9 for d in differences)
+    label='Mixed changes' if up and down else 'Increased' if up else 'Decreased' if down else 'Unchanged'
+    return 'RRFS 84h totals: '+label+'.'
 
 
 def send(destination, state_path, now, force=False):
@@ -113,7 +122,9 @@ def send(destination, state_path, now, force=False):
         return False
     manifest = json.loads((destination/'manifest.json').read_text())
     validate_manifest(manifest, now)
-    validate_grid(json.loads((destination/'grid.json').read_text()), manifest)
+    grid=json.loads((destination/'grid.json').read_text())
+    validate_grid(grid, manifest)
+    totals=basin_totals(grid)
     bot = os.environ.get('GROUPME_BOT_ID')
     token = os.environ.get('GROUPME_ACCESS_TOKEN')
     if not bot or not token:
@@ -129,11 +140,12 @@ def send(destination, state_path, now, force=False):
     if urlparse(url).scheme != 'https' or urlparse(url).hostname != 'i.groupme.com':
         raise ValueError('GroupMe returned an unexpected image URL')
     response = requests.post('https://api.groupme.com/v3/bots/post',
-                             json={'bot_id': bot, 'text': caption(manifest),
+                             json={'bot_id': bot, 'text': caption(manifest,totals,state.get('basin_totals')),
                                    'attachments': [{'type': 'image', 'url': url}]}, timeout=30)
     if not response.ok:
         raise RuntimeError(f'GroupMe image post failed (HTTP {response.status_code})')
-    state.update(last_sent_slot=slot, cycle=manifest['directory'], sent_at=now.isoformat(), image_url=url)
+    state.update(last_sent_slot=slot, cycle=manifest['directory'], sent_at=now.isoformat(), image_url=url, basin_totals=totals,
+                 forecast_start=manifest['initialized'], forecast_end=manifest['frames'][-1]['valid'])
     state_path.parent.mkdir(parents=True, exist_ok=True)
     state_path.write_text(json.dumps(state, indent=2)+'\n')
     print('RRFS image delivered for '+slot)
