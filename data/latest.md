@@ -1,6 +1,6 @@
 # La Plata County WPC QPF
 
-Generated UTC: 2026-11-13T13:39:04.357484+00:00
+Generated UTC: 2026-11-13T14:38:04.817628+00:00
 
 | Period | Avg (in) | Min (in) | Max (in) | Coverage | WPC issue |
 |---|---:|---:|---:|---:|---|
@@ -115,19 +115,6 @@ Full HUC10 polygons intersecting La Plata County, plus upstream HUC10 units with
 | Salt Creek Wash (1408010506) | 0.04 | 0.18 | 0.00 | 0.14 | 0.00 | 0.43 |
 | Middle Mancos River (1408010702) | 0.10 | 0.25 | 0.00 | 0.26 | 0.01 | 0.85 |
 | Upper Mancos River (1408010701) | 0.15 | 0.30 | 0.00 | 0.56 | 0.13 | 1.34 |
-
-## NBM seven-day comparison
-
-Cycle UTC: 2026-11-13T12:00:00+00:00
-
-| Area | NBM avg (in) | Grid points |
-|---|---:|---:|
-| La Plata County | 1.03 | 715 |
-| Vallecito Creek near Bayfield | 1.45 | 33 |
-| Los Pinos River above Vallecito Reservoir | 1.34 | 52 |
-| Florida River above Lemon Reservoir | 1.49 | 22 |
-| Animas River at Durango | 1.27 | 286 |
-| La Plata River at Hesperus | 1.36 | 14 |
 
 QPF averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities.
 
