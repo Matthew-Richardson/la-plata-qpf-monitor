@@ -1,105 +1,105 @@
 {
   "status": "wet",
   "dry_streak": 0,
-  "last_sent_at": "2026-11-12T06:38:18.204330-07:00",
+  "last_sent_at": "2026-11-12T18:34:20.035225-07:00",
   "last_alert_totals": {
-    "county": 1.332,
-    "Vallecito": 1.726,
-    "Los Pinos": 1.649,
-    "Lemon": 1.941,
-    "Animas": 1.502,
-    "La Plata": 1.851
+    "county": 1.296,
+    "Vallecito": 1.853,
+    "Los Pinos": 1.614,
+    "Lemon": 1.982,
+    "Animas": 1.45,
+    "La Plata": 1.92
   },
   "unchanged_day": "2026-10-28",
   "snow_signature": [
     [
-      "Day 3",
+      "Day 2",
       4,
       70
     ],
     [
-      "Day 3",
+      "Day 2",
       8,
-      10
+      40
     ]
   ],
   "snow_elevation_signature": [
     [
-      "Day 3",
+      "Day 2",
       "7,000\u20139,000 ft",
       4,
+      70
+    ],
+    [
+      "Day 2",
+      "7,000\u20139,000 ft",
+      8,
       40
     ],
     [
-      "Day 3",
-      "7,000\u20139,000 ft",
-      8,
-      10
-    ],
-    [
-      "Day 3",
+      "Day 2",
       "Above 9,000 ft",
       4,
       70
     ],
     [
-      "Day 3",
+      "Day 2",
       "Above 9,000 ft",
       8,
-      10
+      40
     ],
     [
-      "Day 3",
+      "Day 2",
       "Below 7,000 ft",
       4,
-      10
+      40
     ]
   ],
-  "wet_update_slot": "2026-11-12 AM",
+  "wet_update_slot": "2026-11-12 PM",
   "operational": {
     "rivers": {
       "drgc2": {
-        "cfs": 1270,
-        "time": "2026-11-12T14:00:00Z",
+        "cfs": 1250,
+        "time": "2026-11-13T02:00:00Z",
         "category": "below action",
-        "stage_ft": 3.66,
-        "issued": "2026-11-11T17:33:00Z",
+        "stage_ft": 3.64,
+        "issued": "2026-11-12T15:25:00Z",
         "at_horizon": false,
         "observed": false
       },
       "vnbc2": {
-        "cfs": 178,
-        "time": "2026-11-12T14:00:00Z",
+        "cfs": 171,
+        "time": "2026-11-13T02:00:00Z",
         "category": "undefined",
-        "stage_ft": 1.72,
-        "issued": "2026-11-11T17:33:00Z",
+        "stage_ft": 1.7,
+        "issued": "2026-11-12T15:25:00Z",
         "at_horizon": false,
         "observed": false
       },
       "lpac2": {
-        "cfs": 386,
-        "time": "2026-11-12T14:00:00Z",
+        "cfs": 357,
+        "time": "2026-11-13T02:00:00Z",
         "category": "undefined",
-        "stage_ft": 4.59,
-        "issued": "2026-11-11T17:33:00Z",
+        "stage_ft": 4.53,
+        "issued": "2026-11-12T15:25:00Z",
         "at_horizon": false,
         "observed": false
       },
       "lphc2": {
         "cfs": 69,
-        "time": "2026-11-18T00:00:00Z",
+        "time": "2026-11-18T06:00:00Z",
         "category": "below action",
         "stage_ft": 3.95,
-        "issued": "2026-11-11T17:33:00Z",
+        "issued": "2026-11-12T15:25:00Z",
         "at_horizon": false,
         "observed": false
       },
       "fric2": {
-        "cfs": 106,
-        "time": "2026-11-12T12:15:00Z",
+        "cfs": 119,
+        "time": "2026-11-13T00:15:00Z",
         "category": "below action",
-        "stage_ft": 2.15,
-        "issued": "2026-11-12T12:15:00Z",
+        "stage_ft": 2.2,
+        "issued": "2026-11-13T00:15:00Z",
         "at_horizon": false,
         "observed": true
       }
@@ -287,23 +287,23 @@
           "end": "2026-11-14T17:00:00-07:00",
           "open_end": false
         },
-        "issued": "2026-11-12T10:42:12+00:00"
+        "issued": "2026-11-13T01:06:58+00:00"
       },
       "Bayfield": {
         "window": {
-          "start": "2026-11-13T23:00:00-07:00",
+          "start": "2026-11-14T02:00:00-07:00",
           "end": "2026-11-14T17:00:00-07:00",
           "open_end": false
         },
-        "issued": "2026-11-12T10:42:12+00:00"
+        "issued": "2026-11-13T01:06:58+00:00"
       },
       "Ignacio": {
         "window": {
-          "start": "2026-11-13T23:00:00-07:00",
+          "start": "2026-11-14T02:00:00-07:00",
           "end": "2026-11-14T17:00:00-07:00",
           "open_end": false
         },
-        "issued": "2026-11-12T10:42:12+00:00"
+        "issued": "2026-11-13T01:06:58+00:00"
       }
     }
   },
