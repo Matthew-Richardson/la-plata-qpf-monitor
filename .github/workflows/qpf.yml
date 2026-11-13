@@ -7,6 +7,9 @@ on:
       - 'qpf_monitor.py'
       - 'nbm_monitor.py'
       - 'groupme_notify.py'
+      - 'rrfs_image.py'
+      - 'scripts/render_rrfs_comparison.py'
+      - 'assets/rrfs/**'
       - 'local_rain_monitor.py'
       - 'operational_monitor.py'
       - 'snow_monitor.py'
@@ -30,6 +33,19 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r requirements.txt
+      - name: Check RRFS image upload configuration
+        id: rrfs_auth
+        continue-on-error: true
+        env:
+          GROUPME_ACCESS_TOKEN: ${{ secrets.GROUPME_ACCESS_TOKEN }}
+        run: |
+          python - <<'PYCODE'
+          import os, sys
+          if not os.environ.get('GROUPME_ACCESS_TOKEN'):
+              print('::warning::Add the GROUPME_ACCESS_TOKEN Actions secret to enable RRFS image uploads. Existing text delivery is unchanged.')
+              sys.exit(1)
+          print('GroupMe image upload token is configured.')
+          PYCODE
       - name: Verify calculations
         run: python -m pytest -q
       - name: Snapshot prior verified forecast
@@ -40,6 +56,10 @@ jobs:
         run: python qpf_monitor.py
       - name: Analyze NOAA snowfall probabilities
         run: python snow_monitor.py
+      - name: Render latest RRFS comparison image
+        id: rrfs_render
+        continue-on-error: true
+        run: python rrfs_image.py render
       - name: Save validated output
         run: |
           git config user.name "github-actions[bot]"
@@ -62,7 +82,25 @@ jobs:
             git commit -m "Save GroupMe notification state"
             git push
           fi
+      - name: Send RRFS image to the QPF GroupMe
+        id: rrfs_send
+        if: ${{ !cancelled() && steps.rrfs_render.outcome == 'success' && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.event.head_commit.message == 'Trigger scheduled QPF check')) }}
+        env:
+          GROUPME_BOT_ID: ${{ secrets.GROUPME_BOT_ID }}
+          GROUPME_ACCESS_TOKEN: ${{ secrets.GROUPME_ACCESS_TOKEN }}
+        run: python rrfs_image.py send ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
+      - name: Persist successful RRFS image delivery
+        if: ${{ !cancelled() && steps.rrfs_send.outcome == 'success' }}
+        run: |
+          if [ -f data/rrfs_image_state.json ]; then
+            git add data/rrfs_image_state.json
+            if ! git diff --staged --quiet; then
+              git commit -m "Save RRFS image delivery state"
+              git push
+            fi
+          fi
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
         with:
           name: qpf-output
           path: data/

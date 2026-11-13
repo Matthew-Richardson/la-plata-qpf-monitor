@@ -153,3 +153,13 @@ Go to [Actions → La Plata WPC QPF](../../actions/workflows/qpf.yml), select **
 - The ChatGPT **La Plata Rain Watch** owns the twice-daily timing; GitHub cron and the separate QPF trigger task are intentionally disabled to avoid delayed or duplicate runs.
 
 
+
+## Twice-daily RRFS image
+
+The existing 6:30 AM and 6:30 PM Mountain Time Rain Watch triggers also send a separate side-by-side RRFS image to the same GroupMe bot, including during dry periods. No extra schedule was created. The image uses the newest complete 84-hour run published by [LPC RRFS](https://matthew-richardson.github.io/LPC_rrfs/) and displays model start, forecast-through time, duration, matching legends, eight upstream watershed averages, and Durango/Bayfield/Ignacio town-center values. Town values sample the model cell at each town center, not municipal area averages.
+
+**One-time setup:** Add the GroupMe developer access token as the repository Actions secret `GROUPME_ACCESS_TOKEN` in [Settings → Secrets and variables → Actions](../../settings/secrets/actions). This is separate from the existing `GROUPME_BOT_ID`. Get the token from your signed-in [GroupMe developer account](https://dev.groupme.com/). Do not put it in source files. GroupMe requires this token to upload PNGs to its image service before the existing bot can attach them.
+
+Each scheduled run renders the map and uploads it as an Actions artifact. Automatic image delivery is limited to one successful post per local morning/evening slot; a forced manual workflow may send another. Only successful uploads/posts advance `data/rrfs_image_state.json`. Runs outside 6:30 AM–9 PM do not post an image. Runs older than 18 hours, expired or incomplete forecasts, changed grids, and invalid data are withheld instead of reposting an old PNG. A Pages publishing rollover is retried once. RRFS render failures do not prevent the existing WPC text updates. Image-upload failures are reported in Actions while text delivery retains its existing behavior.
+
+The rainfall panel subtracts modeled snow water equivalent; freezing rain or mixed precipitation can remain. The Florida above Lemon boundary is approximate. Upstream Animas is delineated at Durango; La Plata is delineated at Hesperus. The watershed polygons and weights for this image are local assets and do not change the interactive RRFS site.
