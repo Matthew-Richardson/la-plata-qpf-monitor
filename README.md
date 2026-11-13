@@ -16,13 +16,12 @@ Dates and valid periods in messages use **America/Denver** local time, respectin
 ## Forecast sources and message timestamps
 
 - **WPC QPF** is the primary numerical source for county, period and highlighted-area precipitation totals, including Days 1–7. Trend language such as **increased** or **decreased** compares WPC with WPC.
-- **NBM deterministic QPF** provides a clearly labeled seven-day comparison for the county and five gauge-upstream catchments. The monitor uses the newest verified complete 00/06/12/18Z cycle: hourly accumulations through hour 48 and non-overlapping six-hour accumulations through hour 168. NBM does not replace WPC, drive wet/dry status, or trigger material-change language.
 - **NWS Grand Junction / NDFD** supplies local precipitation timing and operational context. It may be used as a clearly labeled short-range fallback when a newer WPC graphical forecast is available but WPC numerical GIS files are still pending. NWS/NDFD totals are never silently substituted for WPC totals or compared against earlier WPC totals as a forecast change.
 - **NWS river forecasts** are a separate product and remain in a separate GroupMe text.
 
 Product times mean the source's **issuance time**, not the time the monitor checked the source. The weather text uses one compact line:
 
-`Issued | WPC Tue 10/20, 4:31 AM MDT | NBM Tue 10/20, 6:00 AM MDT | NWS GJT Tue 10/20, 6:16 PM MDT`
+`Issued | WPC Tue 10/20, 4:31 AM MDT | NWS GJT Tue 10/20, 6:16 PM MDT`
 
 When a newer WPC numerical file is pending, the same line identifies both the pending status and the latest available WPC cycle:
 
@@ -43,7 +42,6 @@ Each successful analysis updates [data/latest.md](data/latest.md) and [data/late
 - WPC averages for the USGS NLDI basin delineations upstream of Vallecito Creek near Bayfield, Los Pinos River above Vallecito Reservoir, Florida River above Lemon Reservoir, Animas River at Durango and La Plata River at Hesperus
 - Day 1, Day 2, Day 3, Days 4–5, Days 6–7, and seven-day QPF
 - WPC issue times and valid forecast periods
-- Newest complete NBM 168-hour deterministic cycle, valid period, county/gauge-catchment point means, and grid-point counts
 - **Snow:** NOAA WPC Days 1–3 probabilities for ≥4, ≥8, and ≥12 inches, summarized within La Plata County as below 7,000 feet, 7,000–9,000 feet, and above 9,000 feet using the USGS 3DEP elevation service
 
 The rain message uses five gauge-upstream catchments rather than general HUC10 units: Vallecito Creek near Bayfield, Los Pinos River above Vallecito Reservoir, Florida River above Lemon Reservoir, Animas River at Durango and La Plata River at Hesperus. The full HUC tables remain in `data/latest.md` for reference. Snow is presented by elevation rather than watershed.
@@ -60,7 +58,7 @@ Wet-period delivery is a three-text sequence: **weather first, rivers second, lo
 
 The third text reports NWS/NDFD **rain-only** basin averages for Junction Creek, Hermosa Creek and Stevens Creek above the alluvial fan. It shows rolling 3-day and 7-day windows with local dates. The monitor subtracts modeled snowfall water-equivalent from total QPF using a 10:1 snow-to-liquid estimate; these are derived rain estimates, not a directly published NWS rain field. A rain-on-snow line is flagged when a basin averages at least 1 inch of modeled snow on one local day followed by at least 0.25 inch of modeled rain the next day. This consecutive-day model signal does not incorporate observed SNOTEL snowpack or replace a separate antecedent-snow analysis.
 
-The river message shows the four river forecast peaks in **cfs and local time**, the current Florida River observation above Lemon Reservoir with its observation time, and the NWS river-forecast issuance time. Initial activation sends the current active guidance as its baseline. Subsequent comparisons use the last successfully delivered values. A forecast maximum at the end of the available horizon is not presented as a confirmed crest. Delivery baselines advance only after both texts succeed; a partial send can repeat the first text on retry.
+When all four forecast gauges have fresh guidance and a usable observed or near-term baseline, the river message summarizes “No significant rises expected” if every forecast increase is less than 20% or 100 cfs. This is a monitor threshold, not an official flood threshold. Action/flood stages, missing baselines, unavailable forecasts, and significant rises retain detailed output. Florida above Lemon remains explicitly labeled as an observation, not a forecast. Otherwise, the river message shows the four river forecast peaks in **cfs and local time**, the current Florida River observation above Lemon Reservoir with its observation time, and the NWS river-forecast issuance time. Initial activation sends the current active guidance as its baseline. Subsequent comparisons use the last successfully delivered values. A forecast maximum at the end of the available horizon is not presented as a confirmed crest. Delivery baselines advance only after both texts succeed; a partial send can repeat the first text on retry.
 
 Every river text explicitly labels **ACTION STAGE**, **MINOR FLOOD STAGE**, **MODERATE FLOOD STAGE**, or **MAJOR FLOOD STAGE** whenever forecast, including unchanged forecasts, and includes the forecast height in feet. Below-action forecasts and gauges without defined stage thresholds are labeled separately. Classification uses official stage heights rather than comparing flow alone with potentially different published cfs thresholds.
 
@@ -113,9 +111,8 @@ Rain | Tue 10/20 6 AM–Tue 10/27 6 AM
 County 7-day avg: 2.82" (range 2.00–4.00")
 Days 1–3 (Tue 10/20–Fri 10/23): 2.64" | Days 4–5 (Fri 10/23–Sun 10/25): 0.13" | Days 6–7 (Sun 10/25–Tue 10/27): 0.00"
 Gauge basins, 7-day avg: Vallecito 3.51" | Los Pinos 3.38" | Lemon 3.20" | Animas 3.01" | La Plata 2.40"
-NBM comparison: County 0.71" lower at 2.11"; eastern gauge basins 0.38–0.71" lower; La Plata 0.67" lower
 Snow | No mapped 10%+ chance of 4"; lighter snow remains possible
-Issued | WPC Tue 10/20, 4:31 AM MDT | NBM Tue 10/20, 6:00 PM MDT | NWS GJT Tue 10/20, 6:16 PM MDT
+Issued | WPC Tue 10/20, 4:31 AM MDT | NWS GJT Tue 10/20, 6:16 PM MDT
 ```
 
 If WPC numerical GIS data lag behind a newer graphical or NWS forecast, preserve the same short structure and label the missing totals rather than mixing forecast sources:
@@ -151,9 +148,7 @@ Go to [Actions → La Plata WPC QPF](../../actions/workflows/qpf.yml), select **
 - WPC's mapped precipitation polygons approximate forecast ranges; an area outside mapped precipitation contours is treated as zero in the area-weighted estimate (a lower-bound assumption).
 - Seven-day precipitation amounts alone do not determine flash flood risk, short-duration rainfall intensity, or river crests.
 - NOAA issue periods can differ across products; interpret sums of independently rounded periods cautiously.
-- WPC and NBM can have different rolling valid periods. The NBM line is model comparison guidance, not a like-for-like trend statement. NBM values are means of approximately 2.5-km grid-cell centers inside each gauge-catchment polygon; small areas and boundary cells introduce sampling uncertainty.
 - Gauge catchments come from USGS National Linked Data Index basin delineations. They are more relevant to a specific gauge than HUC10 boundaries, but they do not reproduce NWS river-model routing, antecedent soil conditions, reservoir storage or controlled releases.
-- A full 168-hour NBM total is calculated only from complete 00/06/12/18Z cycles whose accumulation windows tile the entire week without gaps or overlaps. If NBM is delayed or unavailable, the WPC calculation and message continue without the comparison line.
 - GitHub scheduled starts are approximate; failures leave the previous valid result intact.
 - The ChatGPT **La Plata Rain Watch** owns the twice-daily timing; GitHub cron and the separate QPF trigger task are intentionally disabled to avoid delayed or duplicate runs.
 

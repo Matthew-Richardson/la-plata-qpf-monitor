@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 import requests
-from operational_monitor import collect, compare, delivered_baseline, RIVERS, LEVELS, stamp, dt
+from operational_monitor import collect, compare, delivered_baseline, OBSERVED_ONLY_RIVERS, RIVERS, LEVELS, stamp, dt
 from local_rain_monitor import collect_local_rain, brief as local_rain_brief
 
 WATCHED={"Vallecito":"09352900","Los Pinos":"09352800","Lemon":"09362750","Animas":"09361500","La Plata":"09365500"}
@@ -161,33 +161,6 @@ def chance_label(pct,threshold):
     chance=f"{pct}%+" if pct>=70 else f"{pct}–{39 if pct==10 else 69}%"
     return f"{chance} for {threshold}+\""
 
-def nbm_comparison_line(report):
-    """Compact model comparison; WPC remains the trend and notification baseline."""
-    nbm=report.get("nbm",{})
-    if nbm.get("status")!="complete": return None
-    values=nbm.get("totals",{})
-    if "county" not in values or any(site not in values for site in WATCHED.values()): return None
-    wpc=totals(report)
-    county=values["county"]["average_in"]
-    delta=county-wpc["county"]
-    if abs(delta)<0.10:
-        parts=[f"County similar at {county:.2f}\""]
-    else:
-        parts=[f"County {abs(delta):.2f}\" {'higher' if delta>0 else 'lower'} at {county:.2f}\""]
-    differences={name:values[site]["average_in"]-wpc[name] for name,site in WATCHED.items()}
-    used=set()
-    for direction,positive in (("higher",True),("lower",False)):
-        names=[name for name,diff in differences.items() if abs(diff)>=0.10 and (diff>0)==positive]
-        if set(names)==set(EASTERN):
-            amounts=[abs(differences[name]) for name in names]
-            amount=f"{min(amounts):.2f}–{max(amounts):.2f}\"" if max(amounts)-min(amounts)>=0.005 else f"{amounts[0]:.2f}\""
-            parts.append(f"eastern gauge basins {amount} {direction}")
-            used.update(names)
-        for name in names:
-            if name not in used:
-                parts.append(f"{name} {abs(differences[name]):.2f}\" {direction}")
-    return "NBM comparison: "+"; ".join(parts)
-
 def message(report,reason):
     p=report["periods"];t=totals(report)
     day123=sum(p[k]["average_in"] for k in ("Day 1","Day 2","Day 3"))
@@ -200,8 +173,6 @@ def message(report,reason):
         f"County 7-day avg: {t['county']:.2f}\" (range {p['Days 1-7']['min_in']:.2f}–{p['Days 1-7']['max_in']:.2f}\")",
         f"Days 1–3 ({short_range(first)}): {day123:.2f}\" | Days 4–5 ({short_range(p['Days 4-5'])}): {p['Days 4-5']['average_in']:.2f}\" | Days 6–7 ({short_range(p['Days 6-7'])}): {p['Days 6-7']['average_in']:.2f}\"",
         "Gauge basins, 7-day avg: "+" | ".join(f"{n} {t[n]:.2f}\"" for n in WATCHED)]
-    comparison=nbm_comparison_line(report)
-    if comparison: lines.append(comparison)
     snow=report.get("snow",{})
     if "periods" in snow:
         if snow.get("active"):
@@ -242,15 +213,36 @@ def weather_brief(report,operational,reason,changes,now):
     items=[]
     wpc=report.get("periods",{}).get("Days 1-7",{}).get("issue_time")
     if wpc: items.append("WPC "+source_time(wpc))
-    nbm=report.get("nbm",{})
-    if nbm.get("status")=="complete": items.append("NBM "+source_time(nbm["cycle_utc"]))
     nws=[row.get("issued") for row in operational.get("timing",{}).values() if row.get("issued")]
     if nws: items.append("NWS GJT "+source_time(max(nws,key=lambda value:dt(value))))
     return text+("\nIssued | "+" | ".join(items) if items else "")
 
+def no_significant_rises(operational, now):
+    """Require complete, fresh guidance; significant = >=20% and >=100 cfs."""
+    rivers=operational.get('rivers',{})
+    for gauge in RIVERS.keys() - OBSERVED_ONLY_RIVERS:
+        v=rivers.get(gauge)
+        if not v or v.get('observed') or v.get('baseline_cfs') is None:
+            return False
+        if not -21600 <= (dt(v['baseline_time'])-now).total_seconds() <= 21600:
+            return False
+        if not 0 <= (now-dt(v['issued'])).total_seconds() <= 36*3600:
+            return False
+        if v['cfs']-v['baseline_cfs'] >= max(100,v['baseline_cfs']*.20):
+            return False
+    # A flat hydrograph at action/flood stage still needs explicit detail.
+    return not any(v.get('category') in ('action','minor','moderate','major')
+                   or v.get('baseline_category') in ('action','minor','moderate','major')
+                   or v.get('forecast_hazard',False) for v in rivers.values())
+
 def river_brief(operational,changes,now):
-    lines=[now.strftime('LPC river forecast peaks | %a %-m/%-d')]
+    quiet=no_significant_rises(operational,now)
+    lines=[now.strftime('LPC river forecast | %a %-m/%-d')]
+    if quiet:
+        lines.append('No significant rises expected in the available NWS river forecasts.')
     for gauge,name in RIVERS.items():
+        if quiet and gauge not in OBSERVED_ONLY_RIVERS:
+            continue
         v=operational.get('rivers',{}).get(gauge)
         if not v:
             lines.append(name+': unavailable')
@@ -273,7 +265,7 @@ def river_brief(operational,changes,now):
     values=[v for v in operational.get('rivers',{}).values() if not v.get('observed')]
     if values:
         issued=max(dt(v['issued']) for v in values).astimezone(ZoneInfo('America/Denver'))
-        lines.append(issued.strftime('NWS forecast issued %a %-m/%-d, %-I:%M %p %Z.')+' Peak times are local Mountain Time.')
+        lines.append(issued.strftime('NWS forecast issued %a %-m/%-d, %-I:%M %p %Z.')+('' if quiet else ' Peak times are local Mountain Time.'))
     return '\n'.join(lines)
 
 def main():

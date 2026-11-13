@@ -1,7 +1,7 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import pytest
-from groupme_notify import decide, message, nbm_comparison_line
+from groupme_notify import decide, message
 
 def report(q=2.0):
     return {"area_schema":"gauge-catchments-v1",
@@ -67,7 +67,7 @@ def test_message():
     assert 'La Plata 2.00"' in text
     assert "flood guidance" not in text
 
-def test_nbm_comparison_is_compact_and_directional():
+def test_legacy_nbm_comparison_is_ignored():
     current=report()
     current["nbm"]={"status":"complete","totals":{
         "county":{"average_in":1.95},
@@ -76,9 +76,8 @@ def test_nbm_comparison_is_compact_and_directional():
         "09362750":{"average_in":2.35},
         "09361500":{"average_in":2.31},
         "09365500":{"average_in":1.76}}}
-    line=nbm_comparison_line(current)
-    assert line=='NBM comparison: County similar at 1.95"; eastern gauge basins 0.30–0.38" higher; La Plata 0.24" lower'
-    assert line in message(current,"No material changes")
+    assert message(current,"No material changes")==message(report(),"No material changes")
+    assert "NBM" not in message(current,"No material changes")
 
 def test_missing_nbm_does_not_change_weather_message():
     current=report()

@@ -8,7 +8,6 @@ from urllib3.util.retry import Retry
 from shapely.geometry import shape
 from shapely.ops import transform, unary_union
 from pyproj import Transformer
-from nbm_monitor import calculate as calculate_nbm
 
 WPC="https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/MapServer"
 COUNTY="https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/27"
@@ -202,19 +201,12 @@ def run():
             attr=meta[0]["attributes"]
             output[label]["issue_time"]=attr.get("issue_time")
             output[label]["valid_period"]=[attr.get("start_time"),attr.get("end_time")]
-    nbm_regions={"county":geom}
-    nbm_regions.update({site:catchment["geometry"] for site,catchment in catchments.items()})
-    try:
-        nbm=calculate_nbm(nbm_regions)
-    except Exception as exc:
-        nbm={"status":"unavailable","source":"https://noaa-nbm-grib2-pds.s3.amazonaws.com","error":str(exc)}
-        print("NBM comparison unavailable:",exc)
     report={"area_schema":"gauge-catchments-v1","gauge_catchments":catchment_output,"gauge_catchment_source":NLDI,
             "optional_watershed_status":"unavailable" if watershed_errors else "available",
             "optional_watershed_errors":watershed_errors,
             "huc10_watersheds":fine_output,"huc10_source":WATERSHEDS10,"watersheds":watershed_output,"watershed_source":WATERSHEDS,"watershed_level":"USGS HUC8 full subbasins intersecting La Plata County",
             "generated_utc":datetime.now(timezone.utc).isoformat(),"location":"La Plata County CO",
-            "source":WPC,"periods":output,"nbm":nbm,"caveats":"QPF averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities."}
+            "source":WPC,"periods":output,"caveats":"QPF averages are forecast liquid-equivalent amounts, not observed rainfall or flood probabilities."}
     Path("data").mkdir(exist_ok=True)
     Path("data/latest.json").write_text(json.dumps(report,indent=2)+"\n")
     lines=["# La Plata County WPC QPF","",f"Generated UTC: {report['generated_utc']}","","| Period | Avg (in) | Min (in) | Max (in) | Coverage | WPC issue |","|---|---:|---:|---:|---:|---|"]
@@ -260,14 +252,6 @@ def run():
     for code,basin in sorted(fine_output.items(),key=lambda x:(x[1]["parent_huc8"],x[1]["name"])):
         p=basin["periods"]
         lines.append("| "+basin["name"]+" ("+code+") | "+" | ".join(f"{p[label]['average_in']:.2f}" for label in LAYERS)+" |")
-    lines.extend(["", "## NBM seven-day comparison", ""])
-    if nbm.get("status")=="complete":
-        lines.extend([f"Cycle UTC: {nbm['cycle_utc']}", "", "| Area | NBM avg (in) | Grid points |", "|---|---:|---:|"])
-        names={"county":"La Plata County",**{site:row["name"] for site,row in GAUGE_CATCHMENTS.items()}}
-        for code,row in nbm["totals"].items():
-            lines.append(f"| {names.get(code,code)} | {row['average_in']:.2f} | {row['grid_points']} |")
-    else:
-        lines.append("Unavailable for this run: "+nbm.get("error","unknown error"))
     lines.extend(["",report["caveats"],"",
         "Gauge catchments are USGS NLDI basin delineations. They improve gauge-specific QPF comparison but do not reproduce reservoir operations or NWS river-model routing.",
         f"Source: {WPC}",f"Gauge catchments: {NLDI}",f"Watershed boundaries: {WATERSHEDS}; {WATERSHEDS10}"])

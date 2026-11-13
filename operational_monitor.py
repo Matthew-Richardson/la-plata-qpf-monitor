@@ -85,8 +85,21 @@ def river(gauge, now):
     flow = peak["secondary"] * (1000 if unit == "kcfs" else 1)
     stage = peak.get("primary") if forecast.get("primaryUnits") == "ft" else None
     category = stage_category(metadata, stage)
+    baseline = {}
+    try:
+        observation = observed_river(metadata, series, now)
+        baseline = {"baseline_cfs": observation["cfs"], "baseline_time": observation["time"],
+                    "baseline_category": observation["category"], "baseline_source": "observed"}
+    except ValueError:
+        first = min(rows, key=lambda r: dt(r["validTime"]))
+        if dt(first["validTime"]) - now <= timedelta(hours=6):
+            baseline = {"baseline_cfs": first["secondary"] * (1000 if unit == "kcfs" else 1),
+                        "baseline_time": first["validTime"], "baseline_source": "near-term forecast"}
+    hazard = any(stage_category(metadata, row.get("primary")) in ("action", "minor", "moderate", "major")
+                 for row in rows) if forecast.get("primaryUnits") == "ft" else False
     return {"cfs": round(flow), "time": peak["validTime"], "category": category, "stage_ft": stage,
-            "issued": forecast["issuedTime"], "at_horizon": peak is rows[-1], "observed": False}
+            "issued": forecast["issuedTime"], "at_horizon": peak is rows[-1], "observed": False,
+            "forecast_hazard": hazard, **baseline}
 
 def timing_window(periods, now):
     """Next sustained >=50% hourly precipitation window; bridge gaps <=6h."""

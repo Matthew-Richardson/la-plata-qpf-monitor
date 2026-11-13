@@ -96,6 +96,9 @@ def test_river_brief_labels_lemon_as_observed():
     assert 'no current NWS forecast' in text
 
 def test_failed_send_preserves_delivery_baseline(tmp_path,monkeypatch):
+    monkeypatch.setattr(groupme_notify,'collect_local_rain',lambda now:{})
+    monkeypatch.setattr(groupme_notify,'local_rain_brief',lambda data:
+        'Local drainage rain-only averages | NWS grid\n3-day (test): 0.1\n7-day (test): 0.2\nRain only; modeled snow excluded.')
     monkeypatch.chdir(tmp_path)
     (tmp_path/'data').mkdir()
     (tmp_path/'data/latest.json').write_text(json.dumps(report()))
@@ -113,6 +116,9 @@ def test_failed_send_preserves_delivery_baseline(tmp_path,monkeypatch):
     assert json.loads(state_path.read_text())==baseline
 
 def test_preview_never_sends_or_saves_baseline(tmp_path,monkeypatch):
+    monkeypatch.setattr(groupme_notify,'collect_local_rain',lambda now:{})
+    monkeypatch.setattr(groupme_notify,'local_rain_brief',lambda data:
+        'Local drainage rain-only averages | NWS grid\n3-day (test): 0.1\n7-day (test): 0.2\nRain only; modeled snow excluded.')
     monkeypatch.chdir(tmp_path)
     (tmp_path/'data').mkdir()
     (tmp_path/'data/latest.json').write_text(json.dumps(report()))
@@ -123,6 +129,9 @@ def test_preview_never_sends_or_saves_baseline(tmp_path,monkeypatch):
     assert not (tmp_path/'data/notification_state.json').exists()
 
 def test_wet_brief_sends_weather_rivers_and_local_rain_as_separate_posts(tmp_path,monkeypatch):
+    monkeypatch.setattr(groupme_notify,'collect_local_rain',lambda now:{})
+    monkeypatch.setattr(groupme_notify,'local_rain_brief',lambda data:
+        'Local drainage rain-only averages | NWS grid\n3-day (test): 0.1\n7-day (test): 0.2\nRain only; modeled snow excluded.')
     monkeypatch.chdir(tmp_path)
     (tmp_path/'data').mkdir()
     (tmp_path/'data/latest.json').write_text(json.dumps(report()))
@@ -140,7 +149,7 @@ def test_wet_brief_sends_weather_rivers_and_local_rain_as_separate_posts(tmp_pat
     groupme_notify.main()
     assert len(posts)==3
     assert posts[0].startswith('LPC precipitation |')
-    assert posts[1].startswith('LPC river forecast peaks |')
+    assert posts[1].startswith('LPC river forecast |')
     assert posts[2].startswith('Local drainage rain-only averages | NWS grid')
     assert 'Animas at Durango' not in posts[0]
     assert 'La Plata at Hesperus' in posts[1] and 'state line' not in posts[1]
@@ -155,3 +164,58 @@ def test_stage_labels_are_in_every_river_brief_even_if_unchanged():
         current=forecast();current['rivers']['drgc2'].update(category=category,stage_ft=8.1)
         text=groupme_notify.river_brief(current,[],NOW)
         assert label in text and '8.10 ft' in text
+
+
+def quiet_forecast():
+    result=forecast(1050)
+    row=result['rivers']['drgc2']
+    row.update(baseline_cfs=1000,baseline_time=NOW.isoformat())
+    result['rivers']={g:deepcopy(row) for g in ('drgc2','vnbc2','lpac2','lphc2')}
+    return result
+
+
+def test_quiet_rivers_summarized_with_observation_gap_explicit():
+    text=groupme_notify.river_brief(quiet_forecast(),[],NOW)
+    assert 'No significant rises expected' in text
+    assert 'Animas at Durango:' not in text
+    assert 'Florida above Lemon: unavailable' in text
+    assert 'NWS forecast issued' in text
+
+
+@pytest.mark.parametrize('field,value',[
+    ('cfs',1200),('category','action'),('baseline_category','minor'),
+    ('forecast_hazard',True),('baseline_cfs',None),('observed',True),
+    ('baseline_time',(NOW-timedelta(hours=7)).isoformat()),
+    ('issued',(NOW-timedelta(hours=37)).isoformat())])
+def test_quiet_summary_never_hides_rises_hazards_or_missing_data(field,value):
+    current=quiet_forecast()
+    current['rivers']['drgc2'][field]=value
+    text=groupme_notify.river_brief(current,[],NOW)
+    assert 'No significant rises expected' not in text
+    assert 'Animas at Durango:' in text
+
+
+def test_quiet_summary_requires_all_four_forecast_gauges():
+    current=quiet_forecast()
+    del current['rivers']['lpac2']
+    assert 'No significant rises expected' not in groupme_notify.river_brief(current,[],NOW)
+
+
+@pytest.mark.parametrize('observed_age,expected_source',[(1,'observed'),(7,'near-term forecast')])
+def test_rise_baseline_uses_fresh_observations_then_near_forecast(monkeypatch,observed_age,expected_source):
+    series={'forecast':{'issuedTime':NOW.isoformat(),'secondaryUnits':'kcfs','data':[
+        {'validTime':(NOW+timedelta(hours=1)).isoformat(),'secondary':1.0},
+        {'validTime':(NOW+timedelta(days=2)).isoformat(),'secondary':1.1}]},
+        'observed':{'secondaryUnits':'cfs','data':[
+            {'validTime':(NOW-timedelta(hours=observed_age)).isoformat(),'secondary':900}]}}
+    monkeypatch.setattr('operational_monitor.get',lambda u:series if u.endswith('stageflow') else {})
+    result=river('drgc2',NOW)
+    assert result['baseline_source']==expected_source
+    assert result['baseline_cfs']==(900 if observed_age==1 else 1000)
+
+
+def test_no_rise_baseline_when_first_forecast_too_far_away(monkeypatch):
+    series={'forecast':{'issuedTime':NOW.isoformat(),'secondaryUnits':'cfs','data':[
+        {'validTime':(NOW+timedelta(days=1)).isoformat(),'secondary':1000}]}}
+    monkeypatch.setattr('operational_monitor.get',lambda u:series if u.endswith('stageflow') else {})
+    assert 'baseline_cfs' not in river('drgc2',NOW)
