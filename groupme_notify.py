@@ -201,8 +201,17 @@ def message(report,reason):
     return "\n".join(lines)
 
 def weather_brief(report,operational,reason,changes,now):
-    period=report['periods']['Days 1-7']
-    lines=[alert_heading(reason),f"WPC 7-day avg: {period['average_in']:.2f}\" ({short_range(period)})"]
+    periods=report['periods']
+    period=periods['Days 1-7']
+    day123=sum(periods[name]['average_in'] for name in ('Day 1','Day 2','Day 3'))
+    first={'valid_period':[periods['Day 1']['valid_period'][0],periods['Day 3']['valid_period'][1]]}
+    lines=[
+        alert_heading(reason),
+        f"WPC 7-day avg: {period['average_in']:.2f}\" ({short_range(period)})",
+        f"Days 1–3 ({short_range(first)}): {day123:.2f}\" | "
+        f"Days 4–5 ({short_range(periods['Days 4-5'])}): {periods['Days 4-5']['average_in']:.2f}\" | "
+        f"Days 6–7 ({short_range(periods['Days 6-7'])}): {periods['Days 6-7']['average_in']:.2f}\"",
+    ]
     # Keep active snow guidance, but drop routine no-snow text and basin tables.
     if report.get('snow',{}).get('active'):
         text=message(report,reason).splitlines()

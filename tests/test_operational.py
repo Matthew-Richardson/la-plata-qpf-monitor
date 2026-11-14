@@ -143,8 +143,10 @@ def test_wet_brief_sends_only_short_weather_and_rivers(tmp_path,monkeypatch):
     assert posts[1].startswith('LPC river forecast |')
     assert 'Animas at Durango' not in posts[0]
     assert 'La Plata at Hesperus' in posts[1] and 'state line' not in posts[1]
-    assert 'Gauge basins' not in posts[0] and 'Days 1–3' not in posts[0]
-    assert len(posts[0])<180
+    assert 'Gauge basins' not in posts[0]
+    assert 'Days 1–3' in posts[0] and 'Days 4–5' in posts[0] and 'Days 6–7' in posts[0]
+    assert 'NBM' not in posts[0]
+    assert len(posts[0])<300
     assert all(len(t)<=1000 for t in posts)
     assert json.loads((tmp_path/'data/notification_state.json').read_text())['operational']['rivers']
 
