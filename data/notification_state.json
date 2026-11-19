@@ -1,24 +1,19 @@
 {
   "status": "wet",
   "dry_streak": 0,
-  "last_sent_at": "2026-11-18T18:27:13.609027-07:00",
+  "last_sent_at": "2026-11-19T06:29:49.350992-07:00",
   "last_alert_totals": {
-    "county": 0.062,
-    "Vallecito": 0.249,
-    "Los Pinos": 0.223,
-    "Lemon": 0.193,
-    "Animas": 0.182,
-    "La Plata": 0.132
+    "county": 0.081,
+    "Vallecito": 0.25,
+    "Los Pinos": 0.212,
+    "Lemon": 0.212,
+    "Animas": 0.207,
+    "La Plata": 0.194
   },
   "unchanged_day": "2026-10-28",
   "snow_signature": [
     [
       "Day 2",
-      4,
-      10
-    ],
-    [
-      "Day 3",
       4,
       10
     ]
@@ -35,21 +30,9 @@
       "Above 9,000 ft",
       4,
       10
-    ],
-    [
-      "Day 3",
-      "7,000\u20139,000 ft",
-      4,
-      10
-    ],
-    [
-      "Day 3",
-      "Above 9,000 ft",
-      4,
-      10
     ]
   ],
-  "wet_update_slot": "2026-11-18 PM",
+  "wet_update_slot": "2026-11-19 AM",
   "operational": {
     "rivers": {
       "drgc2": {
@@ -109,11 +92,11 @@
         "baseline_source": "observed"
       },
       "fric2": {
-        "cfs": 89,
-        "time": "2026-11-19T00:15:00Z",
+        "cfs": 64,
+        "time": "2026-11-19T12:15:00Z",
         "category": "below action",
-        "stage_ft": 2.08,
-        "issued": "2026-11-19T00:15:00Z",
+        "stage_ft": 1.95,
+        "issued": "2026-11-19T12:15:00Z",
         "at_horizon": false,
         "observed": true
       }
@@ -328,20 +311,26 @@
         "start": "2026-11-22T12:00:00+00:00",
         "end": "2026-11-23T12:00:00+00:00",
         "issued": null
+      },
+      "2026-11-24T12:00:00+00:00": {
+        "level": 0,
+        "start": "2026-11-23T12:00:00+00:00",
+        "end": "2026-11-24T12:00:00+00:00",
+        "issued": null
       }
     },
     "timing": {
       "Durango": {
         "window": null,
-        "issued": "2026-11-19T00:36:04+00:00"
+        "issued": "2026-11-19T11:22:05+00:00"
       },
       "Bayfield": {
         "window": null,
-        "issued": "2026-11-19T00:36:04+00:00"
+        "issued": "2026-11-19T11:22:05+00:00"
       },
       "Ignacio": {
         "window": null,
-        "issued": "2026-11-19T00:36:04+00:00"
+        "issued": "2026-11-19T11:22:05+00:00"
       }
     }
   },
