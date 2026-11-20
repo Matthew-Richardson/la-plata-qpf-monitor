@@ -46,7 +46,7 @@ def validate_manifest(manifest, now):
 
 def validate_grid(grid, manifest):
     size = manifest['grid']['width'] * manifest['grid']['height']
-    for field in ('qpf', 'rain'):
+    for field in ('qpf', 'rain', 'snow'):
         values = grid[field]
         if len(values) != size or any(not isinstance(v, (int, float)) or not math.isfinite(v) or v < 0 for v in values):
             raise ValueError('Missing or invalid RRFS '+field+' grid')
