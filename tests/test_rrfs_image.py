@@ -15,7 +15,7 @@ def prepared(tmp_path):
     start=NOW.replace(hour=6)
     manifest={'initialized':start.isoformat(),'directory':'2026111306','completeThroughHour':84,
               'frames':[{'hour':84,'valid':(start+timedelta(hours=84)).isoformat()}],'grid':reference}
-    grid={field:[.5]*(reference['width']*reference['height']) for field in ('qpf','rain')}
+    grid={field:[.5]*(reference['width']*reference['height']) for field in ('qpf','rain','snow')}
     (tmp_path/'manifest.json').write_text(json.dumps(manifest))
     (tmp_path/'grid.json').write_text(json.dumps(grid))
     Image.new('RGB',(10,10)).save(tmp_path/rrfs.IMAGE)
@@ -35,8 +35,17 @@ def test_forecast_freshness_completeness_and_grid_guards(prepared):
 
 @pytest.mark.parametrize('value',[None,-1,float('nan'),float('inf')])
 def test_invalid_grid_withheld(prepared,value):
-    _,m,g=prepared;g['qpf'][0]=value
+    _,m,g=prepared;g['snow'][0]=value
     with pytest.raises(ValueError,match='invalid'):rrfs.validate_grid(g,m)
+
+
+def test_requested_snow_points_are_configured():
+    points=json.loads((rrfs.ROOT/'assets/rrfs/snow-points.json').read_text())['points']
+    assert [point['name'] for point in points] == [
+        'Hesperus','Kennebec Pass','Purgatory','Bayfield','Durango',
+        'Ignacio','Bondad','Chicago Basin','Vallecito','Lemon'
+    ]
+    assert all(-108.43 <= point['lon'] <= -107.25 and 36.96 <= point['lat'] <= 38.00 for point in points)
 
 
 def test_rain_cannot_exceed_precip(prepared):
