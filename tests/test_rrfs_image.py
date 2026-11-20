@@ -45,6 +45,8 @@ def test_requested_snow_points_are_configured():
         'Hesperus','Kennebec Pass','Purgatory','Bayfield','Durango',
         'Ignacio','Bondad','Chicago Basin','Vallecito','Lemon'
     ]
+    assert len({(point['lat'],point['lon']) for point in points}) == len(points)
+    assert all(len(point.get('offset',[])) == 2 for point in points)
     assert all(-108.43 <= point['lon'] <= -107.25 and 36.96 <= point['lat'] <= 38.00 for point in points)
 
 
