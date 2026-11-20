@@ -1,7 +1,7 @@
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 import pytest
-from operational_monitor import compare, delivered_baseline, timing_window, river
+from operational_monitor import compare, delivered_baseline, timing_window, river, reservoir
 from groupme_notify import message_parts
 import groupme_notify
 import json
@@ -139,8 +139,8 @@ def test_wet_brief_sends_only_short_weather_and_rivers(tmp_path,monkeypatch):
     monkeypatch.setattr(groupme_notify.requests,'post',send)
     groupme_notify.main()
     assert len(posts)==2
-    assert posts[0].startswith('LPC precipitation |')
-    assert posts[1].startswith('LPC river forecast |')
+    assert posts[0].startswith('LPC WEATHER |')
+    assert posts[1].startswith('LPC RIVERS |')
     assert 'Animas at Durango' not in posts[0]
     assert 'La Plata at Hesperus' in posts[1] and 'state line' not in posts[1]
     assert 'Gauge basins' not in posts[0]
@@ -169,9 +169,40 @@ def quiet_forecast():
 def test_quiet_rivers_summarized_with_observation_gap_explicit():
     text=groupme_notify.river_brief(quiet_forecast(),[],NOW)
     assert 'No significant rises expected' in text
-    assert 'Animas at Durango:' not in text
+    assert 'Animas at Durango:' in text
     assert 'Florida above Lemon: unavailable' in text
-    assert 'NWS forecast issued' in text
+    assert 'NWS issued' in text
+
+
+def test_event_mode_for_moderate_ero_and_reservoir_details():
+    current=quiet_forecast()
+    current['outlooks']={'x':{'level':3,'start':NOW.isoformat(),
+        'end':(NOW+timedelta(days=1)).isoformat()}}
+    current['reservoirs']={
+        'vallecito':{'name':'Vallecito','storage_af':116000,'capacity_af':129700,
+            'percent_full':89,'headroom_af':13700,'inflow_cfs':1200,'release_cfs':900,
+            'time':'2026-10-19T07:00:00Z'},
+        'lemon':{'name':'Lemon','storage_af':36000,'capacity_af':40146,
+            'percent_full':90,'headroom_af':4146,'inflow_cfs':400,'release_cfs':200,
+            'time':'2026-10-19T07:00:00Z'}}
+    assert groupme_notify.brief_mode(report(),current,'No material changes',[],NOW)=='event escalation'
+    text=groupme_notify.river_brief(current,[],NOW,'event escalation')
+    assert 'EXPECTED PEAKS' in text and 'RESERVOIRS | USBR' in text
+    assert 'Vallecito: 116,000 AF (89%)' in text
+    assert 'Lemon: 36,000 AF (90%)' in text
+
+
+def test_usbr_reservoir_table(monkeypatch):
+    html='''<table><tbody><tr><td>18-Nov-2026</td><td>7657.73</td>
+        <td>106206</td><td>517</td><td>684</td></tr></tbody></table>'''
+    class Response:
+        text=html
+        def raise_for_status(self): pass
+    monkeypatch.setattr('operational_monitor.requests.get',lambda *a,**k:Response())
+    value=reservoir('vallecito',datetime(2026,11,19,18,tzinfo=timezone.utc))
+    assert value['storage_af']==106206 and value['percent_full']==82
+    assert value['headroom_af']==23494
+    assert value['inflow_cfs']==517 and value['release_cfs']==684
 
 
 @pytest.mark.parametrize('field,value',[

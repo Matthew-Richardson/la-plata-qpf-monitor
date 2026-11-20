@@ -200,24 +200,81 @@ def message(report,reason):
             lines.append("Snow | No mapped 10%+ chance of 4\"; lighter snow remains possible")
     return "\n".join(lines)
 
-def weather_brief(report,operational,reason,changes,now):
+def active_outlook(operational,now):
+    rows=[row for row in operational.get('outlooks',{}).values()
+          if dt(row['end'])>now and row.get('level',0)>0]
+    return max(rows,key=lambda row:(row['level'],-dt(row['start']).timestamp())) if rows else None
+
+def timing_line(operational):
+    windows=[value['window'] for value in operational.get('timing',{}).values() if value.get('window')]
+    if not windows: return None
+    start=min(dt(row['start']) for row in windows)
+    end=max(dt(row['end']) for row in windows)
+    return f"NWS likely precipitation: {stamp(start.isoformat())}–{stamp(end.isoformat())}"
+
+def compact_snow_lines(report,reason):
+    if not report.get('snow',{}).get('active'): return []
+    text=message(report,reason).splitlines()
+    start=next((i for i,line in enumerate(text) if line.startswith('Snow |')),None)
+    return text[start:] if start is not None else []
+
+def brief_mode(report,operational,reason,changes,now):
+    """Escalate only when added detail is operationally useful."""
+    outlook=active_outlook(operational,now)
+    river_hazard=any(value.get('category') in ('action','minor','moderate','major')
+                     or value.get('forecast_hazard')
+                     for value in operational.get('rivers',{}).values())
+    significant_change=any(
+        ('increased' in change and (' cfs' in change or 'WPC risk' in change))
+        or '→action' in change or '→minor' in change or '→moderate' in change or '→major' in change
+        for change in changes)
+    reservoir_concern=any(value.get('percent_full',0)>=90 and value.get('inflow_cfs',0)>value.get('release_cfs',0)
+                          for value in operational.get('reservoirs',{}).values())
+    day123=sum(report['periods'][name]['average_in'] for name in ('Day 1','Day 2','Day 3'))
+    material_increase=reason.startswith('Material change — forecast increased:')
+    if ((outlook and outlook['level']>=3) or river_hazard or significant_change
+            or reservoir_concern or material_increase or day123>=1.50):
+        return 'event escalation'
+    return 'routine'
+
+def weather_brief(report,operational,reason,changes,now,mode=None):
+    mode=mode or brief_mode(report,operational,reason,changes,now)
     periods=report['periods']
     period=periods['Days 1-7']
     day123=sum(periods[name]['average_in'] for name in ('Day 1','Day 2','Day 3'))
     first={'valid_period':[periods['Day 1']['valid_period'][0],periods['Day 3']['valid_period'][1]]}
-    lines=[
-        alert_heading(reason),
-        f"WPC 7-day avg: {period['average_in']:.2f}\" ({short_range(period)})",
-        f"Days 1–3 ({short_range(first)}): {day123:.2f}\" | "
-        f"Days 4–5 ({short_range(periods['Days 4-5'])}): {periods['Days 4-5']['average_in']:.2f}\" | "
-        f"Days 6–7 ({short_range(periods['Days 6-7'])}): {periods['Days 6-7']['average_in']:.2f}\"",
-    ]
-    # Keep active snow guidance, but drop routine no-snow text and basin tables.
-    if report.get('snow',{}).get('active'):
-        text=message(report,reason).splitlines()
-        start=next((i for i,line in enumerate(text) if line.startswith('Snow |')),None)
-        if start is not None: lines.extend(text[start:])
-    lines.extend(change for change in changes if change.startswith(('NWS timing','WPC')))
+    header=now.strftime('LPC WEATHER | %a %-m/%-d, %-I:%M %p')
+    qpf=(f"Days 1–3 ({short_range(first)}): {day123:.2f}\" | "
+         f"Days 4–5 ({short_range(periods['Days 4-5'])}): {periods['Days 4-5']['average_in']:.2f}\" | "
+         f"Days 6–7 ({short_range(periods['Days 6-7'])}): {periods['Days 6-7']['average_in']:.2f}\"")
+    outlook=active_outlook(operational,now)
+    risk=(f"{LEVELS[outlook['level']]} excessive-rain risk in part of LPC: "
+          f"{stamp(outlook['start'])}–{stamp(outlook['end'])}" if outlook else None)
+    timing=timing_line(operational)
+    weather_changes=[change for change in changes if change.startswith(('NWS timing','WPC risk'))]
+    if mode=='routine':
+        lines=[header,qpf]
+        if timing: lines.append(timing)
+        if risk: lines.append(risk)
+        snow=compact_snow_lines(report,reason)
+        if snow: lines.extend(snow)
+        lines.extend(weather_changes)
+        return '\n'.join(lines)
+
+    lines=[header,'EVENT ESCALATION']
+    detail=change_line(reason)
+    if detail: lines.extend(['',detail])
+    if timing: lines.extend(['','TIMING',timing])
+    lines.extend(['','RAINFALL',qpf,f"WPC county 7-day: {period['average_in']:.2f}\""])
+    basin_values=totals(report)
+    lines.extend(['','UPSTREAM BASINS — 7 DAY',
+                  ' | '.join(f"{name} {basin_values[name]:.2f}\"" for name in WATCHED)])
+    if risk or weather_changes:
+        lines.extend(['','RISK'])
+        if risk: lines.append(risk)
+        lines.extend(weather_changes)
+    snow=compact_snow_lines(report,reason)
+    if snow: lines.extend(['','SNOW',*snow])
     return '\n'.join(lines)
 
 def no_significant_rises(operational, now):
@@ -238,37 +295,49 @@ def no_significant_rises(operational, now):
                    or v.get('baseline_category') in ('action','minor','moderate','major')
                    or v.get('forecast_hazard',False) for v in rivers.values())
 
-def river_brief(operational,changes,now):
+def river_line(name,v):
+    labels={'action':'ACTION STAGE','minor':'MINOR FLOOD STAGE','moderate':'MODERATE FLOOD STAGE',
+            'major':'MAJOR FLOOD STAGE','below action':'below action stage'}
+    category=v['category']
+    stage=f" / {v['stage_ft']:.2f} ft" if v.get('stage_ft') is not None else ''
+    suffix=' — '+labels[category] if category in labels else ''
+    time=dt(v['time']).astimezone(ZoneInfo('America/Denver')).strftime('%a %-m/%-d, %-I:%M %p')
+    if v.get('observed'):
+        return f"{name}: {v['cfs']:,} cfs observed {time}{stage}{suffix}; no current NWS forecast"
+    label='max through ' if v['at_horizon'] else ''
+    return f"{name}: {v['cfs']:,} cfs{stage} {label}{time}{suffix}"
+
+def reservoir_line(value):
+    return (f"{value['name']}: {value['storage_af']:,} AF ({value['percent_full']}%); "
+            f"{value['headroom_af']:,} AF headroom | in {value['inflow_cfs']:,} / out {value['release_cfs']:,} cfs")
+
+def river_brief(operational,changes,now,mode='routine'):
     quiet=no_significant_rises(operational,now)
-    lines=[now.strftime('LPC river forecast | %a %-m/%-d')]
-    if quiet:
-        lines.append('No significant rises expected in the available NWS river forecasts.')
+    lines=[now.strftime('LPC RIVERS | %a %-m/%-d, %-I:%M %p')]
+    if mode=='event escalation': lines.extend(['','EXPECTED PEAKS'])
+    elif quiet: lines.append('No significant rises expected in available NWS forecasts.')
     for gauge,name in RIVERS.items():
-        if quiet and gauge not in OBSERVED_ONLY_RIVERS:
-            continue
         v=operational.get('rivers',{}).get(gauge)
         if not v:
             lines.append(name+': unavailable')
             continue
-        labels={'action':'ACTION STAGE','minor':'MINOR FLOOD STAGE','moderate':'MODERATE FLOOD STAGE',
-                'major':'MAJOR FLOOD STAGE','below action':'below action stage'}
-        category=v['category']
-        suffix=' — '+labels[category] if category in labels else ''
-        if category in ('action','minor','moderate','major') and v.get('stage_ft') is not None:
-            suffix=f" / {v['stage_ft']:.2f} ft"+suffix
-        if v.get('observed'):
-            if v.get('stage_ft') is not None and category not in ('action','minor','moderate','major'):
-                suffix=f" / {v['stage_ft']:.2f} ft"+suffix
-            time=dt(v['time']).astimezone(ZoneInfo('America/Denver')).strftime('%a %-m/%-d, %-I:%M %p')
-            lines.append(f"{name}: {v['cfs']:,} cfs observed {time}{suffix}; no current NWS forecast")
-            continue
-        label='max through ' if v['at_horizon'] else ''
-        time=dt(v['time']).astimezone(ZoneInfo('America/Denver')).strftime('%a %-m/%-d, %-I %p')
-        lines.append(f"{name}: {v['cfs']:,} cfs {label}{time}{suffix}")
+        if mode=='event escalation' and v.get('observed') and lines[-1]!='CURRENT':
+            lines.extend(['','CURRENT'])
+        lines.append(river_line(name,v))
+    river_changes=[change for change in changes if not change.startswith(('NWS timing','WPC risk'))]
+    reservoirs=operational.get('reservoirs',{})
+    reservoir_concern=any(value.get('percent_full',0)>=90 and value.get('inflow_cfs',0)>value.get('release_cfs',0)
+                          for value in reservoirs.values())
+    if mode=='event escalation' and river_changes:
+        lines.extend(['','CHANGES',*river_changes])
+    if reservoirs and (mode=='event escalation' or reservoir_concern):
+        latest=max(dt(value['time']) for value in reservoirs.values()).astimezone(ZoneInfo('America/Denver'))
+        lines.extend(['',latest.strftime('RESERVOIRS | USBR %a %-m/%-d')])
+        lines.extend(reservoir_line(reservoirs[key]) for key in ('vallecito','lemon') if key in reservoirs)
     values=[v for v in operational.get('rivers',{}).values() if not v.get('observed')]
     if values:
         issued=max(dt(v['issued']) for v in values).astimezone(ZoneInfo('America/Denver'))
-        lines.append(issued.strftime('NWS forecast issued %a %-m/%-d, %-I:%M %p %Z.')+('' if quiet else ' Peak times are local Mountain Time.'))
+        lines.append(issued.strftime('NWS issued %a %-m/%-d, %-I:%M %p %Z.'))
     return '\n'.join(lines)
 
 def main():
@@ -294,9 +363,10 @@ def main():
         new_state["last_sent_at"]=now.isoformat()
     texts=[]
     if reason:
-        texts=[weather_brief(report,operational,reason,changes,now)]
+        mode=brief_mode(report,operational,reason,changes,now)
+        texts=[weather_brief(report,operational,reason,changes,now,mode)]
         if new_state.get('status')=='wet' or changes:
-            texts.append(river_brief(operational,changes,now))
+            texts.append(river_brief(operational,changes,now,mode))
         new_state["operational"]=delivered_baseline(operational,state.get("operational",{}))
         if new_state.get('status')=='wet':
             new_state['wet_update_slot']=wet_slot(now)

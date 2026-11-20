@@ -18,6 +18,7 @@ Dates and valid periods in messages use **America/Denver** local time, respectin
 - **WPC QPF** is the primary numerical source for county, period and highlighted-area precipitation totals, including Days 1–7. Trend language such as **increased** or **decreased** compares WPC with WPC.
 - **NWS Grand Junction / NDFD** supplies local precipitation timing and operational context. It may be used as a clearly labeled short-range fallback when a newer WPC graphical forecast is available but WPC numerical GIS files are still pending. NWS/NDFD totals are never silently substituted for WPC totals or compared against earlier WPC totals as a forecast change.
 - **NWS river forecasts** are a separate product and remain in a separate GroupMe text.
+- **Bureau of Reclamation reservoir operations** supply provisional daily storage, inflow and total-release values for [Vallecito](https://www.usbr.gov/rsvrWater/rsv40Day.html?reservoirtype=Reservoir&siteid=933) and [Lemon](https://www.usbr.gov/rsvrWater/rsv40Day.html?reservoirtype=Reservoir&siteid=934) reservoirs. Percent full and headroom are calculated against Reclamation's published total capacities: 129,700 acre-feet for Vallecito and 40,146 acre-feet for Lemon.
 
 Product times mean the source's **issuance time**, not the time the monitor checked the source. The weather text uses one compact line:
 
@@ -54,9 +55,27 @@ GroupMe also checks official operational guidance on the **same Rain Watch runs*
 - **WPC excessive-rainfall outlooks, Days 1–5:** check polygons against the actual county boundary. Alert on new risk coverage or an increase/decrease in risk category. The same valid period is tracked across daily layer rollovers. A risk somewhere in the county does not imply the whole county has that category.
 - **NWS hourly timing:** check Durango, Bayfield and Ignacio. Track the next sustained window with hourly precipitation probability at least 50% (at least six wet hours, bridging gaps up to six hours). Alert on a new/removed window or a start/end shift of **6 hours or more**. This is a likely-precipitation window, not an exact onset, ending time, peak-intensity forecast, or interpretation of AFD prose.
 
-Wet-period delivery now sends a short WPC weather summary, the river text, and the RRFS image at the existing 6:30 AM and 6:30 PM Mountain Time checks. The weather text retains the WPC county seven-day average plus dated **Days 1–3**, **Days 4–5**, and **Days 6–7** totals. NBM comparison text, routine basin tables, and no-snow boilerplate are omitted. The separate local-drainage rain-only third text remains removed; active snow guidance and material official timing/risk changes remain.
+Wet-period delivery sends a WPC weather text, a separate river/hydrology text, and the RRFS image at the existing 6:30 AM and 6:30 PM Mountain Time checks. The image remains its own post; there is no third local-drainage text. NBM comparison text remains removed.
 
-When all four forecast gauges have fresh guidance and a usable observed or near-term baseline, the river message summarizes “No significant rises expected” if every forecast increase is less than 20% or 100 cfs. This is a monitor threshold, not an official flood threshold. Action/flood stages, missing baselines, unavailable forecasts, and significant rises retain detailed output. Florida above Lemon remains explicitly labeled as an observation, not a forecast. Otherwise, the river message shows the four river forecast peaks in **cfs and local time**, the current Florida River observation above Lemon Reservoir with its observation time, and the NWS river-forecast issuance time. Initial activation sends the current active guidance as its baseline. Subsequent comparisons use the last successfully delivered values. A forecast maximum at the end of the available horizon is not presented as a confirmed crest. Delivery baselines advance only after both texts succeed; a partial send can repeat the first text on retry.
+### Two GroupMe text modes
+
+The notifier chooses one format for both texts on each run so related information stays together.
+
+**Routine twice-daily mode** is the default during a wet pattern. It is designed for quick reading and includes:
+
+- **Weather:** dated WPC **Days 1–3**, **Days 4–5**, and **Days 6–7** county averages; the active NWS likely-precipitation window; current WPC excessive-rainfall category when one intersects the county; and active WPC snow guidance. Routine basin tables, no-snow boilerplate and model discussion are omitted because the RRFS image carries the detailed spatial totals.
+- **Rivers:** the available NWS peak/max flow, time and stage for Animas at Durango, Vallecito Creek, Los Pinos above Vallecito, and La Plata at Hesperus; the current Florida-above-Lemon observation; and the NWS river-forecast issue time. A concise no-significant-rise statement is added only when all required guidance supports it. Vallecito/Lemon reservoir details remain conditional in routine mode.
+
+**Event-escalation mode** automatically adds visual sections and operational detail when any of the following is present: a WPC Moderate or High excessive-rainfall risk in the county; a forecast action/flood-stage condition; a materially increasing river or WPC risk signal; an increasing material QPF change; a county Days 1–3 WPC average of at least 1.50 inches; or a reservoir at least 90% full with inflow exceeding release.
+
+- **Weather escalation:** timing, WPC period totals, five upstream gauge-catchment totals, current WPC risk and active snow guidance.
+- **River/hydrology escalation:** all official peaks and stages, current Florida observation, material changes, and provisional Vallecito and Lemon storage, percent full, headroom to total capacity, inflow and release.
+
+The monitor does not invent missing escalation fields. Short-duration peak rainfall rates and matched observed-plus-remaining storm rainfall require separate verified gridded collectors and are not inferred from seven-day WPC totals. Until those collectors are added, they are omitted rather than shown as zero or estimated from an incompatible forecast window.
+
+When all four forecast gauges have fresh guidance and a usable observed or near-term baseline, the river message summarizes “No significant rises expected” if every forecast increase is less than 20% or 100 cfs. This is a monitor threshold, not an official flood threshold. The individual river forecasts remain listed beneath that summary. Action/flood stages, missing baselines, unavailable forecasts and significant rises prevent the quiet summary. Florida above Lemon remains explicitly labeled as an observation, not a forecast. A forecast maximum at the end of the available horizon is not presented as a confirmed crest. Delivery baselines advance only after both texts succeed; a partial send can repeat the first text on retry.
+
+Vallecito and Lemon reservoir operations come from Reclamation's provisional 40-day tables. A storage change of at least 5 percentage points or a release change of at least 25% and 100 cfs is material for comparison. Reservoir values are shown in event-escalation mode, and in routine mode only when storage is at least 90% full while inflow exceeds release. Unavailable or stale reservoir data are logged and never interpreted as added headroom or reduced risk.
 
 Every river text explicitly labels **ACTION STAGE**, **MINOR FLOOD STAGE**, **MODERATE FLOOD STAGE**, or **MAJOR FLOOD STAGE** whenever forecast, including unchanged forecasts, and includes the forecast height in feet. Below-action forecasts and gauges without defined stage thresholds are labeled separately. Classification uses official stage heights rather than comparing flow alone with potentially different published cfs thresholds.
 
@@ -108,6 +127,7 @@ Go to [Actions → La Plata WPC QPF](../../actions/workflows/qpf.yml), select **
 - Seven-day precipitation amounts alone do not determine flash flood risk, short-duration rainfall intensity, or river crests.
 - NOAA issue periods can differ across products; interpret sums of independently rounded periods cautiously.
 - Gauge catchments come from USGS National Linked Data Index basin delineations. They are more relevant to a specific gauge than HUC10 boundaries, but they do not reproduce NWS river-model routing, antecedent soil conditions, reservoir storage or controlled releases.
+- Reservoir percent full is storage divided by published total capacity. Headroom to total capacity is not the same as an operator-defined flood-control allocation, target pool or assurance that forecast inflow can be stored. Reclamation values are provisional and may lag real-time operations.
 - GitHub scheduled starts are approximate; failures leave the previous valid result intact.
 - The ChatGPT **La Plata Rain Watch** owns the twice-daily timing; GitHub cron and the separate QPF trigger task are intentionally disabled to avoid delayed or duplicate runs.
 

@@ -4,6 +4,7 @@ Source failures never become zero risk. Baselines advance only after delivery.
 """
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
+import re
 from zoneinfo import ZoneInfo
 import requests
 from requests.adapters import HTTPAdapter
@@ -21,6 +22,11 @@ TOWNS = {"Durango": (37.2753, -107.8801), "Bayfield": (37.2256, -107.5981),
          "Ignacio": (37.115, -107.633)}
 ERO = "https://mapservices.weather.noaa.gov/vector/rest/services/hazards/wpc_precip_hazards/MapServer"
 LEVELS = {0: "None", 1: "Marginal", 2: "Slight", 3: "Moderate", 4: "High"}
+RESERVOIRS = {
+    "vallecito": {"name": "Vallecito", "site_id": 933, "capacity_af": 129700},
+    "lemon": {"name": "Lemon", "site_id": 934, "capacity_af": 40146},
+}
+USBR_40_DAY = "https://www.usbr.gov/rsvrWater/rsv40Day.html?reservoirtype=Reservoir&siteid={}"
 
 def dt(value):
     return datetime.fromisoformat(str(value).replace("Z", "+00:00")).astimezone(timezone.utc)
@@ -37,6 +43,37 @@ def get(url):
         response = session.get(url, timeout=30)
         response.raise_for_status()
         return response.json()
+
+def reservoir(key, now):
+    """Latest provisional USBR storage, inflow and release for an LPC reservoir."""
+    config = RESERVOIRS[key]
+    response = requests.get(
+        USBR_40_DAY.format(config["site_id"]),
+        headers={"User-Agent": "LaPlata-Operational-Monitor/1.0"}, timeout=30)
+    response.raise_for_status()
+    body = re.search(r"<tbody>(.*?)</tbody>", response.text, re.S | re.I)
+    if not body:
+        raise ValueError("USBR reservoir table unavailable")
+    row = re.search(r"<tr>(.*?)</tr>", body.group(1), re.S | re.I)
+    if not row:
+        raise ValueError("USBR reservoir row unavailable")
+    cells = [re.sub(r"<[^>]+>", "", value).strip()
+             for value in re.findall(r"<td[^>]*>(.*?)</td>", row.group(1), re.S | re.I)]
+    if len(cells) != 5:
+        raise ValueError("unexpected USBR reservoir table")
+    measured = datetime.strptime(cells[0], "%d-%b-%Y").replace(tzinfo=LOCAL).astimezone(timezone.utc)
+    if now - measured > timedelta(hours=72):
+        raise ValueError("stale USBR reservoir operations")
+    storage, inflow, release = (round(float(cells[index])) for index in (2, 3, 4))
+    capacity = config["capacity_af"]
+    return {
+        "name": config["name"], "time": measured.isoformat(),
+        "storage_af": storage, "capacity_af": capacity,
+        "percent_full": round(storage / capacity * 100),
+        "headroom_af": max(0, capacity - storage),
+        "inflow_cfs": inflow, "release_cfs": release,
+        "provisional": True,
+    }
 
 def stage_category(metadata, stage):
     categories = metadata.get("flood", {}).get("categories", {})
@@ -160,13 +197,16 @@ def outlook(day, boundary, now):
 
 def collect(now=None):
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
-    result = {"rivers": {}, "outlooks": {}, "timing": {}, "errors": [], "checked": now.isoformat()}
+    result = {"rivers": {}, "outlooks": {}, "timing": {}, "reservoirs": {},
+              "errors": [], "checked": now.isoformat()}
     jobs = {}
     with ThreadPoolExecutor(max_workers=10) as pool:
         for gauge in RIVERS:
             jobs[pool.submit(river, gauge, now)] = ("rivers", gauge)
         for town in TOWNS:
             jobs[pool.submit(timing, town, now)] = ("timing", town)
+        for key in RESERVOIRS:
+            jobs[pool.submit(reservoir, key, now)] = ("reservoirs", key)
         try:
             boundary = county()
             for day in range(5):
@@ -234,11 +274,24 @@ def compare(current, previous, now):
                                f"{stamp(new['start'])}–{stamp(new['end'])}")
         elif bool(old) != bool(new):
             changes.append(f"{town}: NWS likely precipitation window {'added' if new else 'removed'}")
+    for key, value in current.get("reservoirs", {}).items():
+        old = previous.get("reservoirs", {}).get(key)
+        if not old:
+            continue
+        storage_delta = value["percent_full"] - old["percent_full"]
+        release_delta = value["release_cfs"] - old["release_cfs"]
+        release_threshold = max(100, old["release_cfs"] * .25)
+        if abs(storage_delta) >= 5:
+            changes.append(f"{value['name']} storage {'increased' if storage_delta > 0 else 'decreased'} "
+                           f"{old['percent_full']}% to {value['percent_full']}%")
+        elif abs(release_delta) >= release_threshold:
+            changes.append(f"{value['name']} release {'increased' if release_delta > 0 else 'decreased'} "
+                           f"{old['release_cfs']:,} to {value['release_cfs']:,} cfs")
     return changes
 
 def delivered_baseline(current, previous):
     return {source: {**previous.get(source, {}), **current.get(source, {})}
-            for source in ("rivers", "outlooks", "timing")}
+            for source in ("rivers", "outlooks", "timing", "reservoirs")}
 
 def message_lines(current, changes):
     lines = ["LPC weather | River / flood / timing update", *changes]
