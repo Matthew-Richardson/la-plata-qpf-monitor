@@ -1,67 +1,67 @@
 {
   "rivers": {
     "drgc2": {
-      "cfs": 879,
-      "time": "2026-11-20T14:00:00Z",
+      "cfs": 898,
+      "time": "2026-11-21T02:00:00Z",
       "category": "below action",
-      "stage_ft": 3.27,
-      "issued": "2026-11-19T16:07:00Z",
+      "stage_ft": 3.29,
+      "issued": "2026-11-20T15:46:00Z",
       "at_horizon": false,
       "observed": false,
       "forecast_hazard": false,
-      "baseline_cfs": 925,
-      "baseline_time": "2026-11-20T12:30:00Z",
+      "baseline_cfs": 888,
+      "baseline_time": "2026-11-21T00:30:00Z",
       "baseline_category": "below action",
       "baseline_source": "observed"
     },
     "vnbc2": {
       "cfs": 125,
-      "time": "2026-11-20T14:00:00Z",
+      "time": "2026-11-21T02:00:00Z",
       "category": "undefined",
       "stage_ft": 1.56,
-      "issued": "2026-11-19T16:07:00Z",
+      "issued": "2026-11-20T15:46:00Z",
       "at_horizon": false,
       "observed": false,
       "forecast_hazard": false,
-      "baseline_cfs": 128,
-      "baseline_time": "2026-11-20T12:45:00Z",
+      "baseline_cfs": 122,
+      "baseline_time": "2026-11-21T00:45:00Z",
       "baseline_category": "undefined",
       "baseline_source": "observed"
     },
     "lpac2": {
-      "cfs": 235,
-      "time": "2026-11-20T14:00:00Z",
+      "cfs": 253,
+      "time": "2026-11-21T02:00:00Z",
       "category": "undefined",
-      "stage_ft": 4.23,
-      "issued": "2026-11-19T16:07:00Z",
+      "stage_ft": 4.28,
+      "issued": "2026-11-20T15:46:00Z",
       "at_horizon": false,
       "observed": false,
       "forecast_hazard": false,
-      "baseline_cfs": 260,
-      "baseline_time": "2026-11-20T12:45:00Z",
+      "baseline_cfs": 249,
+      "baseline_time": "2026-11-21T00:45:00Z",
       "baseline_category": "undefined",
       "baseline_source": "observed"
     },
     "lphc2": {
-      "cfs": 42,
-      "time": "2026-11-20T14:00:00Z",
+      "cfs": 43,
+      "time": "2026-11-21T02:00:00Z",
       "category": "below action",
-      "stage_ft": 3.77,
-      "issued": "2026-11-19T16:07:00Z",
+      "stage_ft": 3.78,
+      "issued": "2026-11-20T15:46:00Z",
       "at_horizon": false,
       "observed": false,
       "forecast_hazard": false,
       "baseline_cfs": 43,
-      "baseline_time": "2026-11-20T12:30:00Z",
+      "baseline_time": "2026-11-21T00:30:00Z",
       "baseline_category": "below action",
       "baseline_source": "observed"
     },
     "fric2": {
-      "cfs": 73,
-      "time": "2026-11-20T12:15:00Z",
+      "cfs": 71,
+      "time": "2026-11-21T00:15:00Z",
       "category": "below action",
-      "stage_ft": 2,
-      "issued": "2026-11-20T12:15:00Z",
+      "stage_ft": 1.99,
+      "issued": "2026-11-21T00:15:00Z",
       "at_horizon": false,
       "observed": true
     }
@@ -101,15 +101,15 @@
   "timing": {
     "Durango": {
       "window": null,
-      "issued": "2026-11-20T13:21:17+00:00"
+      "issued": "2026-11-20T23:11:35+00:00"
     },
     "Bayfield": {
       "window": null,
-      "issued": "2026-11-20T13:21:17+00:00"
+      "issued": "2026-11-20T23:11:35+00:00"
     },
     "Ignacio": {
       "window": null,
-      "issued": "2026-11-20T13:21:17+00:00"
+      "issued": "2026-11-20T23:11:35+00:00"
     }
   },
   "reservoirs": {
@@ -137,5 +137,5 @@
     }
   },
   "errors": [],
-  "checked": "2026-11-20T13:32:05.013496+00:00"
+  "checked": "2026-11-21T01:30:12.132152+00:00"
 }
