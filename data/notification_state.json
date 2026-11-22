@@ -1,15 +1,8 @@
 {
-  "status": "wet",
-  "dry_streak": 1,
-  "last_sent_at": "2026-11-21T06:32:53.157124-07:00",
-  "last_alert_totals": {
-    "county": 0.049,
-    "Vallecito": 0.121,
-    "Los Pinos": 0.1,
-    "Lemon": 0.115,
-    "Animas": 0.106,
-    "La Plata": 0.153
-  },
+  "status": "dry",
+  "dry_streak": 2,
+  "last_sent_at": "2026-11-21T18:34:36.154523-07:00",
+  "last_alert_totals": null,
   "unchanged_day": "2026-11-20",
   "snow_signature": [],
   "snow_elevation_signature": [],
@@ -17,67 +10,67 @@
   "operational": {
     "rivers": {
       "drgc2": {
-        "cfs": 870,
-        "time": "2026-11-21T14:00:00Z",
+        "cfs": 852,
+        "time": "2026-11-22T02:00:00Z",
         "category": "below action",
-        "stage_ft": 3.26,
-        "issued": "2026-11-20T15:46:00Z",
+        "stage_ft": 3.24,
+        "issued": "2026-11-21T16:37:00Z",
         "at_horizon": false,
         "observed": false,
         "forecast_hazard": false,
-        "baseline_cfs": 870,
-        "baseline_time": "2026-11-21T12:30:00Z",
+        "baseline_cfs": 852,
+        "baseline_time": "2026-11-22T00:30:00Z",
         "baseline_category": "below action",
         "baseline_source": "observed"
       },
       "vnbc2": {
-        "cfs": 122,
-        "time": "2026-11-21T14:00:00Z",
+        "cfs": 113,
+        "time": "2026-11-22T02:00:00Z",
         "category": "undefined",
-        "stage_ft": 1.55,
-        "issued": "2026-11-20T15:46:00Z",
+        "stage_ft": 1.52,
+        "issued": "2026-11-21T16:37:00Z",
         "at_horizon": false,
         "observed": false,
         "forecast_hazard": false,
-        "baseline_cfs": 119,
-        "baseline_time": "2026-11-21T12:45:00Z",
+        "baseline_cfs": 113,
+        "baseline_time": "2026-11-22T00:45:00Z",
         "baseline_category": "undefined",
         "baseline_source": "observed"
       },
       "lpac2": {
-        "cfs": 245,
-        "time": "2026-11-21T14:00:00Z",
+        "cfs": 235,
+        "time": "2026-11-22T02:00:00Z",
         "category": "undefined",
-        "stage_ft": 4.26,
-        "issued": "2026-11-20T15:46:00Z",
+        "stage_ft": 4.23,
+        "issued": "2026-11-21T16:37:00Z",
         "at_horizon": false,
         "observed": false,
         "forecast_hazard": false,
-        "baseline_cfs": 245,
-        "baseline_time": "2026-11-21T12:45:00Z",
+        "baseline_cfs": 242,
+        "baseline_time": "2026-11-22T00:45:00Z",
         "baseline_category": "undefined",
         "baseline_source": "observed"
       },
       "lphc2": {
         "cfs": 41,
-        "time": "2026-11-21T14:00:00Z",
+        "time": "2026-11-22T02:00:00Z",
         "category": "below action",
         "stage_ft": 3.76,
-        "issued": "2026-11-20T15:46:00Z",
+        "issued": "2026-11-21T16:37:00Z",
         "at_horizon": false,
         "observed": false,
         "forecast_hazard": false,
-        "baseline_cfs": 42,
-        "baseline_time": "2026-11-21T12:30:00Z",
+        "baseline_cfs": 40,
+        "baseline_time": "2026-11-22T00:30:00Z",
         "baseline_category": "below action",
         "baseline_source": "observed"
       },
       "fric2": {
-        "cfs": 70,
-        "time": "2026-11-21T12:15:00Z",
+        "cfs": 68,
+        "time": "2026-11-22T00:15:00Z",
         "category": "below action",
-        "stage_ft": 1.98,
-        "issued": "2026-11-21T12:15:00Z",
+        "stage_ft": 1.97,
+        "issued": "2026-11-22T00:15:00Z",
         "at_horizon": false,
         "observed": true
       }
@@ -314,16 +307,20 @@
     },
     "timing": {
       "Durango": {
-        "window": null,
-        "issued": "2026-11-21T13:26:48+00:00"
+        "window": {
+          "start": "2026-11-23T05:00:00-07:00",
+          "end": "2026-11-23T17:00:00-07:00",
+          "open_end": false
+        },
+        "issued": "2026-11-22T00:31:28+00:00"
       },
       "Bayfield": {
         "window": null,
-        "issued": "2026-11-21T13:26:48+00:00"
+        "issued": "2026-11-22T00:31:28+00:00"
       },
       "Ignacio": {
         "window": null,
-        "issued": "2026-11-21T13:26:48+00:00"
+        "issued": "2026-11-22T00:31:28+00:00"
       }
     },
     "reservoirs": {
