@@ -1,7 +1,7 @@
 {
   "status": "dry",
-  "dry_streak": 4,
-  "last_sent_at": "2026-11-25T06:32:02.951673-07:00",
+  "dry_streak": 5,
+  "last_sent_at": "2026-11-25T18:32:48.497047-07:00",
   "last_alert_totals": null,
   "unchanged_day": "2026-11-20",
   "snow_signature": [],
@@ -10,67 +10,67 @@
   "operational": {
     "rivers": {
       "drgc2": {
-        "cfs": 739,
-        "time": "2026-11-25T14:00:00Z",
+        "cfs": 723,
+        "time": "2026-11-26T02:00:00Z",
         "category": "below action",
-        "stage_ft": 3.11,
-        "issued": "2026-11-24T15:58:00Z",
+        "stage_ft": 3.09,
+        "issued": "2026-11-25T16:16:00Z",
         "at_horizon": false,
         "observed": false,
         "forecast_hazard": false,
-        "baseline_cfs": 731,
-        "baseline_time": "2026-11-25T12:30:00Z",
+        "baseline_cfs": 682,
+        "baseline_time": "2026-11-26T00:30:00Z",
         "baseline_category": "below action",
         "baseline_source": "observed"
       },
       "vnbc2": {
-        "cfs": 100,
-        "time": "2026-11-25T14:00:00Z",
+        "cfs": 97,
+        "time": "2026-11-26T02:00:00Z",
         "category": "undefined",
-        "stage_ft": 1.47,
-        "issued": "2026-11-24T15:58:00Z",
+        "stage_ft": 1.46,
+        "issued": "2026-11-25T16:16:00Z",
         "at_horizon": false,
         "observed": false,
         "forecast_hazard": false,
-        "baseline_cfs": 84,
-        "baseline_time": "2026-11-25T12:45:00Z",
+        "baseline_cfs": 97,
+        "baseline_time": "2026-11-26T00:45:00Z",
         "baseline_category": "undefined",
         "baseline_source": "observed"
       },
       "lpac2": {
-        "cfs": 199,
-        "time": "2026-11-25T14:00:00Z",
+        "cfs": 196,
+        "time": "2026-11-26T02:00:00Z",
         "category": "undefined",
-        "stage_ft": 4.13,
-        "issued": "2026-11-24T15:58:00Z",
+        "stage_ft": 4.12,
+        "issued": "2026-11-25T16:16:00Z",
         "at_horizon": false,
         "observed": false,
         "forecast_hazard": false,
-        "baseline_cfs": 196,
-        "baseline_time": "2026-11-25T12:45:00Z",
+        "baseline_cfs": 203,
+        "baseline_time": "2026-11-26T00:45:00Z",
         "baseline_category": "undefined",
         "baseline_source": "observed"
       },
       "lphc2": {
-        "cfs": 34,
-        "time": "2026-11-26T00:00:00Z",
+        "cfs": 35,
+        "time": "2026-11-26T23:00:00Z",
         "category": "below action",
-        "stage_ft": 3.7,
-        "issued": "2026-11-24T15:58:00Z",
+        "stage_ft": 3.71,
+        "issued": "2026-11-25T16:16:00Z",
         "at_horizon": false,
         "observed": false,
         "forecast_hazard": false,
-        "baseline_cfs": 34,
-        "baseline_time": "2026-11-25T12:30:00Z",
+        "baseline_cfs": 35,
+        "baseline_time": "2026-11-26T00:30:00Z",
         "baseline_category": "below action",
         "baseline_source": "observed"
       },
       "fric2": {
-        "cfs": 53,
-        "time": "2026-11-25T12:15:00Z",
+        "cfs": 64,
+        "time": "2026-11-26T00:15:00Z",
         "category": "below action",
-        "stage_ft": 1.88,
-        "issued": "2026-11-25T12:15:00Z",
+        "stage_ft": 1.95,
+        "issued": "2026-11-26T00:15:00Z",
         "at_horizon": false,
         "observed": true
       }
@@ -332,15 +332,15 @@
     "timing": {
       "Durango": {
         "window": null,
-        "issued": "2026-11-25T08:26:59+00:00"
+        "issued": "2026-11-26T00:56:52+00:00"
       },
       "Bayfield": {
         "window": null,
-        "issued": "2026-11-25T08:26:59+00:00"
+        "issued": "2026-11-26T00:56:52+00:00"
       },
       "Ignacio": {
         "window": null,
-        "issued": "2026-11-25T08:26:59+00:00"
+        "issued": "2026-11-26T00:56:52+00:00"
       }
     },
     "reservoirs": {
