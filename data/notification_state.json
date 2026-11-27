@@ -1,7 +1,7 @@
 {
   "status": "dry",
-  "dry_streak": 7,
-  "last_sent_at": "2026-11-26T06:27:26.556270-07:00",
+  "dry_streak": 8,
+  "last_sent_at": "2026-11-26T18:31:40.813002-07:00",
   "last_alert_totals": null,
   "unchanged_day": "2026-11-20",
   "snow_signature": [],
@@ -10,67 +10,67 @@
   "operational": {
     "rivers": {
       "drgc2": {
-        "cfs": 714,
-        "time": "2026-11-26T14:00:00Z",
+        "cfs": 682,
+        "time": "2026-11-27T02:00:00Z",
         "category": "below action",
-        "stage_ft": 3.08,
-        "issued": "2026-11-25T16:16:00Z",
+        "stage_ft": 3.04,
+        "issued": "2026-11-26T17:06:00Z",
         "at_horizon": false,
         "observed": false,
         "forecast_hazard": false,
-        "baseline_cfs": 714,
-        "baseline_time": "2026-11-26T12:30:00Z",
+        "baseline_cfs": 682,
+        "baseline_time": "2026-11-27T00:30:00Z",
         "baseline_category": "below action",
         "baseline_source": "observed"
       },
       "vnbc2": {
         "cfs": 94,
-        "time": "2026-11-26T14:00:00Z",
+        "time": "2026-11-27T02:00:00Z",
         "category": "undefined",
         "stage_ft": 1.45,
-        "issued": "2026-11-25T16:16:00Z",
+        "issued": "2026-11-26T17:06:00Z",
         "at_horizon": false,
         "observed": false,
         "forecast_hazard": false,
-        "baseline_cfs": 86,
-        "baseline_time": "2026-11-26T12:45:00Z",
+        "baseline_cfs": 88,
+        "baseline_time": "2026-11-27T00:45:00Z",
         "baseline_category": "undefined",
         "baseline_source": "observed"
       },
       "lpac2": {
         "cfs": 193,
-        "time": "2026-11-27T04:00:00Z",
+        "time": "2026-11-27T06:00:00Z",
         "category": "undefined",
         "stage_ft": 4.11,
-        "issued": "2026-11-25T16:16:00Z",
+        "issued": "2026-11-26T17:06:00Z",
         "at_horizon": false,
         "observed": false,
         "forecast_hazard": false,
-        "baseline_cfs": 196,
-        "baseline_time": "2026-11-26T12:45:00Z",
+        "baseline_cfs": 190,
+        "baseline_time": "2026-11-27T00:45:00Z",
         "baseline_category": "undefined",
         "baseline_source": "observed"
       },
       "lphc2": {
         "cfs": 35,
-        "time": "2026-11-26T23:00:00Z",
+        "time": "2026-11-27T02:00:00Z",
         "category": "below action",
         "stage_ft": 3.71,
-        "issued": "2026-11-25T16:16:00Z",
+        "issued": "2026-11-26T17:06:00Z",
         "at_horizon": false,
         "observed": false,
         "forecast_hazard": false,
         "baseline_cfs": 33,
-        "baseline_time": "2026-11-26T12:30:00Z",
+        "baseline_time": "2026-11-27T00:30:00Z",
         "baseline_category": "below action",
         "baseline_source": "observed"
       },
       "fric2": {
-        "cfs": 53,
-        "time": "2026-11-26T12:15:00Z",
+        "cfs": 59,
+        "time": "2026-11-27T00:15:00Z",
         "category": "below action",
-        "stage_ft": 1.88,
-        "issued": "2026-11-26T12:15:00Z",
+        "stage_ft": 1.92,
+        "issued": "2026-11-27T00:15:00Z",
         "at_horizon": false,
         "observed": true
       }
@@ -339,26 +339,26 @@
       "Durango": {
         "window": {
           "start": "2026-12-02T05:00:00-07:00",
-          "end": "2026-12-02T18:00:00-07:00",
-          "open_end": true
+          "end": "2026-12-02T17:00:00-07:00",
+          "open_end": false
         },
-        "issued": "2026-11-26T06:31:52+00:00"
+        "issued": "2026-11-27T01:11:57+00:00"
       },
       "Bayfield": {
         "window": {
           "start": "2026-12-02T05:00:00-07:00",
-          "end": "2026-12-02T18:00:00-07:00",
-          "open_end": true
+          "end": "2026-12-02T17:00:00-07:00",
+          "open_end": false
         },
-        "issued": "2026-11-26T06:31:52+00:00"
+        "issued": "2026-11-27T01:11:57+00:00"
       },
       "Ignacio": {
         "window": {
           "start": "2026-12-02T05:00:00-07:00",
-          "end": "2026-12-02T18:00:00-07:00",
-          "open_end": true
+          "end": "2026-12-02T17:00:00-07:00",
+          "open_end": false
         },
-        "issued": "2026-11-26T06:31:52+00:00"
+        "issued": "2026-11-27T01:11:57+00:00"
       }
     },
     "reservoirs": {
