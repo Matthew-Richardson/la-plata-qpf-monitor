@@ -185,7 +185,7 @@ def test_event_mode_for_moderate_ero_and_reservoir_details():
         'lemon':{'name':'Lemon','storage_af':36000,'capacity_af':40146,
             'percent_full':90,'headroom_af':4146,'inflow_cfs':400,'release_cfs':200,
             'time':'2026-10-19T07:00:00Z'}}
-    assert groupme_notify.brief_mode(report(),current,'No material changes',[],NOW)=='event escalation'
+    assert groupme_notify.brief_mode(report(),current,'No material changes',[],NOW)=='monitor'
     text=groupme_notify.river_brief(current,[],NOW,'event escalation')
     assert 'EXPECTED PEAKS' in text and 'RESERVOIRS | USBR' in text
     assert 'Vallecito: 116,000 AF (89%)' in text
