@@ -56,8 +56,19 @@ jobs:
         run: python qpf_monitor.py
       - name: Analyze NOAA snowfall probabilities
         run: python snow_monitor.py
+      - name: Classify seven-day moisture
+        id: moisture
+        run: |
+          python - <<'PYCODE' >> "$GITHUB_OUTPUT"
+          import json
+          from groupme_notify import essentially_no_moisture
+          with open("data/latest.json") as source:
+              report=json.load(source)
+          print("essentially_dry="+("true" if essentially_no_moisture(report) else "false"))
+          PYCODE
       - name: Render latest RRFS comparison image
         id: rrfs_render
+        if: ${{ steps.moisture.outputs.essentially_dry != 'true' }}
         continue-on-error: true
         run: python rrfs_image.py render
       - name: Save validated output
@@ -84,7 +95,7 @@ jobs:
           fi
       - name: Send RRFS image to the QPF GroupMe
         id: rrfs_send
-        if: ${{ !cancelled() && steps.rrfs_render.outcome == 'success' && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.event.head_commit.message == 'Trigger scheduled QPF check')) }}
+        if: ${{ !cancelled() && steps.moisture.outputs.essentially_dry != 'true' && steps.rrfs_render.outcome == 'success' && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.event.head_commit.message == 'Trigger scheduled QPF check')) }}
         env:
           GROUPME_BOT_ID: ${{ secrets.GROUPME_BOT_ID }}
           GROUPME_ACCESS_TOKEN: ${{ secrets.GROUPME_ACCESS_TOKEN }}
