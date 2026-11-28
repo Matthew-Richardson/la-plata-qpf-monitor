@@ -55,21 +55,30 @@ GroupMe also checks official operational guidance on the **same Rain Watch runs*
 - **WPC excessive-rainfall outlooks, Days 1–5:** check polygons against the actual county boundary. Alert on new risk coverage or an increase/decrease in risk category. The same valid period is tracked across daily layer rollovers. A risk somewhere in the county does not imply the whole county has that category.
 - **NWS hourly timing:** check Durango, Bayfield and Ignacio. Track the next sustained window with hourly precipitation probability at least 50% (at least six wet hours, bridging gaps up to six hours). Alert on a new/removed window or a start/end shift of **6 hours or more**. This is a likely-precipitation window, not an exact onset, ending time, peak-intensity forecast, or interpretation of AFD prose.
 
-Wet-period delivery sends a WPC weather text, a separate river/hydrology text, and the RRFS image at the existing 6:30 AM and 6:30 PM Mountain Time checks. The image remains its own post; there is no third local-drainage text. NBM comparison text remains removed.
+Storm-tracking and monitor modes send a WPC weather text, a separate river/hydrology text, and the RRFS image at the existing 6:30 AM and 6:30 PM Mountain Time checks. The image remains its own post; there is no third local-drainage text. NBM comparison text remains removed.
 
-### Two GroupMe text modes
+### Three GroupMe operating modes
 
-The notifier chooses one format for both texts on each run so related information stays together.
+The workflow selects one mode for each verified run so message volume matches the operational signal.
 
-**Routine twice-daily mode** is the default during a wet pattern. It is designed for quick reading and includes:
+**Dry mode** requires all of the following: WPC county seven-day average below **0.10 inch**, county maximum below **0.25 inch**, every monitored gauge-catchment average below **0.25 inch**, and no WPC Day 1–3 mapped ≥10% probability of ≥4 inches of snow in the county.
 
-- **Weather:** dated WPC **Days 1–3**, **Days 4–5**, and **Days 6–7** county averages; the active NWS likely-precipitation window; current WPC excessive-rainfall category when one intersects the county; and active WPC snow guidance. Routine basin tables, no-snow boilerplate and model discussion are omitted because the RRFS image carries the detailed spatial totals.
-- **Rivers:** the available NWS peak/max flow, time and stage for Animas at Durango, Vallecito Creek, Los Pinos above Vallecito, and La Plata at Hesperus; the current Florida-above-Lemon observation; and the NWS river-forecast issue time. A concise no-significant-rise statement is added only when all required guidance supports it. Vallecito/Lemon reservoir details remain conditional in routine mode.
+- Persistent dry runs remain quiet.
+- When a dry-transition, manual-status or other required weather update is sent, it is one compact text containing the dated header and county seven-day average/maximum.
+- The routine river text is suppressed unless an actual river, flood-product or operational timing change must be reported.
+- The RRFS image is neither rendered nor posted.
 
-**Event-escalation mode** automatically adds visual sections and operational detail when any of the following is present: a WPC Moderate or High excessive-rainfall risk in the county; a forecast action/flood-stage condition; a materially increasing river or WPC risk signal; an increasing material QPF change; a county Days 1–3 WPC average of at least 1.50 inches; or a reservoir at least 90% full with inflow exceeding release.
+**Storm-tracking mode** is the default whenever dry-mode criteria are not met and monitor-mode triggers are absent. It preserves the existing concise twice-daily format:
 
-- **Weather escalation:** timing, WPC period totals, five upstream gauge-catchment totals, current WPC risk and active snow guidance.
-- **River/hydrology escalation:** all official peaks and stages, current Florida observation, material changes, and provisional Vallecito and Lemon storage, percent full, headroom to total capacity, inflow and release.
+- **Weather:** dated WPC **Days 1–3**, **Days 4–5**, and **Days 6–7** county averages; active NWS likely-precipitation window; current WPC excessive-rainfall category; and active WPC snow guidance.
+- **Rivers:** available NWS peak/max flow, time and stage for Animas at Durango, Vallecito Creek, Los Pinos above Vallecito and La Plata at Hesperus; the Florida-above-Lemon observation; and the NWS river-forecast issue time.
+- The current RRFS precipitation/rain/snow image is posted.
+
+**Monitor mode** replaces the former event-escalation label and activates when any of the following is present: a WPC Moderate or High excessive-rainfall risk in the county; a forecast action/flood-stage condition; a materially increasing river or WPC risk signal; an increasing material QPF change; a county Days 1–3 WPC average of at least 1.50 inches; or a reservoir at least 90% full with inflow exceeding release.
+
+- **Weather:** timing, WPC period totals, five upstream gauge-catchment totals, current WPC risk and active snow guidance.
+- **River/hydrology:** all official peaks and stages, current Florida observation, material changes, and provisional Vallecito and Lemon storage, percent full, headroom, inflow and release.
+- The current RRFS precipitation/rain/snow image is posted.
 
 The monitor does not invent missing escalation fields. Short-duration peak rainfall rates and matched observed-plus-remaining storm rainfall require separate verified gridded collectors and are not inferred from seven-day WPC totals. Until those collectors are added, they are omitted rather than shown as zero or estimated from an incompatible forecast window.
 
@@ -135,7 +144,7 @@ Go to [Actions → La Plata WPC QPF](../../actions/workflows/qpf.yml), select **
 
 ## Twice-daily RRFS image
 
-The existing 6:30 AM and 6:30 PM Mountain Time Rain Watch triggers also send a three-panel RRFS image to the same GroupMe bot, including during dry periods. No extra schedule was created. The image uses the newest complete 84-hour run published by [LPC RRFS](https://matthew-richardson.github.io/LPC_rrfs/) and displays model start, forecast-through time and duration. Total precipitation and estimated-rain panels retain the eight upstream watershed averages and Durango/Bayfield/Ignacio town-center values. The snowfall panel shows accumulated model snowfall at Hesperus, Kennebec Pass, Purgatory, Bayfield, Durango, Ignacio, Bondad, Chicago Basin, Vallecito and Lemon. Point values sample the model grid cell at each named location, not municipal or drainage averages.
+The existing 6:30 AM and 6:30 PM Mountain Time Rain Watch triggers send a three-panel RRFS image to the same GroupMe bot in storm-tracking and monitor modes. Dry mode suppresses both rendering and delivery. No extra schedule was created. The image uses the newest complete 84-hour run published by [LPC RRFS](https://matthew-richardson.github.io/LPC_rrfs/) and displays model start, forecast-through time and duration. Total precipitation and estimated-rain panels retain the eight upstream watershed averages and Durango/Bayfield/Ignacio town-center values. The snowfall panel shows accumulated model snowfall at Hesperus, Kennebec Pass, Purgatory, Bayfield, Durango, Ignacio, Bondad, Chicago Basin, Vallecito and Lemon. Point values sample the model grid cell at each named location, not municipal or drainage averages.
 
 **One-time setup:** Add the GroupMe developer access token as the repository Actions secret `GROUPME_ACCESS_TOKEN` in [Settings → Secrets and variables → Actions](../../settings/secrets/actions). This is separate from the existing `GROUPME_BOT_ID`. Get the token from your signed-in [GroupMe developer account](https://dev.groupme.com/). Do not put it in source files. GroupMe requires this token to upload PNGs to its image service before the existing bot can attach them.
 
