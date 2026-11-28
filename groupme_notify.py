@@ -54,6 +54,7 @@ def essentially_no_moisture(report):
     """True only when the seven-day liquid/snow signal is negligible countywide."""
     values=totals(report)
     return (values["county"]<0.10
+            and report["periods"]["Days 1-7"]["max_in"]<0.25
             and all(values[name]<0.25 for name in WATCHED)
             and not snow_summary(report.get("snow",{})))
 
