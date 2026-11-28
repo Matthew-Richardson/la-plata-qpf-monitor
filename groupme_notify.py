@@ -226,7 +226,9 @@ def compact_snow_lines(report,reason):
     return text[start:] if start is not None else []
 
 def brief_mode(report,operational,reason,changes,now):
-    """Escalate only when added detail is operationally useful."""
+    """Choose dry, storm-tracking, or monitor detail."""
+    if essentially_no_moisture(report):
+        return 'dry'
     outlook=active_outlook(operational,now)
     river_hazard=any(value.get('category') in ('action','minor','moderate','major')
                      or value.get('forecast_hazard')
@@ -241,8 +243,8 @@ def brief_mode(report,operational,reason,changes,now):
     material_increase=reason.startswith('Material change — forecast increased:')
     if ((outlook and outlook['level']>=3) or river_hazard or significant_change
             or reservoir_concern or material_increase or day123>=1.50):
-        return 'event escalation'
-    return 'routine'
+        return 'monitor'
+    return 'storm tracking'
 
 def weather_brief(report,operational,reason,changes,now,mode=None):
     mode=mode or brief_mode(report,operational,reason,changes,now)
@@ -259,7 +261,7 @@ def weather_brief(report,operational,reason,changes,now,mode=None):
           f"{stamp(outlook['start'])}–{stamp(outlook['end'])}" if outlook else None)
     timing=timing_line(operational)
     weather_changes=[change for change in changes if change.startswith(('NWS timing','WPC risk'))]
-    if essentially_no_moisture(report):
+    if mode=='dry':
         lines=[header,
                f"7-day outlook: Essentially dry | WPC county avg {period['average_in']:.2f}\" "
                f"(max {period['max_in']:.2f}\")"]
@@ -267,7 +269,7 @@ def weather_brief(report,operational,reason,changes,now,mode=None):
         lines.extend(weather_changes)
         return '\n'.join(lines)
 
-    if mode=='routine':
+    if mode=='storm tracking':
         lines=[header,qpf]
         if timing: lines.append(timing)
         if risk: lines.append(risk)
@@ -276,7 +278,7 @@ def weather_brief(report,operational,reason,changes,now,mode=None):
         lines.extend(weather_changes)
         return '\n'.join(lines)
 
-    lines=[header,'EVENT ESCALATION']
+    lines=[header,'MONITOR MODE']
     detail=change_line(reason)
     if detail: lines.extend(['',detail])
     if timing: lines.extend(['','TIMING',timing])
@@ -329,23 +331,23 @@ def reservoir_line(value):
 def river_brief(operational,changes,now,mode='routine'):
     quiet=no_significant_rises(operational,now)
     lines=[now.strftime('LPC RIVERS | %a %-m/%-d, %-I:%M %p')]
-    if mode=='event escalation': lines.extend(['','EXPECTED PEAKS'])
+    if mode=='monitor': lines.extend(['','EXPECTED PEAKS'])
     elif quiet: lines.append('No significant rises expected in available NWS forecasts.')
     for gauge,name in RIVERS.items():
         v=operational.get('rivers',{}).get(gauge)
         if not v:
             lines.append(name+': unavailable')
             continue
-        if mode=='event escalation' and v.get('observed') and lines[-1]!='CURRENT':
+        if mode=='monitor' and v.get('observed') and lines[-1]!='CURRENT':
             lines.extend(['','CURRENT'])
         lines.append(river_line(name,v))
     river_changes=[change for change in changes if not change.startswith(('NWS timing','WPC risk'))]
     reservoirs=operational.get('reservoirs',{})
     reservoir_concern=any(value.get('percent_full',0)>=90 and value.get('inflow_cfs',0)>value.get('release_cfs',0)
                           for value in reservoirs.values())
-    if mode=='event escalation' and river_changes:
+    if mode=='monitor' and river_changes:
         lines.extend(['','CHANGES',*river_changes])
-    if reservoirs and (mode=='event escalation' or reservoir_concern):
+    if reservoirs and (mode=='monitor' or reservoir_concern):
         latest=max(dt(value['time']) for value in reservoirs.values()).astimezone(ZoneInfo('America/Denver'))
         lines.extend(['',latest.strftime('RESERVOIRS | USBR %a %-m/%-d')])
         lines.extend(reservoir_line(reservoirs[key]) for key in ('vallecito','lemon') if key in reservoirs)
@@ -380,7 +382,7 @@ def main():
     if reason:
         mode=brief_mode(report,operational,reason,changes,now)
         texts=[weather_brief(report,operational,reason,changes,now,mode)]
-        if new_state.get('status')=='wet' or changes:
+        if mode!='dry' or changes:
             texts.append(river_brief(operational,changes,now,mode))
         new_state["operational"]=delivered_baseline(operational,state.get("operational",{}))
         if new_state.get('status')=='wet':
