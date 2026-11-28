@@ -50,6 +50,13 @@ def totals(r):
     return {"county":r["periods"]["Days 1-7"]["average_in"],
             **{name:r["gauge_catchments"][site]["periods"]["Days 1-7"]["average_in"] for name,site in WATCHED.items()}}
 
+def essentially_no_moisture(report):
+    """True only when the seven-day liquid/snow signal is negligible countywide."""
+    values=totals(report)
+    return (values["county"]<0.10
+            and all(values[name]<0.25 for name in WATCHED)
+            and not snow_summary(report.get("snow",{})))
+
 def wet_slot(now):
     return now.date().isoformat()+(" AM" if now.hour<12 else " PM")
 def decide(report,state,force=False,now=None):
@@ -252,6 +259,14 @@ def weather_brief(report,operational,reason,changes,now,mode=None):
           f"{stamp(outlook['start'])}–{stamp(outlook['end'])}" if outlook else None)
     timing=timing_line(operational)
     weather_changes=[change for change in changes if change.startswith(('NWS timing','WPC risk'))]
+    if essentially_no_moisture(report):
+        lines=[header,
+               f"7-day outlook: Essentially dry | WPC county avg {period['average_in']:.2f}\" "
+               f"(max {period['max_in']:.2f}\")"]
+        if risk: lines.append(risk)
+        lines.extend(weather_changes)
+        return '\n'.join(lines)
+
     if mode=='routine':
         lines=[header,qpf]
         if timing: lines.append(timing)
