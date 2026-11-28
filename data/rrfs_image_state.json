@@ -1,42 +1,42 @@
 {
-  "last_sent_slot": "2026-11-27 AM",
-  "cycle": "2026112706",
-  "sent_at": "2026-11-27T13:32:09.766205+00:00",
-  "image_url": "https://i.groupme.com/2500x1375.png.3c3604eb884d43298443dcf4ae199794",
+  "last_sent_slot": "2026-11-27 PM",
+  "cycle": "2026112712",
+  "sent_at": "2026-11-28T01:34:03.667926+00:00",
+  "image_url": "https://i.groupme.com/2500x1375.png.071ce9198e9b47b4986ca5b28f07feef",
   "basin_totals": {
     "lightner": {
-      "qpf": 0.0,
-      "rain": 0.0
+      "qpf": 0.0035,
+      "rain": 0.0006
     },
     "junction": {
-      "qpf": 0.0,
+      "qpf": 0.0059,
       "rain": 0.0
     },
     "hermosa": {
-      "qpf": 0.0,
-      "rain": 0.0
-    },
-    "florida": {
-      "qpf": 0.0003,
+      "qpf": 0.0029,
       "rain": 0.0003
     },
+    "florida": {
+      "qpf": 0.0291,
+      "rain": 0.0021
+    },
     "vallecito": {
-      "qpf": 0.0076,
-      "rain": 0.0007
+      "qpf": 0.0787,
+      "rain": 0.0101
     },
     "pinos": {
-      "qpf": 0.0017,
-      "rain": 0.0
+      "qpf": 0.0409,
+      "rain": 0.0044
     },
     "animas": {
-      "qpf": 0.0027,
-      "rain": 0.0005
+      "qpf": 0.0368,
+      "rain": 0.0056
     },
     "laplata": {
-      "qpf": 0.0,
-      "rain": 0.0
+      "qpf": 0.0122,
+      "rain": 0.0022
     }
   },
-  "forecast_start": "2026-11-27T06:00:00+00:00",
-  "forecast_end": "2026-11-30T18:00:00+00:00"
+  "forecast_start": "2026-11-27T12:00:00+00:00",
+  "forecast_end": "2026-12-01T00:00:00+00:00"
 }
