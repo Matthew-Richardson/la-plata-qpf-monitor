@@ -1,7 +1,7 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import pytest
-from groupme_notify import decide, message
+from groupme_notify import decide, message, essentially_no_moisture, brief_mode, weather_brief
 
 def report(q=2.0):
     return {"area_schema":"gauge-catchments-v1",
@@ -192,3 +192,39 @@ def test_delivery_window_boundaries(hour):
     assert decide(report(),{},now=now)[0]=="Wet pattern detected"
 
 
+
+
+def test_three_notification_modes():
+    dry=report(0.05)
+    dry["periods"]["Days 1-7"]["max_in"]=0.10
+    assert essentially_no_moisture(dry)
+    assert brief_mode(dry,{"outlooks":{},"rivers":{},"reservoirs":{}},
+                      "Manual status: Dry pattern; monitoring continues",[],MORNING)=="dry"
+
+    tracking=report(0.50)
+    assert brief_mode(tracking,{"outlooks":{},"rivers":{},"reservoirs":{}},
+                      "No material changes",[],MORNING)=="storm tracking"
+
+    assert brief_mode(tracking,{"outlooks":{},"rivers":{},"reservoirs":{}},
+                      "Material change — forecast increased: County increased 0.25in",
+                      [],MORNING)=="monitor"
+
+
+def test_dry_mode_is_one_compact_weather_text():
+    dry=report(0.05)
+    dry["periods"]["Days 1-7"]["max_in"]=0.10
+    text=weather_brief(dry,{"outlooks":{},"timing":{}},
+                       "Manual status: Dry pattern; monitoring continues",[],MORNING)
+    assert text.count("\n")==1
+    assert "7-day outlook: Essentially dry" in text
+    assert "Days 1–3" not in text and "Gauge basins" not in text
+
+
+def test_localized_or_snow_moisture_prevents_dry_mode():
+    localized=report(0.05)
+    localized["periods"]["Days 1-7"]["max_in"]=0.25
+    assert not essentially_no_moisture(localized)
+    snow=report(0.05)
+    snow["periods"]["Days 1-7"]["max_in"]=0.10
+    snow["snow"]={"periods":{"Day 1":[{"threshold_in":4,"minimum_probability_pct":10}]}}
+    assert not essentially_no_moisture(snow)
